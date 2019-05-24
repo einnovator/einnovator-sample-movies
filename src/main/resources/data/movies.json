@@ -1,0 +1,71 @@
+ [
+    {
+        "Title": "Star Wars: The Force Awakens",
+        "Year": "2015",
+        "PlotSummary": "Three decades after the defeat of the Galactic Empire, a new threat arises. The First Order attempts to rule the galaxy and only a ragtag group of heroes can stop them, along with the help of the Resistance.",
+        "GrossTakingsAmount": "815843529",
+        "IsAvailableOnDVD": "true"
+    },
+    {
+        "Title": "Raiders of the Lost Ark",
+        "Year": "1981",
+        "PlotSummary": "Archaeologist and adventurer Indiana Jones is hired by the US government to find the Ark of the Covenant before the Nazis.",
+        "GrossTakingsAmount": "242374454",
+        "IsAvailableOnDVD": "true"
+    },
+    {
+        "Title": "Schindler's List",
+        "Year": "1993",
+        "PlotSummary": "In Poland during World War II, Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.",
+        "GrossTakingsAmount": "16439233",
+        "IsAvailableOnDVD": "true"
+    },
+    {
+        "Title": "Avatar 2",
+        "Year": "2020",
+        "PlotSummary": "(unknown)",
+        "IsAvailableOnDVD": "false"
+    },
+    {
+        "Title": "Indiana Jones and the Last Crusade",
+        "Year": "1989",
+        "PlotSummary": "When Dr. Henry Jones Sr. suddenly goes missing while pursuing the Holy Grail, eminent archaeologist Indiana Jones must follow in his father's footsteps and stop the Nazis.",
+        "GrossTakingsAmount": "197171806",
+        "IsAvailableOnDVD": "true"
+    },
+    {
+        "Title": "Capote",
+        "Year": "2005",
+        "PlotSummary": "In 1959, Truman Capote learns of the murder of a Kansas family and decides to write a book about the case. While researching for his novel In Cold Blood, Capote forms a relationship with one of the killers, Perry Smith, who is on death row.",
+        "GrossTakingsAmount": "28747570",
+        "IsAvailableOnDVD": "true"
+    },
+    {
+        "Title": "Along Came Polly",
+        "Year": "2004",
+        "PlotSummary": "A buttoned up newlywed finds his too organized life falling into chaos when he falls in love with an old classmate.",
+        "GrossTakingsAmount": "87856565",
+        "IsAvailableOnDVD": "true"
+    },
+    {
+        "Title": "Avengers: Infinity War",
+        "Year": "2018",
+        "PlotSummary": "The Avengers and their allies must be willing to sacrifice all in an attempt to defeat the powerful Thanos before his blitz of devastation and ruin puts an end to the universe.",
+        "GrossTakingsAmount": "2047000000",
+        "IsAvailableOnDVD": "false"
+    },
+    {
+        "Title": "Dunkirk",
+        "Year": "2017",
+        "PlotSummary": "Allied soldiers from Belgium, the British Empire and France are surrounded by the German Army, and evacuated during a fierce battle in World War II.",
+        "GrossTakingsAmount": "527300000",
+        "IsAvailableOnDVD": "true"
+    },
+    {
+        "Title": "Star Wars: The Last Jedi",
+        "Year": "2017",
+        "PlotSummary": "Rey develops her newly discovered abilities with the guidance of Luke Skywalker, who is unsettled by the strength of her powers. Meanwhile, the Resistance prepares for battle with the First Order.",
+        "GrossTakingsAmount": "1333000000",
+        "IsAvailableOnDVD": "true"
+    }
+]

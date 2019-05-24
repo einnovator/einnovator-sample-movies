@@ -1,0 +1,132 @@
+<th:block  xmlns:th="http://www.thymeleaf.org">
+	<div class="overlay" id="overlay" style="display: none"></div>
+	<div class="drawer tb-drawer" id="drawer">
+
+		<div class="drawer-header">
+			<i id="close-drawer" class="drawer-close icon2-arrow-left"></i>
+		</div>
+
+		<div class="drawer-info" style="display: none">
+			<img class="avatar" id="user-avatar"></img>
+			<div>
+				<div>
+					<span class="drawer-name" id="side-fullName"></span>
+				</div>
+				<div>
+					<span class="drawer-username" id="side-username"></span>
+				</div>
+				<div>
+					<span class="drawer-phone"	id="side-mobilePhone"></span>
+				</div>
+			</div>
+		</div>
+
+		<ul class="drawer-menu">
+			<li  id="tb-menu-home"  class="nav-item d-none">
+				<span class="menu-header">&nbsp;</span>
+
+				<a th:class="${'nav-link ' + (active=='home' ? 'active':'')}" th:href="@{${links.home}}"> <i class="icon-home2"></i> Home</a>
+			</li>
+			<li id="tb-menu-profile" class="nav-item d-none">
+				<span class="menu-header">&nbsp;</span>
+
+				<a th:class="${'nav-link ' + (active=='profile' ? 'active':'')}" th:href="@{${links.sso + '/user'}}"> <i class="icon-user"></i> Profile</a>
+				<ul>
+					<li>
+						<a th:class="${'nav-link ' + (active2=='pref' ? 'active':'')}"  th:href="@{${links.notifications + '/preferences'}}"> <i class="icon-bell_3"></i> Preferences</a>
+					</li>					
+					<li th:if="${admin}">
+						<a th:class="${'nav-link ' + (active2=='admin' ? 'active':'')}" th:href="@{${links.sso + '/admin' }}"> <i class="icon-setting-gear"></i> Admin</a>
+					</li>
+	
+				</ul>
+			</li>
+			<li  id="tb-menu-organization" class="nav-item d-none" th:with="org_=${org!=null ? org : principalInfo!=null and principalInfo.organization!=null ? principalInfo.organization : null}">
+				<span class="menu-header">&nbsp;</span>
+
+				<a th:class="${'nav-link ' + (active=='organizations' ? 'active':'')}" th:href="@{${links.sso}}"> <i class="icon-building"></i> Organization</a>
+				<ul>
+					<li th:if="${org_!=null}">
+						<a th:class="${'nav-link ' + (active2=='operations' ? 'active':'')}" th:href="@{${links.sso + '/organization/' + org_.uuid + '/operations'}}"> <i class="icon-org-chart"></i> Hierarchy</a>
+					</li>
+					<li th:if="${org_!=null}">
+						<a th:class="${'nav-link ' + (active2=='products' ? 'active':'')}" th:href="@{${links.sso+ '/organization/' + org_.uuid + '/product'}}"> <i class="icon-product"></i> Products</a>
+					</li>
+					<li th:if="${org_!=null}">
+						<a th:class="${'nav-link ' + (active2=='members' ? 'active':'')}" th:href="@{${links.sso+ '/organization/' + org_.uuid + '/member'}}"> <i class="fas fa-user-friends"></i> Employees</a>
+					</li>
+					<li th:if="${org_!=null and !qa and !prod}">
+						<a th:class="${'nav-link ' + (active2=='teams' ? 'active':'')}" th:href="@{${links.sso+ '/organization/' + org_.uuid + '/team'}}"> <i class="far fa-building"></i> Teams</a>
+					</li>
+					<li th:if="${org_!=null}">
+						<a th:class="${'nav-link ' + (active2=='roles' ? 'active':'')}" th:href="@{${links.sso+ '/role?orgId=' + org_.uuid}}"> <i class="icon-roles"></i> Roles</a>
+					</li>
+					<li th:if="${org_!=null}">
+						<a th:class="${'nav-link ' + (active2=='settings' ? 'active':'')}" th:href="@{${links.sso+ '/organization/' + org_.uuid + '/privacy'}}"> <i class="icon-setting-settingequalizer"></i> Settings</a>
+					</li>
+					<li>
+						<a th:class="${'nav-link ' + (active2=='select' ? 'active':'')}" th:href="@{${links.sso + '/organization/select'}}"> <i class="icon-list_view"></i> Select</a>
+					</li>
+					<li th:if="${org_!=null}" class="pp pp-brand">
+						<a th:class="${'nav-link ' + (active2=='tags' ? 'active':'')}" th:href="@{${links.sso+ '/organization/' + org_.uuid + '/tags'}}"> <i class="icon-price-tag"></i> Tags</a>
+					</li>
+				</ul>
+			</li>
+			<li id="tb-menu-network"  class="nav-item d-none">
+
+				<span class="menu-header">&nbsp;</span>
+				
+				<a th:class="${'nav-link ' + (active=='network' ? 'active':'')}" th:href="${links.sso + '/organization' + (org!=null ? '/' + org.uuid: '') + '/network'}"> <i class="icon-follow"></i> Network</a>
+				<ul>
+					<li>
+						<a th:class="${'nav-link ' + (active2=='network' ? 'active':'')}" th:href="${links.sso + '/organization' + (org!=null ? '/' + org.uuid: '') + '/network'}"  title="Manage/View Network"><i class="icon-supply_chain_dashboard"></i> View </a>
+					</li>
+					<li>
+						<a th:class="${'nav-link ' + (active2=='network-map' ? 'active':'')}" th:href="${links.sso + '/organization' + (org!=null ? '/' + org.uuid : '') + '/map'}" title="Map View"><i class="icon-map"></i> Map View </a>
+					</li>
+					<li>
+						<a th:class="${'nav-link ' + (active2=='invite' ? 'active':'')}" th:href="${links.sso + '/invitation/create' + (principalInfo.organization!=null or org!=null ? '?orgId='+(org!=null ? org.uuid : principalInfo.organization.uuid): '')}" title="Invite New Connection"><i class="fas fa-user-friends"></i> Connect</a>
+					</li>
+					<li>
+						<a th:class="${'nav-link ' + (active2=='connections' ? 'active':'')}" th:href="${links.sso + '/invitation?_status=sent'}" title="View Invitation Status"><i class="icon-requirements_dashboard"></i> Connections </a>
+					</li>
+					<li>
+						<a th:class="${'nav-link ' + (active2=='requests' ? 'active':'')}" th:href="${links.sso + '/invitation'}" title="View Incomming Invitations and Other Requests"><i class="fas fa-user-friends"></i> Requests </a>
+					</li>
+				</ul>
+			</li>
+			<li id="tb-menu-payments" class="nav-item d-none">
+				<span class="menu-header">&nbsp;</span>
+
+				<a th:class="${'nav-link ' + (active=='payments' ? 'active':'')}" th:href="@{${links.payments}}"> <i class="icon-ecommerce-creditcard"></i> Payments</a>
+				<ul>
+					<li>
+						<a th:class="${'nav-link ' + (active2=='payments-manager' ? 'active':'')}" th:href="${links.payments + '/user'}" title="Manage Payments"><i class="icon-setting-settingequalizer"></i> Manage </a>
+					</li>
+					<li>
+						<a th:class="${'nav-link ' + (active2=='payments-current' ? 'active':'')}" th:href="${links.payments + '/payment'}" title="Current Payments"><i class="icon-ecommerce-creditcard"></i> Current </a>
+					</li>
+					<li>
+						<a th:class="${'nav-link ' + (active2=='payments-history' ? 'active':'')}" th:href="${links.payments + '/payment/historical'}" title="Payment History"><i class="icon-timeback"></i> History </a>
+					</li>
+					<li th:if="${admin}">
+						<a th:class="${'nav-link ' + (active2=='admin' ? 'active':'')}"  th:href="${links.payments + '/admin'}" title="Administrator Console"><i class="icon-setting-gear"></i> Admin</a>
+					</li>	
+					<li>
+						<a th:class="${'nav-link ' + (active2=='invoices-received' ? 'active':'')}" th:href="${links.payments + '/invoice?q=in'}" title="Invoices"><i class="icon-request_for_quote2"></i> Received</a>
+					</li>
+					<li>
+						<a th:class="${'nav-link ' + (active2=='invoices-issued' ? 'active':'')}" th:href="${links.payments + '/invoice?q=out'}" title="Invoices"><i class="icon-request_for_quote2"></i> Issued </a>
+					</li>
+					<li>
+						<a th:class="${'nav-link ' + (active2=='invoices-po' ? 'active':'')}" th:href="${links.payments + '/po'}" title="Invoices"><i class="icon-request_for_quote2"></i> POs </a>
+					</li>
+					<li th:if="${admin}">
+						<a th:class="${'nav-link ' + (active2=='admin' ? 'active':'')}"  th:href="${links.payments + '/admin'}" title="Administrator Console"><i class="icon-setting-gear"></i> Admin</a>
+					</li>	
+				</ul>
+			</li>
+		</ul>
+	</div>
+</th:block>
+	

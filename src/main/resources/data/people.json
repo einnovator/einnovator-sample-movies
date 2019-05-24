@@ -1,0 +1,59 @@
+[
+    {
+        "Name": "Harrison",
+        "Surname": "Ford",
+        "DateOfBirth": "1942-07-13"
+    },
+    {
+        "Name": "Steven",
+        "Surname": "Spielberg",
+        "DateOfBirth": "1946-12-18"
+    },
+    {
+        "Name": "Ben",
+        "Surname": "Kingsley",
+        "DateOfBirth": "1943-12-31"
+    },
+    {
+        "Name": "Philip Seymour",
+        "Surname": "Hoffman",
+        "DateOfBirth": "1967-07-23",
+        "DateOfDeath": "2014-02-02"
+    },
+    {
+        "Name": "Alan",
+        "Surname": "Rickman",
+        "DateOfBirth": "1946-02-21",
+        "DateOfDeath": "2016-01-14"
+    },
+    {
+        "Name": "George",
+        "Surname": "Lucas",
+        "DateOfBirth": "1944-05-14"
+    },
+    {
+        "Name": "Sean",
+        "Surname": "Connery",
+        "DateOfBirth": "1930-08-25"
+    },
+    {
+        "Name": "Ben",
+        "Surname": "Stiller",
+        "DateOfBirth": "1965-11-30"
+    },
+    {
+        "Name": "Christopher",
+        "Surname": "Nolan",
+        "DateOfBirth": "1970-07-30"
+    },
+    {
+        "Name": "Robert",
+        "Surname": "Downey Jr.",
+        "DateOfBirth": "1965-04-04"
+    },
+    {
+        "Name": "Carrie",
+        "Surname": "Fisher",
+        "DateOfBirth": "1956-10-21"
+    }
+]

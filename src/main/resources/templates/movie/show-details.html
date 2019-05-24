@@ -1,0 +1,23 @@
+<div xmlns:th="http://www.thymeleaf.org">
+
+	<div th:replace="movie/movie-item"></div>
+	
+	<div th:class="${'row form-group'}">
+		<div class="col-4">
+			<span  class="form-control" th:value="${movie.type}"  ></span>
+		</div>
+		<div class="col-4">
+			<span  class="form-control" th:value="${movie.genre}"  ></span>
+		</div>
+		<div class="col-4">
+			<span  class="form-control" th:value="${movie.category}"  ></span>
+		</div>
+	</div>
+	
+
+	<div class="form-group">
+		<label for="description">Summary</label>
+		<p id="description" class="textarea"  th:text="${movie.description}"></p>
+	</div>
+
+</div>

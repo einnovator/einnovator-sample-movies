@@ -1,0 +1,61 @@
+<html xmlns:th="http://www.thymeleaf.org" th:with="title=${(movie!=null and movie.id!=null ? 'Edit' : 'New') + ' Movie'}">
+<head th:include="layout/layout :: head(title=${title})">
+</head>
+<body th:with="bcs=${ {'Admin:/admin', 'Movie:/admin/movie', title} }">
+	<div th:replace="layout/header"></div>
+	<div th:replace="layout/menu-main"></div>
+
+	<th:block th:if="${_admin!=null and _admin ? '/admin' : '/event'}">
+		<div th:replace="layout/breadcrumbs"></div>
+	</th:block>
+	
+	<div class="container-fluid">
+		<div class="layout2">
+			<div>
+				<h1 th:text="${title}"></h1>
+					
+				<div th:replace="movie/edit-avatar"></div>
+		
+				<form method="post" name="f" th:action="@{${(_admin ? '/admin' : '') + '/movie'+ (movie.uuid!=null ? '/' + movie.uuid : '')}}" th:object="${movie}" class="form">
+					<input type="hidden" name="_method" value="put" th:if="${movie.id!=null}" />
+					<input type="hidden" th:if="${movie.id != null}" id="id" name="id" th:value="${movie.id}" />
+					<input type="hidden" th:if="${movie.uuid != null}" id="uuid" name="uuid" th:value="${movie.uuid}" />
+					<input type="hidden" id="img" name="img" th:value="${movie.img}" />
+		
+					<div th:replace="movie/edit-details"></div>
+		
+					<div class="container-footer row">
+						<div class="col-sm-2">
+							<a class="btn btn-link btn-cancel  "  th:href="@{${_admin ? '/admin' : '/movie'}}"><span class="icon icon-back"></span> Done</a>
+						</div>
+						<div class="col-sm-10 text-right">
+							<button type="submit" class="btn btn-lg btn-primary"><span class="icon icon-check_outlined"></span> Submit</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div></div>
+		</div>
+	</div>
+
+		
+</body>
+<script th:inline="javascript">
+//<![CDATA[	
+//var movie = JSON.parse([[${movieJson}]]);
+var movies = [[${moviesJson}]];
+var pid = [[${movie.uuid}]];
+//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+$(function() {
+	$(".phoneCode").country({phoneCode: true});	
+	$(".date").datepicker({altFormat: "mm-dd-yy", minDate: new Date(), timepicker: false});
+	//ckeditormini('body');
+	//ckeditorfull('personeditor', {ckoptions: {height: '600px'}});
+});
+// ]]>	
+</script>
+</html>

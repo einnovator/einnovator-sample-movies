@@ -1,0 +1,21 @@
+<header class="header" xmlns:th="http://www.thymeleaf.org">
+	<nav>
+		<div class="logo-box">
+<!-- 			<img th:src="${links.cdn + '/img/logo.png'}" class="header-logo"></img> -->
+		</div>
+		<div class="col-header header-caption">
+			<div th:replace="layout/header-caption"></div>
+		</div>
+		<div class="col-header col-toolbar">
+			<div th:replace="layout/header-toolbar"></div>
+		</div>
+		<div  class="col-header col-user-info">
+			<div th:replace="layout/user-dropdown"></div>
+		</div>
+	</nav>
+	<form id="form-logout" th:action="@{/logout}" method="post" style="display: none"></form>
+
+	<!-- <div th:replace="layout/notification-template"></div> -->
+	
+	<div th:replace="layout/alert"></div>
+</header>

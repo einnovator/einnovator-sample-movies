@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.19.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>org.einnovator</groupId>
+	<artifactId>einnovator-sample-movies</artifactId>
+	<version>0.0.1</version>
+	<name>einnovator-sample-movies</name>
+	<description>EInnovator MicroService Suite Sample Application: Movie Database</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<einnovator.version>0.1.RELEASE</einnovator.version>		
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.einnovator</groupId>
+			<artifactId>einnovator-jpa-util</artifactId>
+			<version>${einnovator.version}</version>
+		</dependency>
+ 
+ 		<dependency>
+			<groupId>org.einnovator</groupId>
+			<artifactId>einnovator-sso-starter</artifactId>
+			<version>${einnovator.version}</version>
+		</dependency>
+		
+ 		<dependency>
+			<groupId>org.einnovator</groupId>
+			<artifactId>einnovator-notifications-starter</artifactId>
+			<version>${einnovator.version}</version>
+		</dependency>
+
+ 		<dependency>
+			<groupId>org.einnovator</groupId>
+			<artifactId>einnovator-documents-starter</artifactId>
+			<version>${einnovator.version}</version>
+		</dependency>
+
+ 		<dependency>
+			<groupId>org.einnovator</groupId>
+			<artifactId>einnovator-social-starter</artifactId>
+			<version>${einnovator.version}</version>
+		</dependency>
+
+			
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+		
+		<extensions>
+			<extension>
+				<groupId>com.allogy.maven.wagon</groupId>
+			 	<artifactId>maven-s3-wagon</artifactId>
+	 			<version>1.1.0</version>
+			</extension>
+		</extensions>
+		
+		
+	</build>
+
+	<repositories>
+		<repository>
+			<id>einnovator</id>
+			<url>s3://einnovator-mvnrepo/release</url>
+		</repository>
+	</repositories>
+</project>

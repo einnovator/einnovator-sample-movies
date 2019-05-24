@@ -1,0 +1,42 @@
+<div class="user-box" th:if="${principalInfo!=null}" xmlns:th="http://www.thymeleaf.group">
+	<a class="dropdown-a" th:href="${links.sso + '/user'}">
+		<span class="user-box-inner">
+			<span class="user-img status active">
+				<img th:src="@{${!#strings.isEmpty(principalInfo.avatar) ? principalInfo.avatar : links.cdn + '/img/avatar.png'}}" class="info-box-img"></img>
+			</span>
+			<span class="user-info d-xx" th:if="${principal!=null}">
+				<span  class="user-name" th:text="${principalInfo.displayName}"></span>
+				<span class="user-title" th:if="${!#strings.isEmpty(principalInfo.title)}" th:text="${principalInfo.title}"></span>
+			</span>
+			<i class="icon-arrow-down"></i>
+		</span>
+	</a>
+	<div class="dropdown dropdown-top" style="right:0px;min-width: 210px">
+		<div class="text-center">
+			<a href="/user"><img th:src="@{${!#strings.isEmpty(principalInfo.avatar) ? principalInfo.avatar : links.cdn + '/img/avatar.png'}}" class="dropdown-avatar"></img></a>
+			<div class="dropdown-title">
+				<span th:text="${principalInfo.displayName}"></span>
+			</div>
+			<span class="dropdown-subtitle "><span th:text="${principalInfo.title}"></span></span>
+		</div>
+		<div class="dropdown-list dropdown-sep">
+			<ul>
+				<li>
+					<a class="" th:href="@{${links.sso + '/user'}}"><i class="icon-profile-2"></i> Personal Profile </a>
+				</li>
+				<li>
+					<a th:href="@{${links.sso + '/change-password'}}"><i class="icon icon-security"></i> Change Password</a>
+				</li>
+				<li th:if="${admin}">
+					<a  class="" th:href="@{/admin}"><i class="icon-settings"></i> Admin</a>
+				</li>
+				<li>
+					<form class="a m-0" th:action="@{/logout}" method="post" th:if="${principal!=null and (app!=null and app.id=='sso')}">
+						<i class="icon-logout"></i> <input style="cursor: pointer"  class="logout" type='submit' value='Log out' />
+					</form>
+					<a th:href="@{${'/_logout'}}" th:if="${principal!=null and (app==null or app.id!='sso')}"><i class="icon-logout"></i> <span  class="logout">Logout</span></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

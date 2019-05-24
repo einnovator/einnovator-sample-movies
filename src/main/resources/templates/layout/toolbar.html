@@ -1,0 +1,29 @@
+<th:block  xmlns:th="http://www.thymeleaf.org"  th:if="${false}">
+	<div id="toolbar" class="toolbar">
+		<ul class="nav nav-tb nav-xtb">
+			<li class="nav-item">
+				<img class="tb-logo" th:src="${links.cdn + '/img/logo'}"></img>
+				<i class="tb-logo icon-ilogo"></i>
+			</li>
+			<li class="nav-item">
+				<a id="t-home" th:class="${'nav-link ' + (active=='home' ? 'active':'')}" th:href="@{${links.home}}" title="Home"> <i class="icon2-home"></i> <span>Home</span></a>
+			</li>
+			<li class="nav-item">
+				<a id="t-profile" th:class="${'nav-link ' + (active=='profile' ? 'active':'')}" th:href="@{${links.sso + '/user'}}" title="Profile"> <i class="icon-user"></i> <span>Profile</span></a>
+			</li>
+			<li class="nav-item" th:if="${gft==null or !gft}">
+				<a id="t-movies"  th:class="${'nav-link ' + (active=='movies' ? 'active':'')}" th:href="@{${links.movies}}"  title="Movies"> <i class="icon2-movies"></i> <span>Movies</span></a>
+			</li>
+			<li class="nav-item d-none">
+				<a id="t-payments" th:class="${'nav-link ' + (active=='payments' ? 'active':'')}" th:href="@{${links.payments}}" title="Payments"> <i class="icon2-wallet"></i> <span>Payments</span></a>
+			</li>
+			<!-- 
+			<li class="nav-item">
+				<a id="t-reports" th:class="${'nav-link ' + (active=='reports' ? 'active':'')}" th:href="@{${links.reports}}"  title="Reports"> <i class="icon2-reports"></i> <span>Reports</span></a>
+			</li>
+			 -->
+		</ul>
+	</div>
+
+	<div th:replace="layout/drawer"></div>
+</th:block>

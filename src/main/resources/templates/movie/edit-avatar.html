@@ -1,0 +1,35 @@
+<div  xmlns:th="http://www.thymeleaf.org">
+	<div>
+		<div class="avatar-wrapper" style="">
+			<img id="_img" th:class="${' ' + (!#strings.isEmpty(movie.img) ? ' img-missing' : '')}"
+				th:src="@{${!#strings.isEmpty(movie.img) ? movie.img : links.cdn + '/img/jp/docs-pearl48.png'}}" />
+			<a class="btn-upload" id="upload"><i class="icon-refresh2" title="Upload Image"></i></a>				
+		</div>
+	</div>
+	
+	
+<form id="upload-form" th:action="@{${'_upload'}}" method="post" enctype="multipart/form-data">
+	<input id="file" type="file" name="file" style="display: none"></input>
+	<input type="hidden" name="key" value="avatar"></input>
+	<input type="hidden" name="id" th:value="${movie.id}"></input>
+	<input id="base64" type="hidden" name="base64"></input>
+</form>
+
+<script>
+//<![CDATA[
+
+$(function() {
+	
+	$('#upload').upload({img: '#_img', uri: '/api/upload', /*cropper: readFile,*/
+		callback: function(uri) {
+			console.log('upload:' + uri);
+			$('#img').val(uri);
+			$('#file').val(null)
+			//$uploadCrop.croppie('destroy')
+		}
+	});
+});
+
+//]]>
+</script>
+</div>

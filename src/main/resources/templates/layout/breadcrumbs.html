@@ -1,0 +1,11 @@
+<div xmlns:th="http://www.thymeleaf.org" class="breadcrumb-box">
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb" th:if="${bcs!=null}">
+			<li th:each="bc,it: ${bcs}" th:class="${'breadcrumb-item' + (it.index==it.size-1 ? ' active' : '')}">
+				<a th:href="${bc.indexOf(':')!=-1 ? bc.substring(bc.indexOf(':')+1) : '#'}" th:if="${it.index!=it.size-1}"><span th:text="${bc.indexOf(':')!=-1 ? bc.substring(0, bc.indexOf(':')) : bc}"></span></a>
+				<span th:if="${it.index==it.size-1}" th:text="${bc}"></span>				
+			</li>
+		</ol>
+	</nav>
+</div>
+		

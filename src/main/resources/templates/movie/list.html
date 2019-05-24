@@ -1,0 +1,49 @@
+<html xmlns:th="http://www.thymeleaf.org" th:with="title=${'Movies'}">
+<head th:include="layout/layout :: head(title=${title})"></head>
+<body th:with="bcs=${ {'Movies'} }">
+	<div th:replace="layout/header"></div>
+	<div th:replace="layout/menu-main"></div>
+	
+	<div class="container-fluid mt-3">
+		<div class="layout2">
+			<div>
+				<div th:replace="layout/breadcrumbs"></div>
+	
+				<h1 class="h1"><i class="fas fa-film ico-lg"></i> <span th:text="${title}"></span>  <span class="hbar"></span></h1>
+													
+	
+				<div th:replace="movie/movie-filter" ></div>
+				 
+					
+	
+				<div th:replace="movie/movie-table" ></div>
+					
+				<div class="container-footer row">
+					<div class="col-sm-6">
+						<a class="btn btn-link btn-cancel  "  th:href="@{${_admin ? '/admin' : '/'}}"><span class="icon icon-back"></span> Back</a>
+					</div>
+					<div class="col-sm-6  text-right">
+						<th:block th:if="${true or _admin}">
+							<a class="btn btn-lg btn-primary" th:href="@{${(_admin ? '/admin' : '') + '/movie/create'}}" title="Add Movie"> <i class="icon icon-plus2"></i> Add New Movie</a>
+						</th:block>
+					</div>
+				</div>
+					
+
+			</div>
+			<div>
+			</div>
+		</div>
+	</div>
+		
+	<div th:replace="layout/footer"></div>			
+				
+
+<script>
+//<![CDATA[		
+$(function() {
+})
+// ]]>	
+</script>
+</body>
+</html>

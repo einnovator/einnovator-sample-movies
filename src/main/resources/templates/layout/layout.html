@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:fragment="head (title)">
+		<title th:text="${title}"></title>
+		<meta charset="utf-8" />
+		<meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
+		<meta name="contextPath" th:content="${#httpServletRequest.getContextPath()}" />
+		<meta name="avatar" th:content="${principalInfo!=null ? principalInfo.avatar : links.cdn + '/img/avatar.png'}" />
+		<meta name="username" th:content="${principalInfo!=null ? principalInfo.displayName : ''}" />
+		<meta name="principal" th:content="${principalInfo!=null ? principalInfo.username : ''}" />
+		<meta name="cdn" th:content="${links.cdn}" />
+		<meta name="sso" th:content="${links.sso}" />
+		
+		<link rel="icon" href="/favicon.ico" />
+		<link rel="shortcut icon" href="/favicon.ico"/>	  		
+		<base href="/" />
+		
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" ></link>
+
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+	
+		<link rel="stylesheet" type="text/css" th:href="${links.cdn + '/theme/base/css/styles.css'}"></link>
+		
+ 		<link rel="stylesheet" type="text/css" href="@{css/movies.css}" />
+						
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="blue" />
+		<link rel="apple-touch-startup-image" th:href="${links.cdn + '/img/ei/ei-newlogo5-smooth100.png'}" />
+		<link rel="apple-touch-icon" th:href="${links.cdn + '/img/ei/ei-newlogo5-smooth100.png'} "/>
+		<link rel="apple-touch-icon-precomposed" sizes="128x128" th:href="${links.cdn + '/img/ei/ei-newlogo5-smooth100.png'}" />
+	
+		<meta name="mobile-web-app-capable" content="yes" />
+	
+		<link rel="shortcut icon" sizes="196x196" th:href="${links.cdn + '/img/ei/ei-newlogo5-smooth100.png'}"/>
+		<link rel="shortcut icon" sizes="128x128" th:href="${links.cdn + '/img/ei/ei-newlogo5-smooth100.png'}"/>
+
+		<script type="text/javascript" src= "https://code.jquery.com/jquery-3.4.1.min.js" ></script> 
+		<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+		<script type="text/javascript" th:src="@{${links.cdn + '/js/jquery.selectric.min.js'}}"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" ></script>		 
+
+		<script type="text/javascript" th:src="${links.cdn + '/js/math.min.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/templates.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/templates2.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/multi-input.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/multi-input-util.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/alert.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/selectx.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/hurkanSwitch.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/select-country.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/select-state.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/multi-selectx.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/popoverx.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/notifications.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/notifications2.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/pager.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/upload.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/util.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/utilx.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/spinnerx.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/csv.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/table.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/search.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/clipboard.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/croppie.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/ui.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/wait.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/social.js'}"></script>
+
+<script>
+$(function() {
+	$('.select').selectricx({});
+	$(".info").popoverx({});
+});
+</script>
+</head>
+<body th:fragment="content">
+</body>
+</html>
+

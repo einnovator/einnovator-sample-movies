@@ -1,0 +1,33 @@
+<div  class="authors" xmlns:th="http://www.thymeleaf.org">
+	<div class="author" th:if="${#lists.isEmpty(movie.authors) and movie.user!=null}"  th:with="user=${author.user}">
+		<a  th:href="@{${links.sso + (_admin!=null and _admin ? '/admin' : '') + '/user/' + user.username}}" >
+			<img class="avatar" th:src="@{${!#strings.isEmpty(user.avatar) ? user.avatar : links.cdn + '/img/avatar.png'}}"></img>
+		</a>
+		<a th:href="@{${links.sso + (_admin!=null and _admin ? '/admin' : '') + '/user/' + user.username}}" >
+			<span th:text="${user.displayName}" ></span>
+		</a>
+	</div>
+	<th:block th:if="${!#lists.isEmpty(movie.authors)}" th:each="author: ${movie.authors}" th:with="user=${author.user}">
+		<div th:if="${user!=null}" class="author" th:href="@{${links.sso + (_admin!=null and _admin ? '/admin' : '') + '/user/' + user.username}}" >
+			<a  th:href="@{${links.sso + (_admin!=null and _admin ? '/admin' : '') + '/user/' + user.username}}" >
+				<img class="avatar" th:src="@{${!#strings.isEmpty(user.avatar) ? user.avatar : links.cdn + '/img/avatar.png'}}"></img>
+			</a>
+			<div>
+				<a th:href="@{${links.sso + (_admin!=null and _admin ? '/admin' : '') + '/user/' + user.username}}" >
+					<span th:text="${user.displayName}" ></span>
+				</a>
+				<span class="date d-block" th:if="${movie.creationDate!=null}">Posted <span class="fdate" th:text="${#dates.format(movie.creationDate, 'dd MMM yy')}"></span></span>
+			</div>
+		</div>
+	</th:block>
+
+	
+	<div class="movie-date" th:if="${false}">
+		<span class="fdate" th:text="${#dates.format(movie.creationDate, 'dd MMM yyyy')}"></span>
+		<!-- <th:block th:if="${movie.modifiedDate!=null and !sameDate(movie.creationDate, movie.modifiedDate)}">
+			<span>;</span><span ui:movie="outputDate" th:text="modifiedDate" ui:formatter="dateFormatter" />
+		</th:block> -->
+	</div>
+	
+
+</div>

@@ -1,0 +1,117 @@
+<html xmlns:th="http://www.thymeleaf.org" th:with="title=${'Movie'}">
+<head th:include="layout/layout :: head(title=${title})"></head>
+<body th:with="bcs=${ {'Admin:/admin', 'Movies:/admin/movie', 'Details'} }">
+	<div th:replace="layout/header"></div>
+	<div th:replace="layout/menu-main"></div>
+	
+	<th:block th:if="${_admin}">
+		<div th:replace="layout/breadcrumbs"></div>
+	</th:block>
+	<th:block th:if="${!_admin}">
+		<div class="mt-5"></div>
+	</th:block>
+	
+	<div class="container-fluid">
+		<div class="layout2">
+			<div>		
+	
+				<div th:replace="movie/toolbar-top"></div>
+
+				<div th:replace="movie/movie-item"></div>
+				
+				<div th:replace="person/person-admin"></div>
+					
+				<div class="container-footer row">
+					<div class="col-sm-6">
+						<a class="btn btn-link btn-cancel  "  th:href="@{${(_admin ? '/admin' : '') + '/movie'}}"><span class="icon icon-back"></span> Back</a>
+					</div>
+					<div class="col-sm-6  text-right">
+						<th:block th:if="${!_admin}">
+						</th:block>
+						<th:block th:if="${_admin}">
+							<a  class="btn btn-lg btn-primary  " th:href="@{${'/admin/movie/' + movie.uuid + '/edit'}}" title="Edit"> <i class="icon icon-pencil-2"></i> Edit</a>
+							<a class="btn btn-lg btn-primary  " th:href="@{${'/admin/movie/' + movie.uuid + '/person/create'}}" title="Add Person"> <i class="icon icon-plus2"></i> Add Person</a>
+						</th:block>
+					</div>
+				</div>
+			</div>	
+			<div>
+			</div>
+		</div>
+	</div>
+		
+	<div th:replace="layout/footer"></div>			
+
+
+<!-- 
+		<div class="control">
+			<img th:src="@{${links.cdn + '/img/jp/star-pearl32.png'}}" style="vertical-align:middle"/>
+			<span ui:movie="outputNumber" th:text="voteUpCount" style="font-size:10px" />
+			<th:block th:if="${movie.editCount!=0}">
+				<label>Edits:</label>
+				<span ui:movie="outputNumber" th:text="editCount"  />
+			</th:block>
+			<label>Notify:</label>
+			<input type="checkbox" th:text="notify" readonly="readonly"/>
+
+		</div>	
+		<div class="control">
+			<label>URL:</label>
+			<a th:text="url" target="_blank"><span th:text="url"/></a>
+		</div>
+
+		<div class="padcontrol">
+			<label for="type">Type</label>
+			<span th:text="type"/>
+			<label for="genre">Genre</label>
+			<span th:text="genre"/>
+		</div>	
+		<div class="padcontrol">
+			<label for="category">Category</label>
+			<span th:text="category"/>
+		</div>
+		
+		<div id="markup-container" class="wideWidget">
+		<label for="url">Summary:</label><br/>
+		<div class="movieMarkup" style="margin:10px; margin-left:5%; margin-right:5%; width:90%">
+			${notNull(movie.markup, notNull(movie.body, ""))}
+		</div>
+		</div>
+		
+		<div class="movie-itemTopics">
+			<th:block th:each="${movie.topics}" var="topic">
+				<div class="topic"><a class="topicName" href="/topic/${topic.id}/${topic.urlKey}"><span th:text="${topic.name}" /></a></div>				
+			</th:block>
+		</div>
+		
+		<div class="button-bar">
+			<button th:href="${/movie" value="Back" class="button"/>
+			<button th:href="${/movie/${movie.id}/edit" value="Edit" class="button"/>
+		</div>
+	
+
+		<hr/>
+		
+		
+		<div th:replace="movie-comments" ></div>
+	
+	</th:block>
+ -->
+	
+	
+				
+
+<script>
+//<![CDATA[		
+$(function() {
+	$('.actions').popoverx({});
+});	
+// ]]>	
+</script>
+</body>
+</html>
+
+
+
+
+

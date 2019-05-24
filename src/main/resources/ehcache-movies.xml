@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd" name="CM1"
+	updateCheck="false" maxBytesLocalHeap="64M">
+
+	<diskStore path="java.io.tmpdir" />
+
+	<defaultCache eternal="false" overflowToDisk="false" >
+		<sizeOfPolicy maxDepth="20" maxDepthExceededBehavior="abort" />
+	</defaultCache>
+
+	<cache name="org.hibernate.cache.internal.StandardQueryCache"></cache>
+	
+	<cache name="org.hibernate.cache.spi.UpdateTimestampsCache"></cache>
+	
+	<cache name="org.einnovator.sample.movies.model.Movie"></cache>
+	<cache name="org.einnovator.sample.movies.model.Person"></cache>
+
+
+	<!-- SSO Starter -->	
+
+	<cache name="User"></cache>
+	<cache name="Group"></cache>
+	<cache name="GroupMember"></cache>
+	<cache name="GroupMember:count"></cache>
+	<cache name="Role"></cache>
+	<cache name="Invitation"></cache>
+	<cache name="Invitation:count"></cache>
+	<cache name="Invitation:stats"></cache>
+
+	<cache name="Connection"></cache>
+	<cache name="Connection:Comment"></cache>
+	<cache name="Connection:Tag"></cache>
+
+	<!-- Notifications Starter -->	
+
+	<cache name="Notification"></cache>
+	<cache name="Notification:count"></cache>
+
+
+	<!-- Documents Starter -->	
+
+	<cache name="Document"></cache>
+	<cache name="Folder"></cache>
+
+
+	<!-- Social Starter -->	
+	
+	<cache name="Channel"></cache>
+	
+	
+</ehcache>

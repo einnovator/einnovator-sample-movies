@@ -1,0 +1,47 @@
+<table  id="movie-table" class="table movie-table"  xmlns:th="http://www.thymeleaf.org">
+	<tr>
+		<th style="width: 2em"></th>
+		<th style="width: 40px"></th>
+		<th>Title</th>
+		<th>Genre</th>
+		<th>Gross Takings Amount</th>
+		<th>IsAvailableOnDVD</th>
+		<th>Plot Summary</th>
+		<th>Dates</th>
+		<th style="width: 4em"></th>
+	</tr>
+
+	
+	<tr th:each="movie: ${movies}">
+		<td></td>
+		<td>
+			<a th:href="${(_admin!=null and _admin ? '/admin' : '') + '/movie/'+movie.uuid}">
+				<img class="img" th:if="${!#strings.isEmpty(movie.img)}" th:src="${movie.img}" />
+				<i th:if="${#strings.isEmpty(movie.img)}" class="fas fa-film ico"></i>
+			</a>		
+		</td>
+		<td>
+			<a th:href="${(_admin!=null and _admin ? '/admin' : '') + '/movie/'+movie.uuid}"><span class="bold" th:text="${movie.title}"></span></a>
+		</td>
+		<td>
+			<span class="status" th:text="${movie.year}"></span>
+		</td>
+		<td>
+			<span class="status" th:if="${movie.genre!=null}" th:text="${movie.genre.displayName}"></span>
+		</td>
+		<td>
+			<span class="status" th:if="${movie.amount!=null}" th:text="${movie.amount}"></span>
+		</td>
+		<td>
+			<span class="status" th:if="${movie.dvd!=null}" th:text="${movie.dvd ? 'Yes' : 'No'}"></span>
+		</td>
+		<td>
+			<span class="sm" th:text="${movie.description}"></span>
+		</td>
+		<td th:if="${false}">
+			<span class="fdate" th:text="${#dates.format(movie.creationDate, 'dd MMM yyyy')}"></span>
+		</td>
+		<td></td>
+	</tr>		
+	
+</table>

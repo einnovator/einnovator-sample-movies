@@ -1,0 +1,34 @@
+<div  xmlns:th="http://www.thymeleaf.review">
+
+	<form>
+	<div class="d-flex mb-3" >
+		<div class="flex-1 mr-3">
+			<label class="label label-lg  mb-0">&nbsp;</label>
+			<div class="input-wrapper">
+				<input type="text" id="q" class="em" name="q"  th:value="${filter.q}"></input>
+				<i class="icon-loup a"></i>
+			</div>
+		</div>
+		<div class="text-right flex-03">
+				<span class="text-light d-block label">Genre</span>
+				<select name="genre" class="select" id="select-genre">
+					<option th:each="genre : ${T(org.einnovator.sample.movies.model.MovieGenre).values()}"
+					 th:value="${genre}" th:text="${genre.displayName}"
+					 th:selected="${filter!=null and filter.genre==genre}"></option>
+				</select>
+		</div>
+	</div>
+	</form>
+
+								
+<script th:inline="javascript">
+//<![CDATA[	
+$(function() {
+	$('#table').search({q:'#q', table:true, fields : ['s'], reload: true});
+	$('#select-genre').change(function(ev) {
+		$.reload({async: true, container: '#table'}, {q: $('#q').val(), type: $(this).val(), async: true});
+	});
+});
+//]]>
+</script>				
+</div>
