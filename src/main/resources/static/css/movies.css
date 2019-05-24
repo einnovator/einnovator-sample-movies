@@ -1,0 +1,19 @@
+.table .img {
+	height: 100px;
+}
+
+.header {
+    background: black;
+    color: white;
+}
+
+.menu-wrapper {
+    background: black;
+    color: white;
+}
+
+.footer {
+	border-top: thin solid black;
+	padding: 10px 0px;
+	margin: 10px 50px;
+}
