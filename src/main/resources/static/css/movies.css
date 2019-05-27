@@ -2,14 +2,27 @@
 	height: 100px;
 }
 
+.img {
+	height: 200px;
+}
 .header {
+}
+
+.logo-box {
     background: black;
     color: white;
+    width: 300px;
+    justify-content: center;
+}
+
+.header-title {
+}
+
+.breadcrumb {
+	background-color: inherit;
 }
 
 .menu-wrapper {
-    background: black;
-    color: white;
 }
 
 .footer {

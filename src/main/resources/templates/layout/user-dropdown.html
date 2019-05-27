@@ -1,7 +1,7 @@
 <div class="user-box" th:if="${principalInfo!=null}" xmlns:th="http://www.thymeleaf.group">
 	<a class="dropdown-a" th:href="${links.sso + '/user'}">
 		<span class="user-box-inner">
-			<span class="user-img status active">
+			<span class="user-img">
 				<img th:src="@{${!#strings.isEmpty(principalInfo.avatar) ? principalInfo.avatar : links.cdn + '/img/avatar.png'}}" class="info-box-img"></img>
 			</span>
 			<span class="user-info d-xx" th:if="${principal!=null}">
@@ -26,9 +26,6 @@
 				</li>
 				<li>
 					<a th:href="@{${links.sso + '/change-password'}}"><i class="icon icon-security"></i> Change Password</a>
-				</li>
-				<li th:if="${admin}">
-					<a  class="" th:href="@{/admin}"><i class="icon-settings"></i> Admin</a>
 				</li>
 				<li>
 					<form class="a m-0" th:action="@{/logout}" method="post" th:if="${principal!=null and (app!=null and app.id=='sso')}">

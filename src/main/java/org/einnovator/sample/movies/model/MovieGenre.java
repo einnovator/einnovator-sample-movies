@@ -16,12 +16,12 @@ public enum MovieGenre {
 	;
 	
 
-	private final String displayName;
+	private final String displayValue;
 	
 	private final Integer minAge;
 
-	MovieGenre(String displayName, Integer minAge) {
-		this.displayName = displayName;
+	MovieGenre(String displayValue, Integer minAge) {
+		this.displayValue = displayValue;
 		this.minAge = minAge;
 	}
 
@@ -36,12 +36,12 @@ public enum MovieGenre {
 	}
 
 
-	public String getDisplayName() {
-		return displayName;
+	public String getDisplayValue() {
+		return displayValue;
 	}
 
 	public String getLabel() {
-		return displayName;
+		return displayValue;
 	}
 
 	public static MovieGenre parse(String s) {

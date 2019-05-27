@@ -70,8 +70,6 @@ public class Movie extends EntityBase2<Long> {
 	@JoinColumn(name="movie_id")
 	protected List<Person> persons;
 	
-	private String metaId;
-
 	@Column(length=128)
 	private String channelId;
 	
@@ -234,27 +232,6 @@ public class Movie extends EntityBase2<Long> {
 		this.dvd = dvd;
 	}
 
-
-
-	/**
-	 * Get the value of property {@code metaId}.
-	 *
-	 * @return the metaId
-	 */
-	public String getMetaId() {
-		return metaId;
-	}
-
-
-
-	/**
-	 * Set the value of property {@code metaId}.
-	 *
-	 * @param metaId the metaId to set
-	 */
-	public void setMetaId(String metaId) {
-		this.metaId = metaId;
-	}
 
 
 

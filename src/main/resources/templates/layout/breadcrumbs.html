@@ -1,4 +1,4 @@
-<div xmlns:th="http://www.thymeleaf.org" class="breadcrumb-box">
+<div xmlns:th="http://www.thymeleaf.org" class="breadcrumb-box mt-3">
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb" th:if="${bcs!=null}">
 			<li th:each="bc,it: ${bcs}" th:class="${'breadcrumb-item' + (it.index==it.size-1 ? ' active' : '')}">

@@ -6,7 +6,7 @@
 		<th>Year</th>
 		<th>Genre</th>
 		<th>Gross Takings Amount</th>
-		<th>IsAvailableOnDVD</th>
+		<th>Available On DVD</th>
 		<th>Plot Summary</th>
 		<th th:if="${false}">Dates</th>
 		<th style="width: 4em"></th>
@@ -28,10 +28,11 @@
 			<span class="status" th:text="${movie.year}"></span>
 		</td>
 		<td>
-			<span class="status" th:if="${movie.genre!=null}" th:text="${movie.genre.displayName}"></span>
+			<span class="status" th:if="${movie.genre!=null}" th:text="${movie.genre.displayValue}"></span>
 		</td>
 		<td>
-			<span class="status" th:if="${movie.amount!=null}" th:text="${movie.amount}"></span>
+			<span class="status" th:if="${movie.amount!=null}" th:text="${#numbers.formatDecimal(movie.amount, 1, 'DEFAULT', 2, 'DEFAULT')}"></span> $
+			
 		</td>
 		<td>
 			<span class="status" th:if="${movie.dvd!=null}" th:text="${movie.dvd ? 'Yes' : 'No'}"></span>

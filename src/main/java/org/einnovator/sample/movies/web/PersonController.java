@@ -88,7 +88,7 @@ public class PersonController extends ControllerBase {
 
 
 		logger.info("show: " + person);
-		return "person/" + (_admin ? "show" : "view");
+		return "person/show";
 	}
 
 	@GetMapping("/create")

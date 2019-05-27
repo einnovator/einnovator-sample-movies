@@ -1,10 +1,11 @@
 <header class="header" xmlns:th="http://www.thymeleaf.org">
 	<nav>
-		<div class="logo-box">
-<!-- 			<img th:src="${links.cdn + '/img/logo.png'}" class="header-logo"></img> -->
+		<div class="col-header logo-box">
+			<i class="fas fa-film ico-lg"></i>
+			<h3 class="header-title">Movies DB</h3>
 		</div>
-		<div class="col-header header-caption">
-			<div th:replace="layout/header-caption"></div>
+		<div class="col-header col-menu">
+			<div th:replace="layout/menu-main"></div>
 		</div>
 		<div class="col-header col-toolbar">
 			<div th:replace="layout/header-toolbar"></div>
@@ -15,7 +16,4 @@
 	</nav>
 	<form id="form-logout" th:action="@{/logout}" method="post" style="display: none"></form>
 
-	<!-- <div th:replace="layout/notification-template"></div> -->
-	
-	<div th:replace="layout/alert"></div>
 </header>

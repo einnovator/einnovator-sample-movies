@@ -11,57 +11,50 @@
 		</p>
 	</div>
 
-	<div th:class="${'form-group' + (#fields.hasErrors('subtitle')  ? ' has-error has-feedback':'')}">
-		<label>Sub-Title</label>
-		<div class="">
-			<input type="text" class="form-control" th:value="${movie.subtitle}" placeholder="First Name" th:field="*{subtitle}"  />
-			<i th:if="${#fields.hasErrors('subtitle')}" class="glyphicon glyphicon-remove form-group-feedback"></i>
-		</div>
-		<p th:if="${#fields.hasErrors('subtitle')}" class="error">
-			<span th:each="err : ${#fields.errors('subtitle')}" th:text="${err}" class="error"></span>
-		</p>
-	</div>
-
-
-	<!-- <div th:replace="other-authors-editor"  ></div>  -->
-	 
-
-	<!-- <div th:replace="movie/ckeditor"  />  -->
-	
-	
 	<div th:class="${'row form-group'}">
-		<div class="col-4">
-			<label for="type">Movie Type</label>
-			<select id="type" class="select" name="type" th:value="${movie.type}" >
-				<option></option>
-				<option th:each="type : ${T(org.einnovator.cms.model.MovieType).values()}" th:value="${type}" th:text="${type.displayName}" th:field="*{type}"></option>
-			</select>
-		</div>
 		<div class="col-4">
 			<label for="genre">Genre</label>
 			<select id="genre" class="select" name="genre" th:value="${movie.genre}" >
 				<option></option>
-				<option th:each="genre : ${T(org.einnovator.cms.model.Genre).values()}" th:value="${genre}" th:text="${genre.displayName}" th:field="*{genre}"></option>
+				<option th:each="genre : ${T(org.einnovator.sample.movies.model.MovieGenre).values()}" th:value="${genre}" th:text="${genre.displayValue}" th:field="*{genre}"></option>
 			</select>
 		</div>
 		<div class="col-4">
-			<label for="category">Category</label>
-			<input type="text" class="form-control" th:value="${movie.category}" placeholder="Category" th:field="*{category}"  />
-			
-			<!-- 
-			<select id="category" class="select" name="category" th:value="${movie.category}" >
-				<option></option>
-				<option th:each="category : ${T(org.einnovator.cms.model.Category).values()}" th:value="${category}" th:text="${category.displayName}" th:field="*{category}"></option>
-			</select>
-			 -->
 		</div>
-
 	</div>
-	
-	<div th:replace="movie/edit-movies"  ></div>
+
+	<div th:class="${'form-group' + (#fields.hasErrors('year')  ? ' has-error has-feedback':'')}">
+		<label>Year</label>
+		<div>
+			<input type="number" class="form-control" min="1900"  placeholder="Year" th:field="*{year}"  />
+		</div>
+		<p th:if="${#fields.hasErrors('year')}" class="error">
+			<span th:each="err : ${#fields.errors('year')}" th:text="${err}" class="error"></span>
+		</p>
+	</div>
+
+	<div th:class="${'form-group' + (#fields.hasErrors('year')  ? ' has-error has-feedback':'')}">
+		<label>Gross Takings Amount ($)</label>
+		<div>
+			<input type="text" class="form-control spinner" placeholder="amount" th:field="*{amount}"  />
+		</div>
+		<p th:if="${#fields.hasErrors('amount')}" class="error">
+			<span th:each="err : ${#fields.errors('amount')}" th:text="${err}" class="error"></span>
+		</p>
+	</div>
+
+	<div th:class="${'form-group' + (#fields.hasErrors('year')  ? ' has-error has-feedback':'')}">
+		<div>
+			<input type="checkbox" class="form-check" placeholder="dvd" th:field="*{dvd}"  />
+			<label>Is Available On DVD</label>
+		</div>
+		<p th:if="${#fields.hasErrors('dvd')}" class="error">
+			<span th:each="err : ${#fields.errors('dvd')}" th:text="${err}" class="error"></span>
+		</p>
+	</div>
 
 	<div class="form-group">
-		<label for="description">Summary</label>
+		<label for="description">Plot</label>
 		<textarea id="description" class="textarea"  name="description" th:text="${movie.description}" rows="6"  title="Movie Summary" placeholder="Movie Summary"></textarea>
 	</div>
 

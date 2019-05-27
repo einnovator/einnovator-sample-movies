@@ -101,7 +101,7 @@ public class MovieController extends ControllerBase {
 		model.addAttribute("_edit", isAllowedEdit(principal, movie));
 		model.addAttribute("_manage", isAllowedEdit(principal, movie));
 
-		return "movie/" + (_admin ? "show" : "view");
+		return "movie/show";
 	}
 
 	@GetMapping("/create")

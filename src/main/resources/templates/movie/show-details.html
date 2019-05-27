@@ -1,23 +1,70 @@
 <div xmlns:th="http://www.thymeleaf.org">
 
-	<div th:replace="movie/movie-item"></div>
-	
-	<div th:class="${'row form-group'}">
-		<div class="col-4">
-			<span  class="form-control" th:value="${movie.type}"  ></span>
-		</div>
-		<div class="col-4">
-			<span  class="form-control" th:value="${movie.genre}"  ></span>
-		</div>
-		<div class="col-4">
-			<span  class="form-control" th:value="${movie.category}"  ></span>
-		</div>
+	<div class="form-group" th:if="${!#strings.isEmpty(movie.img)}">
+		<img class="img" th:src="${movie.img}" ></img>
 	</div>
 	
+	<div class="row form-group">
+		<div class="col-4">
+			<label>Title</label>
+		</div>
+		<div class="col-4">
+			<span th:text="${movie.title}" ></span>
+		</div>
+	</div>
+
+	<div class="row form-group">
+		<div class="col-4">
+			<label>Genre</label>
+		</div>
+		<div class="col-4">
+			<span th:if="${movie.genre}" th:value="${movie.genre.displayValue}" ></span>
+		</div>
+	</div>
+
+	<div class="row form-group">
+		<div class="col-4">
+			<label>Year</label>
+		</div>
+		<div class="col-4">
+			<span th:text="${movie.year}" ></span>
+		</div>
+	</div>
+
+	<div class="row form-group">
+		<div class="col-4">
+			<label>Gross Takings Amount</label>
+		</div>
+		<div class="col-4">
+			<span th:text="${movie.amount}" ></span> <span>$</span>
+		</div>
+	</div>
+
+	<div class="row form-group">
+		<div class="col-4">
+			<label>Is Available On DVD</label>
+		</div>
+		<div class="col-4">
+			<span th:if="${movie.dvd!=null}" th:value="${movie.dvd ? 'Yes' : 'No'}" ></span>
+		</div>
+	</div>
 
 	<div class="form-group">
-		<label for="description">Summary</label>
-		<p id="description" class="textarea"  th:text="${movie.description}"></p>
+		<label for="description">Plot</label>
+		<p id="description" th:text="${movie.description}"></p>
 	</div>
+
+	<th:block th:if="${!#lists.isEmpty(movie.persons)}">
+		<h2>People</h2>
+		
+		<table class="table">
+			<tr th:each="person : ${movie.persons}">
+				<td style="width:60px;"><img class="avatar" th:if="${person.img!=null}" th:src="${person.img}"></img></td>
+				<td><span th:text="${person.name}"></span> <span th:text="${person.surname}"></span></td>
+				<td><span th:text="${person.role}"></span></td>
+			</tr>
+		</table>
+	</th:block>
+	
 
 </div>
