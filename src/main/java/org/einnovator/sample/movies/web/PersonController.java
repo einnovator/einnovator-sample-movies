@@ -26,11 +26,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
-@RequestMapping({"/person", "/admin/person"})
+@RequestMapping("/person")
 public class PersonController extends ControllerBase {
 
 	private final Log logger = LogFactory.getLog(getClass());
@@ -39,40 +40,23 @@ public class PersonController extends ControllerBase {
 	private PersonManager manager;
 
 	@GetMapping
-	public String list(@ModelAttribute("filter") PersonFilter filter, PageOptions options, 
+	public String list(@ModelAttribute("filter") PersonFilter filter, PageOptions options,  @RequestParam(required=false) Boolean async,
 			Model model, Principal principal, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-		if (principal == null) {
-			unauthorized("list", request, redirectAttributes);
-			return redirect("/");
-		}
 		
-		
-		boolean _admin = adminAccess(request, model);
-		if (_admin && !isAdmin(principal)) {
-			return redirect("/");
-		}
-
 		Page<Person> page = manager.findAll(filter, options.toPageRequest());
 		model.addAttribute("persons", page);
 		model.addAttribute("page", page);
+		model.addAttribute("pageJson", PageUtil.toJson(page, false));
 
 		logger.info("list: " + PageUtil.toString(page) + " " + filter + " " + options);
-		return "person/list-persons";
+		return Boolean.TRUE.equals(async) ? "person/person-table" : "person/list";
+
 	}
 
 	@GetMapping("/{id:.*}")
 	public String show(@PathVariable("id") String id, String slug,
 			Model model, Principal principal, HttpServletRequest request,  RedirectAttributes redirectAttributes) {
-		if (principal == null) {
-			unauthorized("show", request, redirectAttributes);
-			return redirect("/");
-		}
 		
-		boolean _admin = adminAccess(request, model);
-		if (_admin && !isAdmin(principal)) {
-			return redirect("/");
-		}
-
 		Person person = manager.find(id);
 
 		if (person == null) {
@@ -92,35 +76,16 @@ public class PersonController extends ControllerBase {
 	}
 
 	@GetMapping("/create")
-	public String createGET(String slug,
+	public String createGET(@ModelAttribute("person") Person person,
 			Model model, Principal principal, HttpServletRequest request,  RedirectAttributes redirectAttributes) {
-		if (principal == null) {
-			unauthorized("show", request, redirectAttributes);
-			return "";
-		}
 		
-		boolean _admin = adminAccess(request, model);
-		if (_admin && !isAdmin(principal)) {
-			return "";
-		}
-		Person person = new Person();
 		logger.info("create: " + person);
-		model.addAttribute("person", person);
-		return "person/person-details";
+		return "person/edit";
 	}
 
 	@PostMapping
-	public String createPOST(@RequestBody Person person, BindingResult errors,
+	public String createPOST(@ModelAttribute("person") Person person, BindingResult errors,
 			Model model, Principal principal, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-		if (principal == null) {
-			unauthorized("createPOST", request, redirectAttributes);
-			return redirect("/");
-		}
-		
-		boolean _admin = adminAccess(request, model);
-		if (_admin && !isAdmin(principal)) {
-			return redirect("/");
-		}
 
 		if (!isAllowedCreate(principal, person)) {
 			forbidden("createPOST", request, redirectAttributes);
@@ -139,53 +104,36 @@ public class PersonController extends ControllerBase {
 		}
 		logger.info("createPOST: " + person2);
 		model.addAttribute("person", person2);
-		return "person/person-details";
+		return redirect("/person/" + person2.getUuid());
 	}
 
 	@GetMapping("/{id:.*}/edit")
-	public String editGet(@PathVariable("id") String id, String slug,
+	public String editGet(@PathVariable("id") String id,
 			Model model, Principal principal, HttpServletRequest request,  RedirectAttributes redirectAttributes) {
-		if (principal == null) {
-			unauthorized("show", request, redirectAttributes);
-			return redirect("/");
+
+		Person person = manager.find(id);
+		if (person == null) {
+			notfound("editGet", request, redirectAttributes);
+			return redirect("/person");
 		}
-		
-		boolean _admin = adminAccess(request, model);
-		if (_admin && !isAdmin(principal)) {
-			return redirect("/");
-		}
-		Person person = new Person();
-		Person person0 = manager.find(id);
-		if (person0 != null) {
-			person = person0;
-			if (!isAllowedView(principal, person)) {
-				forbidden("show", request, redirectAttributes);
-			}
+		if (!isAllowedEdit(principal, person)) {
+			forbidden("show", request, redirectAttributes);
+			return redirect("/person");
 		}
 		
 		logger.info("editGet: " + person);
 		model.addAttribute("person", person);
-		return "person/person-details";
+		return "person/edit";
 	}
 
 	@PutMapping("/{id_:.*}")
-	public String editPut(@PathVariable("id_") String id_, Person person, BindingResult errors,
+	public String editPut(@PathVariable("id_") String id_, @ModelAttribute("person") Person person, BindingResult errors,
 			Model model, Principal principal, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-		if (principal == null) {
-			unauthorized("editPut", request, redirectAttributes);
-			return redirect("/");
-		}
-		
-		boolean _admin = adminAccess(request, model);
-		if (_admin && !isAdmin(principal)) {
-			forbidden("editPut", request, redirectAttributes);
-			return redirect("/");
-		}
 
 		Person person0 = manager.find(id_);
 		if (person0 == null) {
 			notfound("editPut", request, redirectAttributes);
-			return "";
+			return redirect("/person");
 		}
 		if (!isAllowedEdit(principal, person0)) {
 			forbidden("editPut", request, redirectAttributes);
@@ -200,23 +148,12 @@ public class PersonController extends ControllerBase {
 		success(request, redirectAttributes);
 		logger.info("editPut: " + person2);
 		model.addAttribute("person", person2);
-		return "person/person-details";
+		return redirect("/person/" + person.getUuid());
 	}
 
 	@DeleteMapping("/{id:.*}")
 	public String delete(@PathVariable String id, 
 			Model model, Principal principal, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-		if (principal == null) {
-			unauthorized("delete", request, redirectAttributes);
-			return redirect("/");
-		}
-
-		
-		boolean _admin = adminAccess(request, model);
-		if (_admin && !isAdmin(principal)) {
-			return redirect("/");
-		}
-
 		Person person = manager.findByUuid(id);
 		if (person == null) {
 			notfound("delete", request, redirectAttributes);
@@ -234,7 +171,7 @@ public class PersonController extends ControllerBase {
 		}
 		logger.info("delete: " + person);
 		redirectAttributes.addFlashAttribute(Messages.ATTRIBUTE_INFO, Messages.MSG_DELETE_SUCCESS);
-		return redirect(_admin, "/person");
+		return redirect("/person");
 	}
 
 

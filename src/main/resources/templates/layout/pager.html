@@ -1,47 +1,39 @@
-<div xmlns:th="http://www.thymeleaf.org"  th:if="${page != null and page.totalElements!=null and page.totalElements gt 0}">
-<div class="text-right mt-2" th:if="${page != null and page.totalElements!=null and page.totalElements gt 0}" >
-	<span class="text-light"><span class="bold" th:text="${page.totalElements}"></span> Result<span th:if="${page.totalElements gt 1}">s</span> Found</span>
-</div>
-<div id="pager" th:if="${page.getTotalPages() gt 0}" class="pager row" >
-	<div class="col-sm-8 pagination-wrapper"> 
-		<ul class="pagination">
-		 	<li th:style="${page.getTotalPages() gt 5 and page.getNumber()+1 != null and (page.getNumber()+1-1) gt 1 ? '' : 'display:none'}" th:attr="pagenumber=0" title="First Page" class="page-item btn-page">
-		 		<a class="page-link" th:attr="pagenumber=0"><i class="icon-first" th:attr="pagenumber=0"></i></a>
-		 	</li>
-			<li th:style="${page.getTotalPages() gt 2 and page.getNumber()+1 != null and page.getNumber()+1 gt 1 ? '' : 'display:none'}" th:attr="pagenumber=${page.getNumber()-1}" title="Previous Page" class="page-item btn-page">
-		 		<a class="page-link" th:attr="pagenumber=${page.getNumber()-1}" ><i th:attr="pagenumber=${page.getNumber()-1}" class="icon-previous2"></i></a>
-		 	</li>
-			<li th:class="${'page-item number btn-page ' + (i==page.getNumber()+1 ? 'active disabled' :'')}" th:attr="pagenumber=${i-1}" th:title="${i==page.getNumber()+1 ? 'Current Page' : ('Page ' + i)}" th:each="i : ${#numbers.sequence(T(Math).max(1,page.getNumber()+1-(pageWindow != null ? pageWindow : 2)),T(Math).min(page.getTotalPages(),page.getNumber()+1+(pageWindow != null ? pageWindow : 2)))}">
-				<a class="page-link" th:attr="pagenumber=${i-1}" th:text="${i}"></a>
-			</li>
-			<li th:style="${page.getTotalPages() gt 1 and page.getNumber()+1 != null and page.getNumber()+1 lt page.getTotalPages() ? '' : 'display:none'}" th:attr="pagenumber=${page.getNumber()+1}" title="Next Lage" class="page-item btn-page">
-		 		<a class="page-link" th:attr="pagenumber=${page.getNumber()+1}"><i class="icon-next2" th:attr="pagenumber=${page.getNumber()+1}"></i></a>
-		 	</li>
-			<li th:style="${page.getTotalPages() gt 5 and page.getNumber()+1 != null and page.getNumber()+1 lt (page.getTotalPages()-1) ? '' : 'display:none'}" th:attr="pagenumber=${page.getTotalPages()-1}" th:title="${'Last Page ('+page.getTotalPages()+')'}" class="page-item btn-page">
-		 		<a class="page-link" th:attr="pagenumber=${page.getTotalPages()-1}"><i class="icon-last" th:attr="pagenumber=${page.getTotalPages()-1}"></i></a>
-		 	</li>
-		</ul>
-	</div>		
-	<div class="col-sm-4 text-right page-size-wrapper" title="Change the number of records in your view" data-help-title="Change the number of records in your view">
-		<i class="icon icon-list_view text-light icon-pagesize"></i>
-		<select id="pager" class="page-size" name="pageSize">
-			<option value="10" th:attr="selected=${page.getSize()==10}">10</option>
-			<option value="20" th:attr="selected=${page.getSize()==20}">20</option>
-			<option value="50" th:attr="selected=${page.getSize()==50}">50</option>
-			<option value="100" th:attr="selected=${page.getSize()==100}">100</option>
-			<option value="500" th:attr="selected=${page.getSize()==500}">500</option>
-			<option value="1000" th:attr="selected=${page.getSize()==1000}">1000</option>
-		</select>
+<div xmlns:th="http://www.thymeleaf.org"  th:if="${page != null}">
+<div id="pager" class="pager">
+	<div class="result-count text-right" th:if="${page != null and page.totalElements!=null and page.totalElements gt 0}" >
+		<span class="text-light"><span class="bold" th:text="${page.totalElements}"></span> Result<span th:if="${page.totalElements gt 1}">s</span> Found</span>
+	</div>
+	<div class="row pagination-wrapper" th:style="${page.getTotalPages() == 0 ? 'display:none': ''}">
+		<div class="col-sm-8 pagination-wrapper"> 
+			<ul class="pagination">
+			</ul>
+		</div>		
+		<div class="col-sm-4 text-right page-size-wrapper" title="Change the number of records in your view" data-help-title="Change the number of records in your view">
+			<i class="icon icon-list_view text-light icon-pagesize"></i>
+			<select class="page-size" name="pageSize">
+				<option value="10" th:attr="selected=${page.getSize()==10}">10</option>
+				<option value="20" th:attr="selected=${page.getSize()==20}">20</option>
+				<option value="50" th:attr="selected=${page.getSize()==50}">50</option>
+				<option value="100" th:attr="selected=${page.getSize()==100}">100</option>
+				<option value="500" th:attr="selected=${page.getSize()==500}">500</option>
+				<option value="1000" th:attr="selected=${page.getSize()==1000}">1000</option>
+			</select>
+		</div>
 	</div>
 </div>
 <script type="text/javascript" th:inline="javascript">
 //<![CDATA[
-var page = {number: [[${page!=null ? page.number : null}]], 
+var page = pageJson = JSON.parse([[${pageJson!=null ? pageJson : null}]]);
+if (!page) {
+	page = {number: [[${page!=null ? page.number : null}]], 
 			size: [[${page!=null ? page.size : null}]],
 			numberOfElements: [[${page!=null ? page.numberOfElements : null}]],
 			totalPages: [[${page!=null ? page.totalPages : null}]],
 			totalElements: [[${page!=null ? page.totalElements : null}]],
-			async: typeof page!='undefined' ? page.async : true};
+			async: typeof page!='undefined' && page ? page.async : true};	
+} else {
+	page.async = true;	
+}
 //]]>
 </script>
 <script type="text/javascript">

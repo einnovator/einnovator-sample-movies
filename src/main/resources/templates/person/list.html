@@ -1,6 +1,6 @@
-<html xmlns:th="http://www.thymeleaf.org" th:with="title=${'Movies'}">
+<html xmlns:th="http://www.thymeleaf.org" th:with="title=${'People'}">
 <head th:include="layout/layout :: head(title=${title})"></head>
-<body th:with="bcs=${ {'Movies'} }">
+<body th:with="bcs=${ {'People'} }">
 	<div th:replace="layout/header"></div>
 	
 	<div class="container-fluid mt-3">
@@ -11,9 +11,9 @@
 				<h1 class="h1"><i class="fas fa-film ico-lg"></i> <span th:text="${title}"></span>  <span class="hbar"></span></h1>
 													
 	
-				<div th:replace="movie/movie-filter" ></div>
+				<div th:replace="person/person-filter" ></div>
 	
-				<div th:replace="movie/movie-table" ></div>
+				<div th:replace="person/person-table" ></div>
 
 				<div th:replace="layout/pager"></div>			
 					
@@ -22,7 +22,7 @@
 					</div>
 					<div class="col-sm-6 text-right">
 						<th:block th:if="${true or _admin}">
-							<a class="btn btn-lg btn-primary" th:href="@{${'/movie/create'}}" title="Add Movie"> <i class="fas fa-plus-circle"></i> Add New Movie</a>
+							<a class="btn btn-lg btn-primary" th:href="@{${'/person/create'}}" title="Add Person"> <i class="fas fa-plus-circle"></i> Add New Person</a>
 						</th:block>
 					</div>
 				</div>

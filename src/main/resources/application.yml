@@ -1,17 +1,10 @@
 app:
   id: movies
   name: Movies
-  icon: ""
-  info: "Movies"
+  info: "Movies Sample App"
   
 server:
   port: 5050
-  max-http-header-size: 10000000 
-  session:
-    timeout: 99999
-    cookie:
-      name: JSESSIONID_MOVIES
-      http-only: false
       
 #movies:
       
@@ -29,25 +22,6 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto : update
-    properties:
-      hibernate:
-        cache:
-          use_second_level_cache: true
-          use_query_cache : true
-          region:
-            factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
-      net:
-        sf:
-          ehcache:
-            cacheManagerName: CM2
-            configurationResourceName: ehcache-movies.xml
-      javax:
-        persistence:
-          sharedCache:
-            mode: ALL  
-  cache:
-    ehcache:
-      config: ehcache-movies.xml
   servlet: #boot2
     multipart:
       max-file-size: 1000MB
@@ -85,27 +59,24 @@ banner: #boot1
 sso:
   server : https://sso.einnovator.org
   client-id: application
-  client-secret:  application$123
+  client-secret: application$123
 
 notifications:
-  server: https://notification.einnovator.org
+  server: https://notifications.einnovator.org
   amqp:
     notifications-queue: movies
 
 documents:
-  server: https://localhost:2021
-
-social:
-  server: https://localhost:2051
-
+  server: https://documents.einnovator.org
+  files:
+    root: /.movies/
   
+social:
+  server: https://social.einnovator.org
   
 ui:
   links:
     cdn: http://cdn.einnovator.org
     sso: http://sso.einnovator.org
     notifications: http://notification.einnovator.org
-    documents: http://documents.einnovator.org
-    payments: http://payments.einnovator.org
-    social: http://social.einnovator.org
 

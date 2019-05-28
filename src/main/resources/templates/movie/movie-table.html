@@ -1,4 +1,4 @@
-<table  id="movie-table" class="table movie-table"  xmlns:th="http://www.thymeleaf.org">
+<table  id="table" class="table"  xmlns:th="http://www.thymeleaf.org"  th:attr="data-page=${pageJson}">
 	<tr>
 		<th style="width: 2em"></th>
 		<th style="width: 40px"></th>
@@ -16,13 +16,12 @@
 	<tr th:each="movie: ${movies}">
 		<td></td>
 		<td>
-			<a th:href="${(_admin!=null and _admin ? '/admin' : '') + '/movie/'+movie.uuid}">
-				<img class="img" th:if="${!#strings.isEmpty(movie.img)}" th:src="${movie.img}" />
-				<i th:if="${#strings.isEmpty(movie.img)}" class="fas fa-film ico"></i>
+			<a th:href="${'/movie/'+movie.uuid}">
+				<img class="img" th:src="${!#strings.isEmpty(movie.img) ? movie.img : '/img/movie.png'}" />
 			</a>		
 		</td>
 		<td>
-			<a th:href="${(_admin!=null and _admin ? '/admin' : '') + '/movie/'+movie.uuid}"><span class="bold" th:text="${movie.title}"></span></a>
+			<a th:href="${'/movie/'+movie.uuid}" class="bold"><span class="s" th:text="${movie.title}"></span></a>
 		</td>
 		<td>
 			<span class="status" th:text="${movie.year}"></span>

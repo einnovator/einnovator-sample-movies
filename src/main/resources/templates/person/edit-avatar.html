@@ -1,7 +1,7 @@
 <div  xmlns:th="http://www.thymeleaf.org">
 
 	<div class="avatar-wrapper">
-		<img id="_img" class="img" th:src="@{${!#strings.isEmpty(movie.img) ? movie.img : '/img/movie.png'}}" />
+		<img id="_img" class="img" th:src="@{${!#strings.isEmpty(person.avatar) ? person.avatar : links.cdn + '/img/avatar.png'}}" />
 		<a class="btn-upload" id="upload"><i class="fas fa-sync-alt" title="Upload Image"></i></a>				
 	</div>
 	
@@ -9,7 +9,7 @@
 	<form id="upload-form" th:action="@{${'_upload'}}" method="post" enctype="multipart/form-data">
 		<input id="file" type="file" name="file" style="display: none"></input>
 		<input type="hidden" name="key" value="avatar"></input>
-		<input type="hidden" name="id" th:value="${movie.id}"></input>
+		<input type="hidden" name="id" th:value="${person.id}"></input>
 		<input id="base64" type="hidden" name="base64"></input>
 	</form>
 

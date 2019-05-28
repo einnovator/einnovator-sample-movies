@@ -1,6 +1,6 @@
 <div  xmlns:th="http://www.thymeleaf.review">
 
-	<form action="/movie">
+	<form action="/person">
 		<div class="d-flex mb-3" >
 			<div class="flex-1 mr-3">
 				<label class="mb-0">&nbsp;</label>
@@ -10,12 +10,12 @@
 				</div>
 			</div>
 			<div class="text-right flex-03 mr-3">
-					<span class="text-light d-block label">Genre</span>
-					<select name="genre" class="select" id="select-genre">
+					<span class="text-light d-block label">Movie Roles</span>
+					<select name="role" class="select" id="select-role">
 						<option></option>
-						<option th:each="genre : ${T(org.einnovator.sample.movies.model.MovieGenre).values()}"
-						 th:value="${genre}" th:text="${genre.displayValue}"
-						 th:selected="${filter!=null and filter.genre==genre}"></option>
+						<option th:each="role : ${T(org.einnovator.sample.movies.model.PersonRole).values()}"
+						 th:value="${role}" th:text="${role.displayValue}"
+						 th:selected="${filter!=null and filter.role==role}"></option>
 					</select>
 			</div>
 			<div class="pt-4 d-none">
@@ -29,8 +29,8 @@
 //<![CDATA[	
 $(function() {
 	$('#table').search({q:'#q', table:true, fields : ['s'], reload: true});
-	$('#select-genre').change(function(ev) {
-		$.reload({async: true, container: '#table'}, {q: $('#q').val(), genre: $(this).val(), async: true});
+	$('#select-role').change(function(ev) {
+		$.reload({async: true, container: '#table'}, {q: $('#q').val(), role: $(this).val(), async: true});
 	});
 });
 //]]>

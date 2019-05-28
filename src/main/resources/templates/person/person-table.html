@@ -1,0 +1,33 @@
+<table  id="table" class="table"  xmlns:th="http://www.thymeleaf.org"  th:attr="data-page=${pageJson}">
+	<tr>
+		<th style="width: 2em"></th>
+		<th style="width: 40px"></th>
+		<th>Name</th>
+		<th>Dates</th>
+		<th style="width: 4em"></th>
+	</tr>
+
+	
+	<tr th:each="person: ${persons}">
+		<td></td>
+		<td  style="width: 40px">
+			<a th:href="${'/person/'+person.uuid}">
+				<img class="avatar" th:src="${!#strings.isEmpty(person.avatar) ? person.avatar : links.cdn + '/img/avatar.png'}" />
+			</a>		
+		</td>
+		<td>
+			<a th:href="${'/person/'+person.uuid}" class="bold">
+				<span class="s" th:text="${person.name}"></span>
+				<span class="s" th:text="${person.surname}"></span>
+			</a>
+		</td>
+		<td>
+			<th:block  th:if="${person.birthDate!=null}">
+				<span class="fdate" th:text="${#dates.format(person.birthDate, 'dd MMM yyyy')}"></span>
+				<span class="fdate" th:if="${person.deathDate}"> &ndash; <span class="fdate" th:text="${#dates.format(person.deathDate, 'dd MMM yyyy')}"></span></span>
+			</th:block>
+		</td>
+		<td></td>
+	</tr>		
+	
+</table>

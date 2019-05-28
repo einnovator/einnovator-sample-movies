@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Lob;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -16,6 +17,7 @@ import org.einnovator.util.model.ToStringCreator;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -28,22 +30,29 @@ public class Person extends EntityBase2<Long> {
 	@Column(name="corder")
 	private Integer order;
 
+	@JsonProperty("Name")
 	@Column(length=1024)
 	private String name;
 
+	@JsonProperty("Surname")
 	@Column(length=1024)
 	private String surname;
 
 	@Temporal(TemporalType.DATE)
+	@JsonProperty("DateOfBirth")
 	private Date birthDate;
 
 	@Temporal(TemporalType.DATE)
 	private Date deathDate;
 
 	
-	@Transient
-	private User user;
+	@Column(length=256)
+	protected String avatar;
 
+	@Lob
+	@JsonProperty("Description")
+	protected String description;
+	
 	public Person() {
 	}
 	
@@ -155,22 +164,40 @@ public class Person extends EntityBase2<Long> {
 		this.deathDate = deathDate;
 	}
 
-/**
-	 * Get the value of property {@code user}.
+	/**
+	 * Get the value of property {@code avatar}.
 	 *
-	 * @return the user
+	 * @return the avatar
 	 */
-	public User getUser() {
-		return user;
+	public String getAvatar() {
+		return avatar;
 	}
 
 	/**
-	 * Set the value of property {@code user}.
+	 * Set the value of property {@code avatar}.
 	 *
-	 * @param user the user to set
+	 * @param avatar the avatar to set
 	 */
-	public void setUser(User user) {
-		this.user = user;
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	/**
+	 * Get the value of property {@code description}.
+	 *
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * Set the value of property {@code description}.
+	 *
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override
@@ -180,6 +207,7 @@ public class Person extends EntityBase2<Long> {
 				.append("name", name)
 				.append("birthDate", birthDate)
 				.append("deathDate", deathDate)
+				.append("avatar", avatar)				
 				.append("order", order)
 				;
 	}

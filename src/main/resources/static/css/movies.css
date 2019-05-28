@@ -9,10 +9,10 @@
 }
 
 .logo-box {
-    background: black;
-    color: white;
-    width: 300px;
-    justify-content: center;
+		background: black;
+		color: white;
+		width: 300px;
+		justify-content: center;
 }
 
 .header-title {
@@ -29,4 +29,82 @@
 	border-top: thin solid black;
 	padding: 10px 0px;
 	margin: 10px 50px;
+}
+
+.ribbon {
+	background-color: #2876d7;
+	overflow: hidden;
+	white-space: nowrap;
+	position: absolute;
+	right: -50px;
+	top: 40px;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+	-webkit-box-shadow: 0 0 10px #888;
+	-moz-box-shadow: 0 0 10px #888;
+	box-shadow: 0 0 10px #888;
+}
+
+.ribbon a {
+	border: 1px solid #faa;
+	color: #fff;
+	display: block;
+	font: bold 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	margin: 1px 0;
+	padding: 10px 50px;
+	text-align: center;
+	text-decoration: none;
+	text-shadow: 0 0 5px #444;
+}
+
+
+.col-user-info {
+	padding-right: 120px;
+}
+
+.user-box .dropdown {
+	right: 120px;
+	min-width: 210px;
+}
+
+.card-header {
+	background-color: black;
+	color: white;
+	text-transform: uppercase;
+}
+
+.card-body ul {
+	padding: 0;
+}
+
+.card p {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.btn-upload {
+	left: -30;
+	top: 100;		
+}
+
+.btn-blue, a.btn-blue {
+  background: #476bbc !important;
+  border: #476bbc !important;
+  color: white !important;
+}
+.btn-blue:hover, .btn-blue:focus, .btn-blue:active {
+  background-color: #5086e9 !important;
+  box-shadow: none !important;
+}
+
+a, a:hover, a:visited, a:active, a:focus {
+	color: black;
+}
+
+.avatar {
+    height: 65px !important;
+    border-radius: 15px;
 }

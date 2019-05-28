@@ -2,58 +2,69 @@
     {
         "Name": "Harrison",
         "Surname": "Ford",
-        "DateOfBirth": "1942-07-13"
+        "DateOfBirth": "1942-07-13",
+        "avatar": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Harrison_Ford_by_Gage_Skidmore_3.jpg/330px-Harrison_Ford_by_Gage_Skidmore_3.jpg"
     },
     {
         "Name": "Steven",
         "Surname": "Spielberg",
-        "DateOfBirth": "1946-12-18"
+        "DateOfBirth": "1946-12-18",
+        "avatar": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Steven_Spielberg_by_Gage_Skidmore.jpg/330px-Steven_Spielberg_by_Gage_Skidmore.jpg"
     },
     {
         "Name": "Ben",
         "Surname": "Kingsley",
-        "DateOfBirth": "1943-12-31"
+        "DateOfBirth": "1943-12-31",
+        "avatar": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Ben_Kingsley_by_Gage_Skidmore.jpg/330px-Ben_Kingsley_by_Gage_Skidmore.jpg"
     },
     {
         "Name": "Philip Seymour",
         "Surname": "Hoffman",
         "DateOfBirth": "1967-07-23",
-        "DateOfDeath": "2014-02-02"
+        "DateOfDeath": "2014-02-02",
+        "avatar": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Philip_Seymour_Hoffman_2011.jpg/330px-Philip_Seymour_Hoffman_2011.jpg"
     },
     {
         "Name": "Alan",
         "Surname": "Rickman",
         "DateOfBirth": "1946-02-21",
-        "DateOfDeath": "2016-01-14"
+        "DateOfDeath": "2016-01-14",
+        "avatar": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Alan_Rickman_cropped_and_retouched.jpg/330px-Alan_Rickman_cropped_and_retouched.jpg"
     },
     {
         "Name": "George",
         "Surname": "Lucas",
-        "DateOfBirth": "1944-05-14"
+        "DateOfBirth": "1944-05-14",
+        "avatar": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/George_Lucas_cropped_2009.jpg/330px-George_Lucas_cropped_2009.jpg"
     },
     {
         "Name": "Sean",
         "Surname": "Connery",
-        "DateOfBirth": "1930-08-25"
+        "DateOfBirth": "1930-08-25",
+        "avatar": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/SeanConneryJune08.jpg/330px-SeanConneryJune08.jpg"
     },
     {
         "Name": "Ben",
         "Surname": "Stiller",
-        "DateOfBirth": "1965-11-30"
+        "DateOfBirth": "1965-11-30",
+        "avatar": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Ben_Stiller_May_2019.jpg/330px-Ben_Stiller_May_2019.jpg"
     },
     {
         "Name": "Christopher",
         "Surname": "Nolan",
-        "DateOfBirth": "1970-07-30"
+        "DateOfBirth": "1970-07-30",
+        "avatar": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Christopher_Nolan_Cannes_2018.jpg/330px-Christopher_Nolan_Cannes_2018.jpg"
     },
     {
         "Name": "Robert",
         "Surname": "Downey Jr.",
-        "DateOfBirth": "1965-04-04"
+        "DateOfBirth": "1965-04-04",
+        "avatar": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Robert_Downey_Jr_2014_Comic_Con_%28cropped%29.jpg/330px-Robert_Downey_Jr_2014_Comic_Con_%28cropped%29.jpg"
     },
     {
         "Name": "Carrie",
         "Surname": "Fisher",
-        "DateOfBirth": "1956-10-21"
+        "DateOfBirth": "1956-10-21",
+        "avatar": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Carrie_Fisher_2013-a_straightened.jpg/330px-Carrie_Fisher_2013-a_straightened.jpg"
     }
 ]

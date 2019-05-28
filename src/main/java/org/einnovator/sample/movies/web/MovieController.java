@@ -34,7 +34,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
-@RequestMapping({"/movie", "/admin/movie"})
+@RequestMapping("/movie")
 public class MovieController extends ControllerBase {
 
 	private final Log logger = LogFactory.getLog(getClass());
@@ -43,41 +43,23 @@ public class MovieController extends ControllerBase {
 	private MovieManager manager;
 
 	@GetMapping
-	public String list(@ModelAttribute("filter") MovieFilter filter, PageOptions options, 
+	public String list(@ModelAttribute("filter") MovieFilter filter, PageOptions options, @RequestParam(required=false) Boolean async,
 			Model model, Principal principal, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-		if (principal == null) {
-			unauthorized("list", request, redirectAttributes);
-			return redirect("/");
-		}
-		
-		
-		boolean _admin = adminAccess(request, model);
-		if (_admin && !isAdmin(principal)) {
-			return redirect("/");
-		}
 		
 		filter.setRunAs(principal.getName());
 		Page<Movie> page = manager.findAll(filter, options.toPageRequest());
 		model.addAttribute("movies", page);
 		model.addAttribute("page", page);
+		model.addAttribute("pageJson", PageUtil.toJson(page, false));
 
 
 		logger.info("list: " + PageUtil.toString(page) + " " + filter + " " + options);
-		return "movie/list";
+		return Boolean.TRUE.equals(async) ? "movie/movie-table" : "movie/list";
 	}
 
 	@GetMapping("/{id:.*}")
 	public String show(@PathVariable("id") String id, String slug,
 			Model model, Principal principal, HttpServletRequest request,  RedirectAttributes redirectAttributes) {
-		if (principal == null) {
-			unauthorized("show", request, redirectAttributes);
-			return redirect("/");
-		}
-		
-		boolean _admin = adminAccess(request, model);
-		if (_admin && !isAdmin(principal)) {
-			return redirect("/");
-		}
 
 		Movie movie = manager.find(id);
 
@@ -92,9 +74,7 @@ public class MovieController extends ControllerBase {
 		model.addAttribute("movie", movie);
 		model.addAttribute("movieJson", MappingUtils.toJson(movie));
 
-		if (!_admin) {
-			model.addAttribute("channelId", movie.getChannelId());
-		}
+		model.addAttribute("channelId", movie.getChannelId());
 
 		logger.info("show: " + movie);
 
@@ -105,23 +85,13 @@ public class MovieController extends ControllerBase {
 	}
 
 	@GetMapping("/create")
-	public String createGET(@ModelAttribute("movie") Movie movie, BindingResult errors, @RequestParam(required = false) String type, 
+	public String createGET(@ModelAttribute("movie") Movie movie,
 			Model model, Principal principal, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-		if (principal == null) {
-			unauthorized("createGET", request, redirectAttributes);
-			return redirect("/");
-		}
-
-		boolean _admin = adminAccess(request, model);
-		if (_admin && !isAdmin(principal)) {
-			return redirect("/");
-		}
 
 		if (!isAllowedCreate(principal, movie)) {
 			forbidden("createGET", request, redirectAttributes);
 			return redirect("/movie");
 		}
-		model.addAttribute("type", type);
 
 		addCommonToModel(principal, model);
 
@@ -131,16 +101,6 @@ public class MovieController extends ControllerBase {
 	@PostMapping
 	public String createPOST(@ModelAttribute("movie") @Valid Movie movie, BindingResult errors, 
 			Model model, Principal principal, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-		if (principal == null) {
-			unauthorized("createPOST", request, redirectAttributes);
-			return redirect("/");
-		}
-
-		
-		boolean _admin = adminAccess(request, model);
-		if (_admin && !isAdmin(principal)) {
-			return redirect("/");
-		}
 
 		if (!isAllowedCreate(principal, movie)) {
 			forbidden("createPOST", request, redirectAttributes);
@@ -159,27 +119,17 @@ public class MovieController extends ControllerBase {
 		}
 		logger.info("createPOST: " + movie2);
 
-		return redirect(_admin, "/movie/" + movie2.getUuid());
+		return redirect("/movie/" + movie2.getUuid());
 	}
 
 	@GetMapping("/{id:.*}/edit")
-	public String editGet(@PathVariable("id") String id, @RequestParam(required = false) String type, 
+	public String editGet(@PathVariable("id") String id,
 			Model model, Principal principal, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-		if (principal == null) {
-			unauthorized("editGet", request, redirectAttributes);
-			return redirect("/");
-		}
-
-		
-		boolean _admin = adminAccess(request, model);
-		if (_admin && !isAdmin(principal)) {
-			return redirect("/");
-		}
 
 		Movie movie = manager.find(id);
 		if (movie == null) {
 			notfound("editGet", request, redirectAttributes);
-			return redirect("/movie/" + (type != null ? "? type=" + type : ""));
+			return redirect("/movie");
 		}
 		if (!isAllowed(principal, movie)) {
 			forbidden("editGet", request, redirectAttributes);
@@ -198,17 +148,6 @@ public class MovieController extends ControllerBase {
 	@PutMapping("/{id_:.*}")
 	public String editPut(@PathVariable("id_") String id_, @ModelAttribute("movie") @Valid Movie movie, BindingResult errors,
 			Model model, Principal principal, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-		if (principal == null) {
-			unauthorized("editPut", request, redirectAttributes);
-			return redirect("/");
-		}
-
-		
-		boolean _admin = adminAccess(request, model);
-		if (_admin && !isAdmin(principal)) {
-			forbidden("editPut", request, redirectAttributes);
-			return redirect("/");
-		}
 
 		Movie movie0 = manager.find(id_);
 		if (movie0 == null) {
@@ -232,22 +171,12 @@ public class MovieController extends ControllerBase {
 		}
 		info(Messages.KEY_UPDATE_SUCCESS, null, Messages.MSG_UPDATE_SUCCESS, request, redirectAttributes);
 		logger.info("editPut: " + movie2);
-		return redirect(_admin, "/movie/" + movie2.getUuid());
+		return redirect("/movie/" + movie2.getUuid());
 	}
 
 	@DeleteMapping("/{movieId:.*}")
 	public String delete(@PathVariable String movieId, 
 			Model model, Principal principal, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-		if (principal == null) {
-			unauthorized("delete", request, redirectAttributes);
-			return redirect("/");
-		}
-
-		
-		boolean _admin = adminAccess(request, model);
-		if (_admin && !isAdmin(principal)) {
-			return redirect("/");
-		}
 
 		Movie movie = manager.findByUuid(movieId);
 		if (movie == null) {
@@ -266,7 +195,7 @@ public class MovieController extends ControllerBase {
 		}
 		logger.info("delete: " + movie);
 		redirectAttributes.addFlashAttribute(Messages.ATTRIBUTE_INFO, Messages.MSG_DELETE_SUCCESS);
-		return redirect(_admin, "/movie/");
+		return redirect("/movie/");
 	}
 
 
@@ -278,15 +207,6 @@ public class MovieController extends ControllerBase {
 	@GetMapping("/{pid}/person/create")
 	public String createPersonGET(@PathVariable("pid") String pid, @ModelAttribute("person") Person person, BindingResult errors,
 			Model model, Principal principal, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		if (principal == null) {
-			unauthorized("createPersonGET", request, redirectAttributes);
-			return redirect("/");
-		}
-		
-		boolean _admin = adminAccess(request, model);
-		if (_admin && !isAdmin(principal)) {
-			return redirect("/");
-		}
 
 		Movie movie = manager.find(pid);
 		if (movie == null) {
@@ -295,7 +215,7 @@ public class MovieController extends ControllerBase {
 		}
 		if (!isAllowedEdit(principal, movie)) {
 			forbidden("createPersonGET", request, redirectAttributes);
-			return redirect(_admin, "/movie");
+			return redirect("/movie");
 		}
 		model.addAttribute("movie", movie);
 		addCommonToModel(principal, model);
@@ -307,15 +227,6 @@ public class MovieController extends ControllerBase {
 	@PostMapping("/{pid}/person")
 	public String createPersonPOST(@PathVariable("pid") String pid, @ModelAttribute("person") @Valid Person person, BindingResult errors, Principal principal,
 			Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		if (principal == null) {
-			unauthorized("createPersonPOST:  ", request, redirectAttributes);
-			return redirect("/");
-		}
-		
-		boolean _admin = adminAccess(request, model);
-		if (_admin && !isAdmin(principal)) {
-			return redirect("/");
-		}
 
 		Movie movie = manager.find(pid);
 		if (movie == null) {
@@ -324,7 +235,7 @@ public class MovieController extends ControllerBase {
 		}
 		if (!isAllowedEdit(principal, movie)) {
 			forbidden("createPersonPOST", request, redirectAttributes);
-			return redirect(_admin, "/movie");
+			return redirect("/movie");
 		}
 
 		if (errors.hasErrors()) {
@@ -337,34 +248,25 @@ public class MovieController extends ControllerBase {
 		if (person2 == null) {
 			logger.error("createPersonPOST: " + movie);
 			error(Messages.KEY_CREATE_FAILURE, null, Messages.MSG_CREATE_FAILURE, request, redirectAttributes);
-			return redirect(_admin, "/movie");
+			return redirect("/movie");
 		}
 		logger.info("createPersonPOST: " + person + " " + movie);
 		info(Messages.KEY_CREATE_SUCCESS, null, Messages.MSG_CREATE_SUCCESS, request, redirectAttributes);
-		return redirect(_admin, "/movie/" + movie.getUuid());
+		return redirect("/movie/" + movie.getUuid());
 	}
 
 	@GetMapping("/{pid}/person/{id:.*}/edit")
 	public String editPersonGet(@PathVariable String pid, @PathVariable("id") String id, @RequestParam(required = false) String type,
 			Model model, HttpServletRequest request, Principal principal, RedirectAttributes redirectAttributes) {
-		if (principal == null) {
-			unauthorized("editPersonGet", request, redirectAttributes);
-			return redirect("/");
-		}
-		
-		boolean _admin = adminAccess(request, model);
-		if (_admin && !isAdmin(principal)) {
-			return redirect("/");
-		}
 
 		Movie movie = manager.find(pid);
 		if (movie == null) {
 			notfound("editPersonGet", request, redirectAttributes);
-			return redirect(_admin, "/movie");
+			return redirect("/movie");
 		}
 		if (!isAllowed(principal, movie)) {
 			forbidden("editPersonGet", request, redirectAttributes);
-			return redirect(_admin, "/movie");
+			return redirect("/movie");
 		}
 		model.addAttribute("movie", movie);
 		model.addAttribute("courseJson", MappingUtils.toJson(movie));
@@ -374,7 +276,7 @@ public class MovieController extends ControllerBase {
 		Person person = movie.findPerson(id);
 		if (person==null) {
 			notfound("editPersonGet", request, redirectAttributes);
-			return redirect(_admin, "/movie/" + movie.getUuid());			
+			return redirect("/movie/" + movie.getUuid());			
 		}
 		model.addAttribute("person", person);
 		model.addAttribute("personJson", MappingUtils.toJson(person));
@@ -387,15 +289,6 @@ public class MovieController extends ControllerBase {
 	@PutMapping("/{pid}/person/{id_:.*}")
 	public String editPersonPut(@PathVariable String pid, @PathVariable("id_") String id_, @ModelAttribute("person") @Valid Person person, BindingResult errors,
 			Principal principal, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
-		if (principal == null) {
-			unauthorized("editPut", request, redirectAttributes);
-			return redirect("/");
-		}
-		
-		boolean _admin = adminAccess(request, model);
-		if (_admin && !isAdmin(principal)) {
-			return redirect("/");
-		}
 		
 		Movie movie = manager.find(pid);
 		if (movie == null) {
@@ -404,13 +297,13 @@ public class MovieController extends ControllerBase {
 		}
 		if (!isAllowedEdit(principal, movie)) {
 			forbidden("editPersonPut", request, redirectAttributes);
-			return redirect(_admin, "/movie");
+			return redirect("/movie");
 		}
 
 		Person person0 = movie.findPerson(id_);
 		if (person0==null) {
 			notfound("editPersonPut", request, redirectAttributes);
-			return redirect(_admin, "/movie/" + movie.getUuid());			
+			return redirect("/movie/" + movie.getUuid());			
 		}
 
 		person.setId(person0.getId());
@@ -418,30 +311,21 @@ public class MovieController extends ControllerBase {
 			Person person2 = manager.updatePerson(movie, person, true);
 			if (person2 == null) {
 				logger.error("editPersonPut:  " + HttpStatus.BAD_REQUEST.getReasonPhrase());
-				return redirect(_admin, "/movie/" + movie.getUuid());
+				return redirect("/movie/" + movie.getUuid());
 			}
 			info(Messages.KEY_UPDATE_SUCCESS, null, Messages.MSG_UPDATE_SUCCESS, request, redirectAttributes);
 			logger.info("editPersonPut: " + person2);
 			
-			return redirect(_admin, "/movie/" + movie.getUuid());
+			return redirect("/movie/" + movie.getUuid());
 		} catch (RuntimeException e) {
 			logger.error("editPersonPut:  " + HttpStatus.BAD_REQUEST.getReasonPhrase() + " " + e);
-			return redirect(_admin, "/movie/" + movie.getUuid());
+			return redirect("/movie/" + movie.getUuid());
 		}
 	}
 
 	@DeleteMapping("/{pid}/person/{id:.*}")
 	public String deletePerson(@PathVariable String pid, @PathVariable String id,
 			Model model, Principal principal, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		if (principal == null) {
-			unauthorized("deletePerson", request, redirectAttributes);
-			return redirect("/");
-		}
-
-		boolean _admin = adminAccess(request, model);
-		if (_admin && !isAdmin(principal)) {
-			return redirect("/");
-		}
 		
 		Movie movie = manager.findByUuid(pid);
 		if (movie == null) {
@@ -450,13 +334,13 @@ public class MovieController extends ControllerBase {
 		}
 		if (!isAllowedEdit(principal, movie)) {
 			forbidden("deletePerson", request, redirectAttributes);
-			return redirect(_admin, "/movie");
+			return redirect("/movie");
 		}
 
 		Person person = movie.findPerson(id);
 		if (person==null) {
 			notfound("deletePerson", request, redirectAttributes);
-			return redirect(_admin, "/movie/" + movie.getUuid());			
+			return redirect("/movie/" + movie.getUuid());			
 		}
 
 		try {
@@ -464,15 +348,15 @@ public class MovieController extends ControllerBase {
 			if (person2 == null) {
 				logger.error("deletePerson:" + HttpStatus.BAD_REQUEST.getReasonPhrase() + " : " + id);
 				error(Messages.KEY_DELETE_FAILURE, null, Messages.MSG_DELETE_FAILURE, request, redirectAttributes);
-				return redirect(_admin, "/movie/" + movie.getUuid());
+				return redirect("/movie/" + movie.getUuid());
 			}
 			logger.info("deletePerson: " + movie);
 			info(Messages.KEY_DELETE_SUCCESS, null, Messages.MSG_DELETE_SUCCESS, request, redirectAttributes);
-			return redirect(_admin, "/movie/" + movie.getUuid());			
+			return redirect("/movie/" + movie.getUuid());			
 		} catch (RuntimeException  e) {
 			logger.error("deletePerson:" + e + " " + HttpStatus.BAD_REQUEST.getReasonPhrase() + " : " + id);
 			error(Messages.KEY_DELETE_FAILURE, null, Messages.MSG_DELETE_FAILURE, request, redirectAttributes);
-			return redirect(_admin, "/movie/" + movie.getUuid());			
+			return redirect("/movie/" + movie.getUuid());			
 		}
 	}
 

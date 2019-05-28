@@ -13,19 +13,19 @@ public enum PersonRole {
 	DIRECTOR("Director"),
 	PRODUCER("Producer");
 
-	private final String displayName;
+	private final String displayValue;
 	
-	PersonRole(String displayName) {
-		this.displayName = displayName;
+	PersonRole(String displayValue) {
+		this.displayValue = displayValue;
 	}
 
 
-	public String getDisplayName() {
-		return displayName;
+	public String getDisplayValue() {
+		return displayValue;
 	}
 
 	public String getLabel() {
-		return displayName;
+		return displayValue;
 	}
 
 	public static PersonRole parse(String s) {

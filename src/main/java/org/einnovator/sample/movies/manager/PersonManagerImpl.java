@@ -23,7 +23,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 /**
- * @author jsima
  *
  */
 @Service
@@ -31,7 +30,7 @@ public class PersonManagerImpl extends ManagerBaseImpl3<Person> implements Perso
 
 	private final Log logger = LogFactory.getLog(getClass());
 
-	public static final String PERSONS_RESOURCE_JSON = "data/persons.json";
+	public static final String PERSONS_RESOURCE_JSON = "data/people.json";
 
 	@Autowired
 	private PersonRepository repository;

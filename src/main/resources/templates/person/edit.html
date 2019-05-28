@@ -1,0 +1,61 @@
+<html xmlns:th="http://www.thymeleaf.org" th:with="title=${(person!=null and person.id!=null ? 'Edit' : 'New') + ' Person'}">
+<head th:include="layout/layout :: head(title=${title})"></head>
+<body th:with="bcs=${ {'People', 'Person', title} }">
+	<div th:replace="layout/header"></div>
+
+	<div class="container-fluid">
+		<div class="layout2">
+			<div>
+
+				<div th:replace="layout/breadcrumbs"></div>
+	
+
+				<h1 th:text="${title}"></h1>
+					
+				<div th:replace="person/edit-avatar"></div>
+		
+				<form method="post" name="f" th:action="@{${'/person'+ (person.uuid!=null ? '/' + person.uuid : '')}}" th:object="${person}" class="form">
+					<input type="hidden" name="_method" value="put" th:if="${person.id!=null}" />
+					<input type="hidden" th:if="${person.id != null}" id="id" name="id" th:value="${person.id}" />
+					<input type="hidden" th:if="${person.uuid != null}" id="uuid" name="uuid" th:value="${person.uuid}" />
+					<input type="hidden" id="img" name="img" th:value="${person.avatar}" />
+		
+					<div th:replace="person/edit-details"></div>
+		
+					<div class="container-footer row">
+						<div class="col-sm-2">
+							<a class="btn btn-link btn-cancel  "  th:href="@{/person}"><i class="fas fa-chevron-circle-left"></i> Back</a>
+						</div>
+						<div class="col-sm-10 text-right">
+							<button type="submit" class="btn btn-lg btn-primary"><i class="far fa-check-circle"></i> Submit</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div>
+				<div th:replace="layout/panel-right"></div>
+			</div>
+		</div>
+	</div>
+
+		
+</body>
+<script th:inline="javascript">
+//<![CDATA[	
+//var person = JSON.parse([[${personJson}]]);
+var persons = [[${personsJson}]];
+var pid = [[${person.uuid}]];
+//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+$(function() {
+	$(".phoneCode").country({phoneCode: true});	
+	$(".date").datepicker({altFormat: "mm-dd-yy", minDate: new Date(), timepicker: false});
+	//ckeditormini('body');
+	//ckeditorfull('personeditor', {ckoptions: {height: '600px'}});
+});
+// ]]>	
+</script>
+</html>

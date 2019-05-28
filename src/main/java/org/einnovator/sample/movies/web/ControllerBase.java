@@ -23,13 +23,7 @@ public abstract class ControllerBase extends org.einnovator.common.web.Controlle
 	protected MoviesConfiguration config;
 
 	@Autowired
-	protected UIConfiguration ui;
-	
-	@Autowired
 	protected RoleManager roleManager;
-	
-	@Autowired
-	protected SiteManager siteManager;
 
 	@Autowired
 	protected UserManager userManager;
@@ -37,13 +31,6 @@ public abstract class ControllerBase extends org.einnovator.common.web.Controlle
 	@Autowired
 	protected GroupManager groupManager;
 	
-	@Autowired
-	protected MessageSource messageSource;
-	
-	@Autowired
-	protected LocaleResolver localeResolver;
-
-
 	
 	protected boolean isAllowed(Principal principal, boolean admin) {
 		if (principal==null) {
@@ -102,7 +89,10 @@ public abstract class ControllerBase extends org.einnovator.common.web.Controlle
 	}
 
 	protected boolean isAllowed(Principal principal, EntityBase2<?> obj) {
-		return isAllowed(principal, obj.getCreatedBy());
+		if (isAllowed(principal, obj.getCreatedBy())) {
+			return true;
+		}
+		return true; //permissive
 	}
 	
 	protected boolean isMember(Principal principal, String groupId) {

@@ -89,9 +89,9 @@ public class MovieManagerImpl extends ManagerBaseImpl3<Movie> implements MovieMa
 		Page<Movie> page = null;
 		if (filter!=null) {
 			if (StringUtils.hasText(filter.getQ()) && filter.getGenre()!=null) {
-				page = repository.findAllByTitleLikeAndGenre(filter.getQ().trim(), filter.getGenre(), pageable);
+				page = repository.findAllByTitleLikeAndGenre("%"+filter.getQ().trim()+"%".toLowerCase(), filter.getGenre(), pageable);
 			} else if (StringUtils.hasText(filter.getQ())) {
-				page = repository.findAllByTitleLike(filter.getQ().trim(), pageable);
+				page = repository.findAllByTitleLike("%"+filter.getQ().trim()+"%", pageable);
 			} else if (filter.getGenre()!=null) {
 				page = repository.findAllByGenre(filter.getGenre(), pageable);
 			}
