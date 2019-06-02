@@ -4,15 +4,11 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Lob;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 import org.einnovator.jpa.model.EntityBase2;
-import org.einnovator.sso.client.model.User;
 import org.einnovator.util.model.ToStringCreator;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -23,12 +19,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 public class Person extends EntityBase2<Long> {
-
-	@Enumerated(EnumType.STRING)
-	private PersonRole role;
-
-	@Column(name="corder")
-	private Integer order;
 
 	@JsonProperty("Name")
 	@Column(length=1024)
@@ -56,41 +46,6 @@ public class Person extends EntityBase2<Long> {
 	public Person() {
 	}
 	
-	/**
-	 * Get the value of property {@code role}.
-	 *
-	 * @return the role
-	 */
-	public PersonRole getRole() {
-		return role;
-	}
-
-	/**
-	 * Set the value of property {@code role}.
-	 *
-	 * @param role the role to set
-	 */
-	public void setRole(PersonRole role) {
-		this.role = role;
-	}
-
-	/**
-	 * Get the value of property {@code order}.
-	 *
-	 * @return the order
-	 */
-	public Integer getOrder() {
-		return order;
-	}
-
-	/**
-	 * Set the value of property {@code order}.
-	 *
-	 * @param order the order to set
-	 */
-	public void setOrder(Integer order) {
-		this.order = order;
-	}
 
 	/**
 	 * Get the value of property {@code name}.
@@ -203,12 +158,10 @@ public class Person extends EntityBase2<Long> {
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return super.toString1(creator)
-				.append("role", role)
 				.append("name", name)
 				.append("birthDate", birthDate)
 				.append("deathDate", deathDate)
 				.append("avatar", avatar)				
-				.append("order", order)
 				;
 	}
 	

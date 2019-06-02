@@ -10,8 +10,9 @@ import org.apache.commons.logging.LogFactory;
 import org.einnovator.jpa.model.EntityBase2;
 import org.einnovator.sample.movies.manager.MovieManager;
 import org.einnovator.sample.movies.model.Movie;
-import org.einnovator.sample.movies.model.Person;
+import org.einnovator.sample.movies.model.PersonInMovie;
 import org.einnovator.sample.movies.modelx.MovieFilter;
+import org.einnovator.sample.movies.modelx.PersonsForm;
 import org.einnovator.util.MappingUtils;
 import org.einnovator.util.PageOptions;
 import org.einnovator.util.PageUtil;
@@ -200,12 +201,12 @@ public class MovieController extends ControllerBase {
 
 
 	//
-	// Person
+	// PersonInMovie
 	//
 	
 	
 	@GetMapping("/{pid}/person/create")
-	public String createPersonGET(@PathVariable("pid") String pid, @ModelAttribute("person") Person person, BindingResult errors,
+	public String createPersonGET(@PathVariable("pid") String pid, @ModelAttribute("person") PersonInMovie person, BindingResult errors,
 			Model model, Principal principal, HttpServletRequest request, RedirectAttributes redirectAttributes) {
 
 		Movie movie = manager.find(pid);
@@ -225,7 +226,7 @@ public class MovieController extends ControllerBase {
 
 	
 	@PostMapping("/{pid}/person")
-	public String createPersonPOST(@PathVariable("pid") String pid, @ModelAttribute("person") @Valid Person person, BindingResult errors, Principal principal,
+	public String createPersonPOST(@PathVariable("pid") String pid, @ModelAttribute("person") @Valid PersonsForm persons, BindingResult errors, Principal principal,
 			Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
 
 		Movie movie = manager.find(pid);
@@ -239,18 +240,19 @@ public class MovieController extends ControllerBase {
 		}
 
 		if (errors.hasErrors()) {
-			model.addAttribute("movie", movie);
-			addCommonToModel(principal, model);
 			logger.error("createPersonPOST:  " + HttpStatus.BAD_REQUEST.getReasonPhrase() + ":" + errors);
-			return "person/edit";
+			return redirect("/movie/" + movie.getUuid());
 		}
-		Person person2 = manager.addPerson(movie, person, false);
-		if (person2 == null) {
-			logger.error("createPersonPOST: " + movie);
-			error(Messages.KEY_CREATE_FAILURE, null, Messages.MSG_CREATE_FAILURE, request, redirectAttributes);
-			return redirect("/movie");
+		for (PersonInMovie person: persons.getPersons()) {
+			person.setRole(persons.getRole());
+			PersonInMovie person2 = manager.addPerson(movie, person, false);
+			if (person2 == null) {
+				logger.error("createPersonPOST: " + movie);
+				error(Messages.KEY_CREATE_FAILURE, null, Messages.MSG_CREATE_FAILURE, request, redirectAttributes);
+				return redirect("/movie");
+			}			
 		}
-		logger.info("createPersonPOST: " + person + " " + movie);
+		logger.info("createPersonPOST: " + persons + " " + movie);
 		info(Messages.KEY_CREATE_SUCCESS, null, Messages.MSG_CREATE_SUCCESS, request, redirectAttributes);
 		return redirect("/movie/" + movie.getUuid());
 	}
@@ -273,7 +275,7 @@ public class MovieController extends ControllerBase {
 		
 		addCommonToModel(principal, model);
 
-		Person person = movie.findPerson(id);
+		PersonInMovie person = movie.findPerson(id);
 		if (person==null) {
 			notfound("editPersonGet", request, redirectAttributes);
 			return redirect("/movie/" + movie.getUuid());			
@@ -287,7 +289,7 @@ public class MovieController extends ControllerBase {
 	}
 
 	@PutMapping("/{pid}/person/{id_:.*}")
-	public String editPersonPut(@PathVariable String pid, @PathVariable("id_") String id_, @ModelAttribute("person") @Valid Person person, BindingResult errors,
+	public String editPersonPut(@PathVariable String pid, @PathVariable("id_") String id_, @ModelAttribute("person") @Valid PersonInMovie person, BindingResult errors,
 			Principal principal, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
 		
 		Movie movie = manager.find(pid);
@@ -300,7 +302,7 @@ public class MovieController extends ControllerBase {
 			return redirect("/movie");
 		}
 
-		Person person0 = movie.findPerson(id_);
+		PersonInMovie person0 = movie.findPerson(id_);
 		if (person0==null) {
 			notfound("editPersonPut", request, redirectAttributes);
 			return redirect("/movie/" + movie.getUuid());			
@@ -308,7 +310,7 @@ public class MovieController extends ControllerBase {
 
 		person.setId(person0.getId());
 		try {
-			Person person2 = manager.updatePerson(movie, person, true);
+			PersonInMovie person2 = manager.updatePerson(movie, person, true);
 			if (person2 == null) {
 				logger.error("editPersonPut:  " + HttpStatus.BAD_REQUEST.getReasonPhrase());
 				return redirect("/movie/" + movie.getUuid());
@@ -337,14 +339,14 @@ public class MovieController extends ControllerBase {
 			return redirect("/movie");
 		}
 
-		Person person = movie.findPerson(id);
+		PersonInMovie person = movie.findPerson(id);
 		if (person==null) {
 			notfound("deletePerson", request, redirectAttributes);
 			return redirect("/movie/" + movie.getUuid());			
 		}
 
 		try {
-			Person person2 = manager.removePerson(movie, person, false);
+			PersonInMovie person2 = manager.removePerson(movie, person, false);
 			if (person2 == null) {
 				logger.error("deletePerson:" + HttpStatus.BAD_REQUEST.getReasonPhrase() + " : " + id);
 				error(Messages.KEY_DELETE_FAILURE, null, Messages.MSG_DELETE_FAILURE, request, redirectAttributes);

@@ -68,7 +68,7 @@ public class Movie extends EntityBase2<Long> {
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, orphanRemoval=true)
 	@OrderBy("corder")
 	@JoinColumn(name="movie_id")
-	protected List<Person> persons;
+	protected List<PersonInMovie> persons;
 	
 	@Column(length=128)
 	private String channelId;
@@ -262,7 +262,7 @@ public class Movie extends EntityBase2<Long> {
 	 *
 	 * @param persons the persons to set
 	 */
-	public void setPersons(List<Person> persons) {
+	public void setPersons(List<PersonInMovie> persons) {
 		this.persons = persons;
 	}
 
@@ -272,27 +272,28 @@ public class Movie extends EntityBase2<Long> {
 	 *
 	 * @return the persons
 	 */
-	public List<Person> getPersons() {
+	public List<PersonInMovie> getPersons() {
 		return persons;
 	}
 
 
-	public Person getPerson(int i) {
+	public PersonInMovie getPerson(int i) {
 		return persons!=null && i>=0 && i<persons.size() ? persons.get(i) : null;
 	}
 
-	public Person addPerson(Person person) {
+	public PersonInMovie addPerson(PersonInMovie person) {
 		if (persons==null) {
 			persons = new ArrayList<>();
 		}
+		person.setMovie(this);
 		persons.add(person);
 		return person;
 	}
 
 
-	public Person findPerson(Person person) {
+	public PersonInMovie findPerson(PersonInMovie person) {
 		if (person!=null && persons!=null) {
-			for (Person person2: persons) {
+			for (PersonInMovie person2: persons) {
 				if (person2.getId().equals(person.getId()) || (person2.getOrder()!=null && person2.getOrder().equals(person.getOrder()))) {
 					return person;
 				}
@@ -301,9 +302,9 @@ public class Movie extends EntityBase2<Long> {
 		return null;
 	}
 
-	public Person findPerson(String id) {
+	public PersonInMovie findPerson(String id) {
 		if (id!=null && persons!=null) {
-			for (Person person: persons) {
+			for (PersonInMovie person: persons) {
 				if (id.equals(person.getUuid())) {
 					return person;
 				}
@@ -312,10 +313,10 @@ public class Movie extends EntityBase2<Long> {
 		return null;
 	}
 
-	public Person removePerson(Person person) {
+	public PersonInMovie removePerson(PersonInMovie person) {
 		if (person!=null && persons!=null) {
 			for (int i=0; i<persons.size(); i++) {
-				Person person2 = persons.get(i);
+				PersonInMovie person2 = persons.get(i);
 				if (person2.getId().equals(person.getId()) || (person2.getOrder()!=null && person2.getOrder().equals(person.getOrder()))) {
 					return persons.remove(i);
 				}
@@ -324,23 +325,23 @@ public class Movie extends EntityBase2<Long> {
 		return null;
 	}
 
-	public List<Person> getPersonOfType(PersonRole type) {
+	public List<PersonInMovie> getPersonOfType(MovieRole type) {
 		return filter(persons, type);
 	}
 
-	public List<Person> getActors() {
-		return filter(persons, PersonRole.ACTOR);
+	public List<PersonInMovie> getActors() {
+		return filter(persons, MovieRole.ACTOR);
 	}
 
 
 
-	public static List<Person> filter(List<Person> persons, PersonRole... roles) {
+	public static List<PersonInMovie> filter(List<PersonInMovie> persons, MovieRole... roles) {
 		if (persons==null) {
 			return null;
 		}
-		List<Person> persons2 = new ArrayList<>();
-		for (Person person: persons) {
-			for (PersonRole role: roles) {
+		List<PersonInMovie> persons2 = new ArrayList<>();
+		for (PersonInMovie person: persons) {
+			for (MovieRole role: roles) {
 				if (role==person.getRole()) {
 					persons2.add(person);
 					break;
@@ -354,10 +355,10 @@ public class Movie extends EntityBase2<Long> {
 	/**
 	 * @param person2
 	 */
-	public Person moveupPerson(Person person) {
+	public PersonInMovie moveupPerson(PersonInMovie person) {
 		if (persons!=null || persons.size()<=1) {
 			for (int i=1; i<persons.size(); i++) {
-				Person person2 = persons.get(i);
+				PersonInMovie person2 = persons.get(i);
 				if (person2.getId().equals(person.getId())) {
 					person2.setOrder(i-1);
 					persons.get(i-1).setOrder(i);
@@ -374,15 +375,13 @@ public class Movie extends EntityBase2<Long> {
 	/**
 	 * @param person
 	 */
-	public Person movedownPerson(Person person) {
+	public PersonInMovie movedownPerson(PersonInMovie person) {
 		if (persons!=null) {
 			for (int i=0; i<persons.size()-1; i++) {
-				Person person2 = persons.get(i);
+				PersonInMovie person2 = persons.get(i);
 				if (person2.getId().equals(person.getId())) {
 					person2.setOrder(i+1);
 					persons.get(i+1).setOrder(i);
-					//persons.remove(i);
-					//persons.add(i-1, person2);
 					return person2;
 				}
 			}

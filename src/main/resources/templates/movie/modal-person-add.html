@@ -1,0 +1,76 @@
+<div xmlns:th="http://www.thymeleaf.org">
+	<div id="modal-person-add" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<form th:action="${'/movie/' + movie.uuid + '/person'}" method="post" id="person-add-form">
+					<div class="modal-header">
+						<h4 class="modal-title"><i class="fas fa-user-plus ico-lg"></i> Add Person(s) to Movie <button type="button" class="close" data-dismiss="modal"><i class="icon-close-two"></i></button></h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+								<label class="label">Select Movie Role <sup class="required">*</sup></label>
+								<select name="role" class="select" id="select-role">
+									<option></option>
+									<option th:each="role : ${T(org.einnovator.sample.movies.model.MovieRole).values()}"
+									 th:value="${role}" th:text="${role.displayValue}"
+									 th:selected="${filter!=null and filter.role==role}"></option>
+								</select>
+						</div>
+						<div class="form-group">
+							<label>Search Person(s) you want to add to Movie <sup class="required">*</sup></label>
+							<div>
+								<div id="person-add" class="multi-input" data-list="multi-input-list" data-input="q">
+									<div class="multi-input-items"></div>
+									<div class="multi-input-wrapper">
+										<input type="text" id="q" placeholder="Enter name or surname"></input>
+										<i class="fas fa-search"></i>
+									</div>
+								</div>
+								<div  id="multi-input-list" class="multi-input-list">
+								</div>
+							</div>						
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div class="row" style="width: 100%;">
+							<div class="col-2">
+								<button type="button" data-dismiss="modal" class="btn btn-link btn-cancel">Cancel</button>
+							</div>
+							<div class="col-10 text-right">
+									<button class="btn btn-primary" type="submit"> Add</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		//<![CDATA[    	
+
+		function personItemFactory(data, index) {
+			console.log(data)
+			var label = (isNotNull(data.Name) ? data.Name : '') + (isNotNull(data.Surname) ? ' ' + data.Surname : '');
+			var avatar = isNotNull(data.avatar) ? data.avatar : $.meta('cdn') + '/img/avatar.png';
+			return {label: label, avatar: avatar, value: data.uuid};
+		}
+
+		$(function() {			
+			var n = 0;
+			$('#person-add').multiInput({ uri: "/api/person?q=", itemFactory: personItemFactory, name: 'persons', nameSuffix: '.person.uuid',
+				callback_add: function(item, count) { n = count; },
+				callback_remove: function(item, count) { n = count; }
+			});
+			$('#person-add-form').submit(function(ev) {
+				if (n==0) {
+					ev.stopPropagation();
+					return false;
+				}
+				return true;
+			})
+		});
+		//]]>
+	</script>
+	
+</div>

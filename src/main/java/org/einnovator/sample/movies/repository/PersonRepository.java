@@ -1,7 +1,7 @@
 package org.einnovator.sample.movies.repository;
 
 import org.einnovator.sample.movies.model.Person;
-import org.einnovator.sample.movies.model.PersonRole;
+import org.einnovator.sample.movies.model.MovieRole;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -17,7 +17,7 @@ public interface PersonRepository extends RepositoryBase2<Person, Long> {
 
 	Optional<Person> findOneByNameOrSurname(String name, String surname);
 
-	Page<Person> findAllByRole(PersonRole role, Pageable pageable);
+	//Page<Person> findAllByRole(MovieRole role, Pageable pageable);
 
 
 }

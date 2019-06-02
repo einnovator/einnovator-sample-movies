@@ -39,7 +39,7 @@ spring:
     location : classpath:banner-movies.txt
     #image.location : /static/img/einnovator.png
     #text: > Einnovator Sample - Movie
-    #renderer: http://patorjk.com/software/taag/#p=display&f=Big&t=%3E%20Einnovator Sample%20%20-%20Movies
+    #renderer: http://patorjk.com/software/taag/#p=display&f=Big&t=einnovator%20Demo%20%20-%20Movies
   rabbitmq:
     host : "localhost"
     #host: rabbitmq.einnovator.org
@@ -55,6 +55,64 @@ banner: #boot1
     #image.location : /static/img/einnovator.png
     #text: einnovator | movies
     #renderer: http://patorjk.com/software/taag/#p=display&f=Big&t=einnovator%20%7C%20CMS
+
+sso:
+  server : https://sso.sandbox.nativex.cloud
+  client-id: application
+  client-secret: application$123
+
+notifications:
+  server: https://notifications.sandbox.nativex.cloud
+  amqp:
+    notifications-queue: movies
+
+documents:
+  server: https://documents.sandbox.nativex.cloud
+  files:
+    root: /.movies/
+  
+social:
+  server: https://social.sandbox.nativex.cloud
+  
+ui:
+  links:
+    cdn: http://cdn.sandbox.nativex.cloud
+    sso: http://sso.sandbox.nativex.cloud
+    notifications: http://notification.sandbox.nativex.cloud
+
+---
+
+spring:
+  profiles: local
+
+sso:
+  server : http://localhost:2000
+  client-id: application
+  client-secret: application$123
+
+notifications:
+  server: http://localhost:2010
+  amqp:
+    notifications-queue: movies
+
+documents:
+  server: http://localhost:2020
+  files:
+    root: /.movies/
+  
+social:
+  server: http://localhost:2050
+  
+ui:
+  links:
+    cdn: http://localhost:1900
+    sso: http://localhost:2000
+    notifications: http://localhost:2010
+
+---
+
+spring:
+  profiles: ei
 
 sso:
   server : https://sso.einnovator.org
@@ -80,3 +138,32 @@ ui:
     sso: http://sso.einnovator.org
     notifications: http://notification.einnovator.org
 
+---
+
+spring:
+  profiles: mysandbox
+ 
+sso:
+  server : https://sso.mydomain.sandbox.nativex.cloud
+  client-id: application
+  client-secret: application$123
+
+notifications:
+  server: https://notifications.mydomain.sandbox.nativex.cloud
+  amqp:
+    notifications-queue: movies
+
+documents:
+  server: https://documents.mydomain.sandbox.nativex.cloud
+  files:
+    root: /.movies/
+  
+social:
+  server: https://social.mydomain.sandbox.nativex.cloud
+  
+ui:
+  links:
+    cdn: http://cdn.mydomain.sandbox.nativex.cloud
+    sso: http://sso.mydomain.sandbox.nativex.cloud
+    notifications: http://notification.mydomain.sandbox.nativex.cloud
+  

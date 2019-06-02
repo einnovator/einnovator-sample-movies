@@ -18,7 +18,7 @@
 					</div>
 					<div class="col-sm-6 text-right">
 						<a class="btn btn-lg btn-primary" th:href="@{${'/person/' + person.uuid + '/edit'}}" title="Edit"> <i class="fas fa-pen"></i> Edit</a>
-						<a class="btn btn-lg btn-primary" th:href="@{${'/person/' + person.uuid + '/person/create'}}" title="Add Person"> <i class="fas fa-plus-circle"></i> Add Person</a>
+						<a class="btn btn-lg btn-primary" th:href="@{${'/person/' + person.uuid + '/person/create'}}" data-toggle="modal" th:attr="data-target=${'#modal-member-add'}"title="Add Person"> <i class="fas fa-plus-circle"></i> Add Person</a>
 					</div>
 				</div>
 			</div>	

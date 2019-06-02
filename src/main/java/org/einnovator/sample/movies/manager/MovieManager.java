@@ -1,6 +1,6 @@
 package org.einnovator.sample.movies.manager;
 
-import org.einnovator.sample.movies.model.Person;
+import org.einnovator.sample.movies.model.PersonInMovie;
 import org.einnovator.sample.movies.model.Movie;
 import org.einnovator.sample.movies.modelx.MovieFilter;
 
@@ -16,10 +16,10 @@ public interface MovieManager extends ManagerBase2<Movie, Long>{
 
 	Movie findOneByTitle(String title);
 
-	Person findPerson(Movie movie, String id);
-	Person addPerson(Movie movie, Person person, boolean publish);	
-	Person removePerson(Movie movie, Person person, boolean publish);
-	Person updatePerson(Movie movie, Person person, boolean publish);
+	PersonInMovie findPerson(Movie movie, String id);
+	PersonInMovie addPerson(Movie movie, PersonInMovie person, boolean publish);	
+	PersonInMovie removePerson(Movie movie, PersonInMovie person, boolean publish);
+	PersonInMovie updatePerson(Movie movie, PersonInMovie person, boolean publish);
 	
 	void createOrUpdateByTitle(List<Movie> movies);
 

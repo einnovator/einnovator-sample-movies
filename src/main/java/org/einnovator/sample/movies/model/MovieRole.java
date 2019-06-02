@@ -8,14 +8,14 @@ package org.einnovator.sample.movies.model;
  *
  * @author Jorge Simao {@code {jorge.simao@einnovator.org}}
  */
-public enum PersonRole {
+public enum MovieRole {
 	ACTOR("Actor"),
 	DIRECTOR("Director"),
 	PRODUCER("Producer");
 
 	private final String displayValue;
 	
-	PersonRole(String displayValue) {
+	MovieRole(String displayValue) {
 		this.displayValue = displayValue;
 	}
 
@@ -28,8 +28,8 @@ public enum PersonRole {
 		return displayValue;
 	}
 
-	public static PersonRole parse(String s) {
-		for (PersonRole e: PersonRole.class.getEnumConstants()) {
+	public static MovieRole parse(String s) {
+		for (MovieRole e: MovieRole.class.getEnumConstants()) {
 			if (e.toString().equalsIgnoreCase(s)) {
 				return e;
 			}
@@ -37,8 +37,8 @@ public enum PersonRole {
 		return null;
 	}
 	
-	public static PersonRole parse(String s, PersonRole defaultValue) {
-		PersonRole value = parse(s);
+	public static MovieRole parse(String s, MovieRole defaultValue) {
+		MovieRole value = parse(s);
 		return value!=null ? value: defaultValue;
 	}
 
@@ -46,11 +46,11 @@ public enum PersonRole {
 	 * @param requestURI
 	 * @return
 	 */
-	public static PersonRole parseURLtail(String uri) {
+	public static MovieRole parseURLtail(String uri) {
 		if (uri==null) {
 			return null;
 		}
-		for (PersonRole e: PersonRole.class.getEnumConstants()) {
+		for (MovieRole e: MovieRole.class.getEnumConstants()) {
 			if (uri.endsWith(e.toString().toLowerCase())) {
 				return e;
 			}
@@ -58,16 +58,16 @@ public enum PersonRole {
 		return null;
 	}
 
-	public static PersonRole parseURLtail(String uri, PersonRole defaultValue) {
-		PersonRole value = parseURLtail(uri);
+	public static MovieRole parseURLtail(String uri, MovieRole defaultValue) {
+		MovieRole value = parseURLtail(uri);
 		return value!=null ? value: defaultValue;
 	}
 	
-	public static PersonRole parseURLhead(String uri) {
+	public static MovieRole parseURLhead(String uri) {
 		if (uri==null) {
 			return null;
 		}
-		for (PersonRole e: PersonRole.class.getEnumConstants()) {
+		for (MovieRole e: MovieRole.class.getEnumConstants()) {
 			if (uri.endsWith(e.toString().toLowerCase())) {
 				return e;
 			}
@@ -75,8 +75,8 @@ public enum PersonRole {
 		return null;
 	}
 
-	public static PersonRole parseURLhead(String uri, PersonRole defaultValue) {
-		PersonRole value = parseURLhead(uri);
+	public static MovieRole parseURLhead(String uri, MovieRole defaultValue) {
+		MovieRole value = parseURLhead(uri);
 		return value!=null ? value: defaultValue;
 	}
 }

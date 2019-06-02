@@ -1,13 +1,13 @@
 package org.einnovator.sample.movies.modelx;
 
-import org.einnovator.sample.movies.model.PersonRole;
+import org.einnovator.sample.movies.model.MovieRole;
 import org.einnovator.util.model.ToStringCreator;
 
 public class PersonFilter extends PersonOptions {
 	
 	private String q;
 	
-	private PersonRole role;
+	private MovieRole role;
 	
 	public PersonFilter() {
 	}
@@ -36,7 +36,7 @@ public class PersonFilter extends PersonOptions {
 	 *
 	 * @return the role
 	 */
-	public PersonRole getRole() {
+	public MovieRole getRole() {
 		return role;
 	}
 
@@ -45,7 +45,7 @@ public class PersonFilter extends PersonOptions {
 	 *
 	 * @param role the role to set
 	 */
-	public void setRole(PersonRole role) {
+	public void setRole(MovieRole role) {
 		this.role = role;
 	}
 

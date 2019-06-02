@@ -52,10 +52,10 @@ public class PersonManagerImpl extends ManagerBaseImpl3<Person> implements Perso
 		Page<Person> page = null;
 		if (filter!=null) {
 			if (StringUtils.hasText(filter.getQ())) {
-				String q = filter.getQ().trim();
+				String q = "%" + filter.getQ().trim() + "%";
 				page = repository.findAllByNameLikeOrSurnameLike(q, q, pageable);
 			} else if (filter.getRole()!=null) {
-				page = repository.findAllByRole(filter.getRole(), pageable);
+				//page = repository.findAllByRole(filter.getRole(), pageable);
 			}
 		}
 		if (page==null) {

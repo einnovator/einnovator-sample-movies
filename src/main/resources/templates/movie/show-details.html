@@ -4,13 +4,9 @@
 		<img class="img" th:src="${!#strings.isEmpty(movie.img) ? movie.img : '/img/movie.png'}" />
 	</div>
 	
-	<div class="row form-group">
-		<div class="col-4">
-			<label>Title</label>
-		</div>
-		<div class="col-4">
-			<span th:text="${movie.title}" ></span>
-		</div>
+	<div class="form-group">
+		<label>Title</label>
+		<span class="h2 d-block" th:text="${movie.title}" ></span>
 	</div>
 
 	<div class="row form-group">
@@ -59,9 +55,14 @@
 		
 		<table class="table">
 			<tr th:each="person : ${movie.persons}">
-				<td style="width:60px;"><img class="avatar" th:if="${person.img!=null}" th:src="${person.img}"></img></td>
-				<td><span th:text="${person.name}"></span> <span th:text="${person.surname}"></span></td>
-				<td><span th:text="${person.role}"></span></td>
+				<td style="width:60px;"><img class="avatar" th:src="${!#strings.isEmpty(person.person.avatar) ? person.person.avatar : links.cdn + '/img/avatar.png'}"></img></td>
+				<td><span th:text="${person.person.name}"></span> <span th:text="${person.person.surname}"></span></td>
+				<td><span th:text="${person.role!=null ? person.role.displayValue : ''}"></span></td>
+				<td>
+					<form class="my-0" th:action="${'/movie/' + movie.uuid + '/person/' + person.uuid + '?_method=delete'}"  method="post" >
+						<button type="submit" class="btn btn-link"><i class="ico-lg red fas fa-times" title="Remove Person from Movie"></i></button>
+					</form>
+				</td>
 			</tr>
 		</table>
 	</th:block>

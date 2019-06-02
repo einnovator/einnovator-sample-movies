@@ -1,6 +1,5 @@
 package org.einnovator.sample.movies.manager;
 
-import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -15,14 +14,14 @@ import org.einnovator.jpa.manager.ManagerBaseImpl3;
 import org.einnovator.sample.movies.config.MoviesConfiguration;
 import org.einnovator.sample.movies.model.Movie;
 import org.einnovator.sample.movies.model.Person;
+import org.einnovator.sample.movies.model.PersonInMovie;
 import org.einnovator.sample.movies.modelx.MovieFilter;
 import org.einnovator.sample.movies.repository.MovieRepository;
+import org.einnovator.sample.movies.repository.PersonInMovieRepository;
 import org.einnovator.sample.movies.repository.PersonRepository;
 import org.einnovator.social.client.manager.ChannelManager;
-import org.einnovator.social.client.model.Channel;
 import org.einnovator.sso.client.manager.UserManager;
 import org.einnovator.util.MappingUtils;
-import org.einnovator.util.UriUtils;
 import org.einnovator.util.model.Options;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -53,6 +52,9 @@ public class MovieManagerImpl extends ManagerBaseImpl3<Movie> implements MovieMa
 	
 	@Autowired
 	private PersonRepository personRepository;
+
+	@Autowired
+	private PersonInMovieRepository personInMovieRepository;
 
 	@Autowired
 	private ChannelManager channelManager;
@@ -103,7 +105,7 @@ public class MovieManagerImpl extends ManagerBaseImpl3<Movie> implements MovieMa
 	}
 
 	@Override
-	public Person findPerson(Movie movie, String id) {
+	public PersonInMovie findPerson(Movie movie, String id) {
 		Movie movie2 = movie.getId()!=null ? findById(movie.getId()) : findByUuid(movie.getUuid());
 		if (movie2==null) {
 			logger.error("addPerson: not found: " + movie);
@@ -114,12 +116,18 @@ public class MovieManagerImpl extends ManagerBaseImpl3<Movie> implements MovieMa
 
 
 	@Override
-	public Person addPerson(Movie movie, Person person, boolean publish) {
+	public PersonInMovie addPerson(Movie movie, PersonInMovie person, boolean publish) {
 		Movie movie2 = movie.getId()!=null ? findById(movie.getId()) : findByUuid(movie.getUuid());
 		if (movie2==null) {
 			logger.error("addPerson: not found: " + movie);
 			return null;
 		}
+		Person person_ = personRepository.findByUuid(person.getPerson().getUuid());
+		if (person_==null) {
+			logger.error("addPerson: not found: " + person.getPerson());
+			return null;
+		}
+		person.setPerson(person_);
 		movie2.addPerson(person);
 		processBeforePersistence(movie2);
 		if (publish) {
@@ -129,13 +137,13 @@ public class MovieManagerImpl extends ManagerBaseImpl3<Movie> implements MovieMa
 	}
 
 	@Override
-	public Person removePerson(Movie movie, Person person, boolean publish) {
+	public PersonInMovie removePerson(Movie movie, PersonInMovie person, boolean publish) {
 		Movie movie2 = movie.getId()!=null ? findById(movie.getId()) : findByUuid(movie.getUuid());
 		if (movie2==null) {
 			logger.error("addPerson: not found: " + movie);
 			return null;
 		}
-		Person person2 = movie2.removePerson(person);
+		PersonInMovie person2 = movie2.removePerson(person);
 		if (person2==null) {
 			logger.error("addPerson: not found: " + person);
 			return null;
@@ -152,20 +160,20 @@ public class MovieManagerImpl extends ManagerBaseImpl3<Movie> implements MovieMa
 	}
 
 	@Override
-	public Person updatePerson(Movie movie, Person person, boolean publish) {
+	public PersonInMovie updatePerson(Movie movie, PersonInMovie person, boolean publish) {
 		Movie movie2 = movie.getId()!=null ? findById(movie.getId()) : findByUuid(movie.getUuid());
 		if (movie2==null) {
 			logger.error("addPerson: not found: " + movie);
 			return null;
 		}
-		Person person2 = movie2.findPerson(person);
+		PersonInMovie person2 = movie2.findPerson(person);
 		if (person2==null) {
 			logger.error("addPerson: not found: " + person);
 			return null;
 		}
 		MappingUtils.updateObjectFromNonNull(person2, person);
 		processBeforePersistence(movie2);
-		if (personRepository.save(person2)== null) {
+		if (personInMovieRepository.save(person2)== null) {
 			logger.error("addPerson: failed update: " + movie2);
 			return null;
 		}
