@@ -13,7 +13,7 @@
 					<span class="text-light d-block label">Movie Roles</span>
 					<select name="role" class="select" id="select-role">
 						<option></option>
-						<option th:each="role : ${T(org.einnovator.sample.movies.model.PersonRole).values()}"
+						<option th:each="role : ${T(org.einnovator.sample.movies.model.MovieRole).values()}"
 						 th:value="${role}" th:text="${role.displayValue}"
 						 th:selected="${filter!=null and filter.role==role}"></option>
 					</select>

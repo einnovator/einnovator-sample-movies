@@ -9,7 +9,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.einnovator.jpa.model.EntityBase2;
+import org.einnovator.social.client.model.Channel;
+import org.einnovator.social.client.model.ChannelBuilder;
+import org.einnovator.social.client.model.ChannelType;
+import org.einnovator.util.model.Ref;
+import org.einnovator.util.model.RefBuilder;
 import org.einnovator.util.model.ToStringCreator;
+import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -43,6 +49,9 @@ public class Person extends EntityBase2<Long> {
 	@JsonProperty("Description")
 	protected String description;
 	
+	@Column(length=128)
+	private String channelId;
+
 	public Person() {
 	}
 	
@@ -155,6 +164,26 @@ public class Person extends EntityBase2<Long> {
 		this.description = description;
 	}
 
+	/**
+	 * Get the value of property {@code channelId}.
+	 *
+	 * @return the channelId
+	 */
+	public String getChannelId() {
+		return channelId;
+	}
+
+
+	/**
+	 * Set the value of property {@code channelId}.
+	 *
+	 * @param channelId the channelId to set
+	 */
+	public void setChannelId(String channelId) {
+		this.channelId = channelId;
+	}
+
+
 	@Override
 	public ToStringCreator toString1(ToStringCreator creator) {
 		return super.toString1(creator)
@@ -164,5 +193,46 @@ public class Person extends EntityBase2<Long> {
 				.append("avatar", avatar)				
 				;
 	}
+	
+	public String getDisplayName() {
+		StringBuilder sb = new StringBuilder();
+		if (StringUtils.hasText(name)) {
+			sb.append(name.trim());
+		}
+		if (StringUtils.hasText(surname)) {
+			if (sb.length()>0) {
+				sb.append(" ");
+			}
+			sb.append(surname.trim());
+		}
+		return sb.length()>0 ? sb.toString() : null;
+	}
+	/**
+	 * @return
+	 */
+	public Channel makeChannel(String baseUri) {
+		return new ChannelBuilder()
+				.uuid(channelId)
+				.name(getDisplayName())
+				.purpose(null)
+				.img(avatar)
+				.thumbnail(avatar)
+				.type(ChannelType.COMMENTS)
+				.ref(makeRef(baseUri))
+				.build();
+	}
+	
+	public Ref makeRef(String baseUri) {
+		return new RefBuilder()
+				.id(uuid)
+				.type(getClass().getSimpleName())
+				.name(getDisplayName())
+				.img(avatar)
+				.thumbnail(avatar)
+				.redirectUri(baseUri + "/person/" + uuid)
+				.pingUri(baseUri + "/api/person/" + uuid)
+				.build();
+	}
+
 	
 }

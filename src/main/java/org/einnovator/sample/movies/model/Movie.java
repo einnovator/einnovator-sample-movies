@@ -395,6 +395,7 @@ public class Movie extends EntityBase2<Long> {
 		return super.toString1(creator)
 				.append("title", title)
 				.append("year", year)
+				.append("genre", genre)
 				.append("dvd", dvd)
 				.append("amount", amount)
 				.append("img", img)

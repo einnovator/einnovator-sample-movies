@@ -9,11 +9,16 @@ import java.util.Optional;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.einnovator.common.config.AppConfiguration;
+import org.einnovator.common.config.UIConfiguration;
 import org.einnovator.jpa.manager.ManagerBaseImpl3;
 import org.einnovator.jpa.repository.RepositoryBase2;
+import org.einnovator.sample.movies.model.Movie;
 import org.einnovator.sample.movies.model.Person;
 import org.einnovator.sample.movies.modelx.PersonFilter;
 import org.einnovator.sample.movies.repository.PersonRepository;
+import org.einnovator.social.client.manager.ChannelManager;
+import org.einnovator.social.client.model.Channel;
 import org.einnovator.util.MappingUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -34,7 +39,16 @@ public class PersonManagerImpl extends ManagerBaseImpl3<Person> implements Perso
 
 	@Autowired
 	private PersonRepository repository;
-	
+
+	@Autowired
+	private ChannelManager channelManager;
+
+	@Autowired
+	private UIConfiguration ui;
+
+	@Autowired
+	private AppConfiguration app;
+
 	@Override
 	protected RepositoryBase2<Person, Long> getRepository() {
 		return repository;
@@ -64,6 +78,22 @@ public class PersonManagerImpl extends ManagerBaseImpl3<Person> implements Perso
 		return processAfterLoad(page, null);
 	}
 
+	@Override
+	public void processAfterPersistence(Person person) {
+		super.processAfterPersistence(person);
+		Channel channel = person.makeChannel(getBaseUri());
+		channel = channelManager.createOrUpdateChannel(channel);
+		if (channel!=null && person.getChannelId()==null) {
+			person.setChannelId(channel.getUuid());
+			repository.save(person);			
+		}
+	}
+	
+
+	public String getBaseUri() {
+		return ui.getLink(app.getId());
+	}
+	
 	private boolean init;
 
 	public void populate() {

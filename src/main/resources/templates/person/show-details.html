@@ -4,67 +4,34 @@
 		<img class="img" th:src="${!#strings.isEmpty(person.avatar) ? person.avatar : '/img/person.png'}" />
 	</div>
 	
-	<div class="row form-group">
-		<div class="col-4">
-			<label>Title</label>
-		</div>
-		<div class="col-4">
-			<span th:text="${person.title}" ></span>
-		</div>
+	<div class="form-group">
+		<label>Name</label>
+		<span class="h2 d-block">
+			<span th:text="${person.name}" ></span>
+			<span th:text="${person.surname}" ></span>
+		</span>
 	</div>
 
-	<div class="row form-group">
-		<div class="col-4">
-			<label>Genre</label>
-		</div>
-		<div class="col-4">
-			<span th:if="${person.genre}" th:value="${person.genre.displayValue}" ></span>
-		</div>
-	</div>
 
-	<div class="row form-group">
-		<div class="col-4">
-			<label>Year</label>
-		</div>
-		<div class="col-4">
-			<span th:text="${person.year}" ></span>
-		</div>
-	</div>
-
-	<div class="row form-group">
-		<div class="col-4">
-			<label>Gross Takings Amount</label>
-		</div>
-		<div class="col-4">
-			<span th:text="${person.amount}" ></span> <span>$</span>
-		</div>
-	</div>
-
-	<div class="row form-group">
-		<div class="col-4">
-			<label>Is Available On DVD</label>
-		</div>
-		<div class="col-4">
-			<span th:if="${person.dvd!=null}" th:value="${person.dvd ? 'Yes' : 'No'}" ></span>
-		</div>
-	</div>
 
 	<div class="form-group">
-		<label for="description">Plot</label>
+		<label for="description">About</label>
 		<p id="description" th:text="${person.description}"></p>
 	</div>
 
-	<th:block th:if="${!#lists.isEmpty(person.persons)}">
-		<h2>People</h2>
+<!-- 
+	<th:block th:if="${!#lists.isEmpty(person.movies)}">
+		<h2>Movies</h2>
 		
 		<table class="table">
-			<tr th:each="person : ${person.persons}">
-				<td style="width:60px;"><img class="avatar" th:if="${person.avatar!=null}" th:src="${person.avatar}"></img></td>
-				<td><span th:text="${person.name}"></span> <span th:text="${person.surname}"></span></td>
-				<td><span th:text="${person.role}"></span></td>
+			<tr th:each="personmovie : ${person.movies}">
+				<td style="width:60px;"><img class="avatar" th:if="${personmovie.movie.img!=null}" th:src="${personmovie.movie.img}"></img></td>
+				<td><span th:text="${personmovie.movie.title}"></span></td>
+				<td><span th:text="${personmovie.movie.year}"></span></td>
+				<td><span th:text="${personmovie.movie.genre}"></span></td>
 			</tr>
 		</table>
 	</th:block>
-	
+ -->	
 
 </div>

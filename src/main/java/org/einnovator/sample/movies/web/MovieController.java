@@ -75,8 +75,6 @@ public class MovieController extends ControllerBase {
 		model.addAttribute("movie", movie);
 		model.addAttribute("movieJson", MappingUtils.toJson(movie));
 
-		model.addAttribute("channelId", movie.getChannelId());
-
 		logger.info("show: " + movie);
 
 		model.addAttribute("_edit", isAllowedEdit(principal, movie));

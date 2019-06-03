@@ -12,6 +12,10 @@
 	
 				<div th:replace="movie/show-details"></div>
 					
+				<th:block th:with="channelId=${movie.channelId}">
+					<div th:replace="layout/comments"></div>
+				</th:block>
+			
 				<div class="container-footer row">
 					<div class="col-sm-6">
 						<a class="btn btn-link btn-cancel" th:href="@{${'/movie'}}"><i class="fas fa-chevron-circle-left"></i> Back</a>

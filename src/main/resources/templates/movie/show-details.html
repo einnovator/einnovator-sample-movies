@@ -14,7 +14,7 @@
 			<label>Genre</label>
 		</div>
 		<div class="col-4">
-			<span th:if="${movie.genre}" th:value="${movie.genre.displayValue}" ></span>
+			<span th:if="${movie.genre!=null}" th:text="${movie.genre.displayValue}" ></span>
 		</div>
 	</div>
 
@@ -56,7 +56,7 @@
 		<table class="table">
 			<tr th:each="person : ${movie.persons}">
 				<td style="width:60px;"><img class="avatar" th:src="${!#strings.isEmpty(person.person.avatar) ? person.person.avatar : links.cdn + '/img/avatar.png'}"></img></td>
-				<td><span th:text="${person.person.name}"></span> <span th:text="${person.person.surname}"></span></td>
+				<td><a th:href="${'/person/' + person.person.uuid}"><span th:text="${person.person.name}"></span> <span th:text="${person.person.surname}"></span></a></td>
 				<td><span th:text="${person.role!=null ? person.role.displayValue : ''}"></span></td>
 				<td>
 					<form class="my-0" th:action="${'/movie/' + movie.uuid + '/person/' + person.uuid + '?_method=delete'}"  method="post" >
