@@ -60,11 +60,57 @@ sso:
   server : https://sso.sandbox.nativex.cloud
   client-id: application
   client-secret: application$123
+  registration:
+    auto: true
+    roles:
+    - name: "Movie Manager"
+      global: true
+    - name: "People Manager"
+      global: true
 
 notifications:
   server: https://notifications.sandbox.nativex.cloud
   amqp:
     notifications-queue: movies
+  registration:
+    auto: true
+    types:
+    - source-type: Movie
+      action-type: Create
+      description: "Do you want to receive notification when a Movie is created ?"
+      category: Movie
+      mail-template:
+        #resource: notifications/mail/movie.html
+    - source-type: Movie
+      action-type: Update
+      description: "Do you want to receive notification when a Movie is updated ?"
+      category: Movie
+      mail-template:
+        #resource: notifications/mail/movie.html
+    - source-type: Movie
+      action-type: Delete
+      description: "Do you want to receive notification when a Movie is deleted ?"
+      category: Movie
+      mail-template:
+        #resource: notifications/mail/movie.html
+    - source-type: Person
+      action-type: Create
+      description: "Do you want to receive notification when a Person is created ?"
+      category: Person
+      mail-template:
+        #resource: notifications/mail/person.html
+    - source-type: Person
+      action-type: Update
+      description: "Do you want to receive notification when a Person is updated ?"
+      category: Person
+      mail-template:
+        #resource: notifications/mail/person.html
+    - source-type: Person
+      action-type: Delete
+      description: "Do you want to receive notification when a Person is deleted ?"
+      category: Person
+      mail-template:
+        #resource: notifications/mail/person.html
 
 documents:
   server: https://documents.sandbox.nativex.cloud
@@ -109,6 +155,29 @@ ui:
     sso: http://localhost:2000
     notifications: http://localhost:2010
 
+---
+
+spring:
+  profiles: monitor
+
+sso:
+  server : http://localhost:2001
+  client-id: application
+  client-secret: application$123
+
+notifications:
+  server: http://localhost:2011
+  amqp:
+    notifications-queue: movies
+
+documents:
+  server: http://localhost:2021
+  files:
+    root: /.movies/
+  
+social:
+  server: http://localhost:2051
+  
 ---
 
 spring:
