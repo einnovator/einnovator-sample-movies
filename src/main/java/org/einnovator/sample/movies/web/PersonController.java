@@ -145,7 +145,7 @@ public class PersonController extends ControllerBase {
 			logger.error("editPut:  " + HttpStatus.BAD_REQUEST.getReasonPhrase());
 			return redirect("/person");
 		}
-		success(request, redirectAttributes);
+		success(null, request, redirectAttributes, null);
 		logger.info("editPut: " + person2);
 		model.addAttribute("person", person2);
 		return redirect("/person/" + person.getUuid());

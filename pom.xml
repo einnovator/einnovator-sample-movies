@@ -12,6 +12,7 @@
 	<artifactId>einnovator-sample-movies</artifactId>
 	<version>0.0.1</version>
 	<name>einnovator-sample-movies</name>
+	<packaging>war</packaging>
 	<description>EInnovator MicroService Suite Sample Application: Movie Database</description>
 
 	<properties>

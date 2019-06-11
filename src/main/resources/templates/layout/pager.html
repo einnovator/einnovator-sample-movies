@@ -4,12 +4,12 @@
 		<span class="text-light"><span class="bold" th:text="${page.totalElements}"></span> Result<span th:if="${page.totalElements gt 1}">s</span> Found</span>
 	</div>
 	<div class="row pagination-wrapper" th:style="${page.getTotalPages() == 0 ? 'display:none': ''}">
-		<div class="col-sm-8 pagination-wrapper"> 
+		<div class="col-8 pagination-wrapper"> 
 			<ul class="pagination">
 			</ul>
 		</div>		
-		<div class="col-sm-4 text-right page-size-wrapper" title="Change the number of records in your view" data-help-title="Change the number of records in your view">
-			<i class="icon icon-list_view text-light icon-pagesize"></i>
+		<div class="col-4 text-right page-size-wrapper" title="Change the number of records in your view" data-help-title="Change the number of records in your view">
+			<i class="ico icon-list_view text-light icon-pagesize"></i>
 			<select class="page-size" name="pageSize">
 				<option value="10" th:attr="selected=${page.getSize()==10}">10</option>
 				<option value="20" th:attr="selected=${page.getSize()==20}">20</option>

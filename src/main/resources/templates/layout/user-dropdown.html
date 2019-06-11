@@ -22,16 +22,16 @@
 		<div class="dropdown-list dropdown-sep">
 			<ul>
 				<li>
-					<a class="" th:href="@{${links.sso + '/user'}}"><i class="icon-profile-2"></i> Personal Profile </a>
+					<a class="" th:href="@{${links.sso + '/user'}}"><i class="far fa-user"></i> Personal Profile </a>
 				</li>
 				<li>
-					<a th:href="@{${links.sso + '/change-password'}}"><i class="icon icon-security"></i> Change Password</a>
+					<a th:href="@{${links.sso + '/change-password'}}"><i class="ico fas fa-shield-alt"></i> Change Password</a>
 				</li>
 				<li>
 					<form class="a m-0" th:action="@{/logout}" method="post" th:if="${principal!=null and (app!=null and app.id=='sso')}">
-						<i class="icon-logout"></i> <input style="cursor: pointer"  class="logout" type='submit' value='Log out' />
+						<i class="fas fa-power-off"></i> <input style="cursor: pointer"  class="logout" type='submit' value='Log out' />
 					</form>
-					<a th:href="@{${'/_logout'}}" th:if="${principal!=null and (app==null or app.id!='sso')}"><i class="icon-logout"></i> <span  class="logout">Logout</span></a>
+					<a th:href="@{${'/_logout'}}" th:if="${principal!=null and (app==null or app.id!='sso')}"><i class="fas fa-power-off"></i> <span  class="logout">Logout</span></a>
 				</li>
 			</ul>
 		</div>
