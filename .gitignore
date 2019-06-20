@@ -1,6 +1,9 @@
 target/
 bin/
 
+dbuild.bat
+dpush.bat
+
 # Compiled class file
 *.class
 

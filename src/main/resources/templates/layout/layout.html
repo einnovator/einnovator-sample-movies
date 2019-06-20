@@ -15,8 +15,6 @@
 		<meta name="cdn" th:content="${links.cdn}" />
 		<meta name="sso" th:content="${links.sso}" />
 		
-		<link rel="icon" href="/favicon.ico" />
-		<link rel="shortcut icon" href="/favicon.ico"/>	  		
 		<base href="/" />
 		
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" ></link>
@@ -30,17 +28,19 @@
 		
  		<link rel="stylesheet" type="text/css" href="css/movies.css" />
 						
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="blue" />
-		<link rel="apple-touch-startup-image" th:href="${links.cdn + '/img/ei/ei-newlogo5-smooth100.png'}" />
-		<link rel="apple-touch-icon" th:href="${links.cdn + '/img/ei/ei-newlogo5-smooth100.png'} "/>
-		<link rel="apple-touch-icon-precomposed" sizes="128x128" th:href="${links.cdn + '/img/ei/ei-newlogo5-smooth100.png'}" />
-	
-		<meta name="mobile-web-app-capable" content="yes" />
-	
-		<link rel="shortcut icon" sizes="196x196" th:href="${links.cdn + '/img/ei/ei-newlogo5-smooth100.png'}"/>
-		<link rel="shortcut icon" sizes="128x128" th:href="${links.cdn + '/img/ei/ei-newlogo5-smooth100.png'}"/>
+		<th:block th:with="theme_ = ${'base'}">
+			<link rel="icon" th:href="${links.cdn +  '/theme/' + theme_ + '/favicon.ico'}" />
+			<meta name="apple-mobile-web-app-capable" content="yes" />
+			<meta name="apple-mobile-web-app-status-bar-style" content="blue" />
+			<meta name="mobile-web-app-capable" content="yes" />
 
+			<link rel="apple-touch-startup-image" th:href="${links.cdn +  '/theme/' + theme_ + '/img/logo.png'}" />
+			<link rel="apple-touch-icon" th:href="${links.cdn +  '/theme/' + theme_ + '/img/logo.png'}" />
+			<link rel="apple-touch-icon-precomposed" sizes="128x128" th:href="${links.cdn +  '/theme/' + theme_ + '/img/logo.png'}" />	
+			<link rel="shortcut icon" sizes="196x196" th:href="${links.cdn +  '/theme/' + theme_ + '/img/logo.png'}" />
+			<link rel="shortcut icon" sizes="128x128" th:href="${links.cdn +  '/theme/' + theme_ + '/img/logo.png'}" />
+		</th:block>
+	
 		<script type="text/javascript" src= "https://code.jquery.com/jquery-3.4.1.min.js" ></script> 
 		<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>

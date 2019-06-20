@@ -10,12 +10,10 @@ server:
       
 spring:
   datasource:
-    url: "jdbc:mysql://localhost/movies?verifyServerCertificate=false&useSSL=true&reconnect=true"
+    #url: "jdbc:mysql://*****/superheros?verifyServerCertificate=false&useSSL=true&reconnect=true"
     username: root
-    password: jsimao
+    #password: ****
     driver-class-name: com.mysql.jdbc.Driver
-    #url: jdbc:postgresql://localhost/ei_movies
-    #username: postgres
   jpa:
     generate-ddl: true
     #show-sql: true
@@ -37,24 +35,16 @@ spring:
       favor-path-extension: false
   banner:
     location : classpath:banner-movies.txt
-    #image.location : /static/img/einnovator.png
-    #text: > Einnovator Sample - Movie
-    #renderer: http://patorjk.com/software/taag/#p=display&f=Big&t=einnovator%20Demo%20%20-%20Movies
   rabbitmq:
-    host : "localhost"
-    #host: rabbitmq.einnovator.org
+    host: rabbitmq.sandbox.einnovator.org
     port : 5672
     username : app
     password : "app123!"
     virtualHost: vh
-    #virtualHost: einnovator
     
                 
 banner: #boot1
     location : classpath:banner-movies.txt
-    #image.location : /static/img/einnovator.png
-    #text: einnovator | movies
-    #renderer: http://patorjk.com/software/taag/#p=display&f=Big&t=einnovator%20%7C%20CMS
 
 sso:
   server : https://sso.sandbox.nativex.cloud
@@ -130,7 +120,13 @@ ui:
 
 spring:
   profiles: local
-
+  rabbitmq:
+    host: localhost
+    port : 5672
+    username : app
+    password : "app123!"
+    virtualHost: vh
+    
 sso:
   server : http://localhost:2000
   client-id: application
@@ -159,7 +155,18 @@ ui:
 
 spring:
   profiles: monitor
-
+  datasource:
+    url: "jdbc:mysql://localhost/superheros?verifyServerCertificate=false&useSSL=true&reconnect=true"
+    password: jsimao
+    driver-class-name: com.mysql.jdbc.Driver
+  
+  rabbitmq:
+    host: localhost
+    port : 5672
+    username : app
+    password : "app123!"
+    virtualHost: vh
+    
 sso:
   server : http://localhost:2001
   client-id: application
@@ -190,14 +197,11 @@ sso:
 
 notifications:
   server: https://notifications.einnovator.org
-  amqp:
-    notifications-queue: movies
+
 
 documents:
   server: https://documents.einnovator.org
-  files:
-    root: /.movies/
-  
+
 social:
   server: https://social.einnovator.org
   
