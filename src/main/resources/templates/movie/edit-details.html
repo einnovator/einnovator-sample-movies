@@ -3,7 +3,7 @@
 	<div th:class="${'form-group' + (#fields.hasErrors('title')  ? ' has-error has-feedback':'')}">
 		<label>Title <sup class="required">*</sup></label>
 		<div class="">
-			<input type="text" class="form-control" th:value="${movie.title}" placeholder="First Name" th:field="*{title}"  />
+			<input type="text" class="form-control focus" th:value="${movie.title}" placeholder="First Name" th:field="*{title}"  />
 			<i th:if="${#fields.hasErrors('title')}" class="glyphicon glyphicon-remove form-group-feedback"></i>
 		</div>
 		<p th:if="${#fields.hasErrors('title')}" class="error">
@@ -26,7 +26,7 @@
 	<div th:class="${'form-group' + (#fields.hasErrors('year')  ? ' has-error has-feedback':'')}">
 		<label>Year</label>
 		<div>
-			<input type="number" class="form-control" min="1900"  placeholder="Year" th:field="*{year}"  />
+			<input type="number" class="form-control focus" min="1900"  placeholder="Year" th:field="*{year}"  />
 		</div>
 		<p th:if="${#fields.hasErrors('year')}" class="error">
 			<span th:each="err : ${#fields.errors('year')}" th:text="${err}" class="error"></span>
@@ -36,7 +36,7 @@
 	<div th:class="${'form-group' + (#fields.hasErrors('year')  ? ' has-error has-feedback':'')}">
 		<label>Gross Takings Amount ($)</label>
 		<div>
-			<input type="text" class="form-control spinner" placeholder="amount" th:field="*{amount}"  />
+			<input type="text" class="form-control focus spinner" placeholder="amount" th:field="*{amount}"  />
 		</div>
 		<p th:if="${#fields.hasErrors('amount')}" class="error">
 			<span th:each="err : ${#fields.errors('amount')}" th:text="${err}" class="error"></span>

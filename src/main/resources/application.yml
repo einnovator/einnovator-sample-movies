@@ -10,7 +10,7 @@ server:
       
 spring:
   datasource:
-    #url: "jdbc:mysql://*****/superheros?verifyServerCertificate=false&useSSL=true&reconnect=true"
+    #url: "jdbc:mysql://*****/movies?verifyServerCertificate=false&useSSL=true&reconnect=true"
     username: root
     #password: ****
     driver-class-name: com.mysql.jdbc.Driver
@@ -112,7 +112,7 @@ social:
   
 ui:
   links:
-    cdn: http://cdn.sandbox.nativex.cloud
+    cdn: http://cdn.einnovator.org
     sso: http://sso.sandbox.nativex.cloud
     notifications: http://notification.sandbox.nativex.cloud
 
@@ -120,6 +120,9 @@ ui:
 
 spring:
   profiles: local
+  datasource:
+    url: "jdbc:mysql://localhost/movies?verifyServerCertificate=false&useSSL=true&reconnect=true"
+    password: jsimao
   rabbitmq:
     host: localhost
     port : 5672
@@ -139,8 +142,6 @@ notifications:
 
 documents:
   server: http://localhost:2020
-  files:
-    root: /.movies/
   
 social:
   server: http://localhost:2050
@@ -155,35 +156,19 @@ ui:
 
 spring:
   profiles: monitor
-  datasource:
-    url: "jdbc:mysql://localhost/superheros?verifyServerCertificate=false&useSSL=true&reconnect=true"
-    password: jsimao
-    driver-class-name: com.mysql.jdbc.Driver
-  
-  rabbitmq:
-    host: localhost
-    port : 5672
-    username : app
-    password : "app123!"
-    virtualHost: vh
     
 sso:
   server : http://localhost:2001
-  client-id: application
-  client-secret: application$123
 
 notifications:
   server: http://localhost:2011
-  amqp:
-    notifications-queue: movies
 
 documents:
   server: http://localhost:2021
-  files:
-    root: /.movies/
   
 social:
   server: http://localhost:2051
+
   
 ---
 

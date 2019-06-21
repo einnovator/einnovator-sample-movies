@@ -4,6 +4,15 @@ bin/
 dbuild.bat
 dpush.bat
 
+kstart.bat
+kstop.bat
+kmanifest.yml
+.settings
+.classpath
+.project
+.springBeans
+.factorypath
+
 # Compiled class file
 *.class
 
