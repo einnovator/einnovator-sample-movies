@@ -65,11 +65,11 @@ public class MovieController extends ControllerBase {
 		Movie movie = manager.find(id);
 
 		if (movie == null) {
-			notfound("show", request, redirectAttributes);
+			flashNotfound("show", request, redirectAttributes);
 			return redirect("/movie");
 		}
 		if (!isAllowedView(principal, movie)) {
-			forbidden("show", request, redirectAttributes);
+			flashForbidden("show", request, redirectAttributes);
 			return redirect("/movie");
 		}
 		model.addAttribute("movie", movie);
@@ -88,7 +88,7 @@ public class MovieController extends ControllerBase {
 			Model model, Principal principal, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
 		if (!isAllowedCreate(principal, movie)) {
-			forbidden("createGET", request, redirectAttributes);
+			flashForbidden("createGET", request, redirectAttributes);
 			return redirect("/movie");
 		}
 
@@ -102,7 +102,7 @@ public class MovieController extends ControllerBase {
 			Model model, Principal principal, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
 		if (!isAllowedCreate(principal, movie)) {
-			forbidden("createPOST", request, redirectAttributes);
+			flashForbidden("createPOST", request, redirectAttributes);
 			return redirect("/movie");
 		}
 		if (errors.hasErrors()) {
@@ -113,7 +113,7 @@ public class MovieController extends ControllerBase {
 		Movie movie2 = manager.create(movie, true);
 		if (movie2 == null) {
 			logger.error("createPOST: " + movie);
-			error(Messages.KEY_CREATE_FAILURE, null, Messages.MSG_CREATE_FAILURE, request, redirectAttributes);
+			error(Messages.KEY_CREATE_FAILURE, (Object[])null, Messages.MSG_CREATE_FAILURE, request, redirectAttributes);
 			return redirect("/movie");
 		}
 		logger.info("createPOST: " + movie2);
@@ -127,11 +127,11 @@ public class MovieController extends ControllerBase {
 
 		Movie movie = manager.find(id);
 		if (movie == null) {
-			notfound("editGet", request, redirectAttributes);
+			flashNotfound("editGet", request, redirectAttributes);
 			return redirect("/movie");
 		}
 		if (!isAllowed(principal, movie)) {
-			forbidden("editGet", request, redirectAttributes);
+			flashForbidden("editGet", request, redirectAttributes);
 			return redirect("/movie");
 		}
 		model.addAttribute("movie", movie);
@@ -150,11 +150,11 @@ public class MovieController extends ControllerBase {
 
 		Movie movie0 = manager.find(id_);
 		if (movie0 == null) {
-			notfound("editPut", request, redirectAttributes);
+			flashNotfound("editPut", request, redirectAttributes);
 			return redirect("/");
 		}
 		if (!isAllowedEdit(principal, movie0)) {
-			forbidden("editPut", request, redirectAttributes);
+			flashForbidden("editPut", request, redirectAttributes);
 			return redirect("/movie");
 		}
 
@@ -168,7 +168,7 @@ public class MovieController extends ControllerBase {
 			logger.error("editPut:  " + HttpStatus.BAD_REQUEST.getReasonPhrase());
 			return redirect("movie");
 		}
-		info(Messages.KEY_UPDATE_SUCCESS, null, Messages.MSG_UPDATE_SUCCESS, request, redirectAttributes);
+		flashInfo(null, Messages.KEY_UPDATE_SUCCESS, (Object[])null, Messages.MSG_UPDATE_SUCCESS, request, redirectAttributes);
 		logger.info("editPut: " + movie2);
 		return redirect("/movie/" + movie2.getUuid());
 	}
@@ -179,11 +179,11 @@ public class MovieController extends ControllerBase {
 
 		Movie movie = manager.findByUuid(movieId);
 		if (movie == null) {
-			notfound("delete", request, redirectAttributes);
+			flashNotfound("delete", request, redirectAttributes);
 			return redirect("/");
 		}
 		if (!isAllowedDelete(principal, movie)) {
-			forbidden("delete", request, redirectAttributes);
+			flashForbidden("delete", request, redirectAttributes);
 			return redirect("/");
 		}
 
@@ -209,11 +209,11 @@ public class MovieController extends ControllerBase {
 
 		Movie movie = manager.find(pid);
 		if (movie == null) {
-			notfound("createPersonGET", request, redirectAttributes);
+			flashNotfound("createPersonGET", request, redirectAttributes);
 			return redirect("/");
 		}
 		if (!isAllowedEdit(principal, movie)) {
-			forbidden("createPersonGET", request, redirectAttributes);
+			flashForbidden("createPersonGET", request, redirectAttributes);
 			return redirect("/movie");
 		}
 		model.addAttribute("movie", movie);
@@ -229,11 +229,11 @@ public class MovieController extends ControllerBase {
 
 		Movie movie = manager.find(pid);
 		if (movie == null) {
-			notfound("createPersonPOST", request, redirectAttributes);
+			flashNotfound("createPersonPOST", request, redirectAttributes);
 			return redirect("/");
 		}
 		if (!isAllowedEdit(principal, movie)) {
-			forbidden("createPersonPOST", request, redirectAttributes);
+			flashForbidden("createPersonPOST", request, redirectAttributes);
 			return redirect("/movie");
 		}
 
@@ -246,12 +246,12 @@ public class MovieController extends ControllerBase {
 			PersonInMovie person2 = manager.addPerson(movie, person, false);
 			if (person2 == null) {
 				logger.error("createPersonPOST: " + movie);
-				error(Messages.KEY_CREATE_FAILURE, null, Messages.MSG_CREATE_FAILURE, request, redirectAttributes);
+				error(Messages.KEY_CREATE_FAILURE, (Object[])null, Messages.MSG_CREATE_FAILURE, request, redirectAttributes);
 				return redirect("/movie");
 			}			
 		}
 		logger.info("createPersonPOST: " + persons + " " + movie);
-		info(Messages.KEY_CREATE_SUCCESS, null, Messages.MSG_CREATE_SUCCESS, request, redirectAttributes);
+		flashInfo(null, Messages.KEY_CREATE_SUCCESS, (Object[])null, Messages.MSG_CREATE_SUCCESS, request, redirectAttributes);
 		return redirect("/movie/" + movie.getUuid());
 	}
 
@@ -261,11 +261,11 @@ public class MovieController extends ControllerBase {
 
 		Movie movie = manager.find(pid);
 		if (movie == null) {
-			notfound("editPersonGet", request, redirectAttributes);
+			flashNotfound("editPersonGet", request, redirectAttributes);
 			return redirect("/movie");
 		}
 		if (!isAllowed(principal, movie)) {
-			forbidden("editPersonGet", request, redirectAttributes);
+			flashForbidden("editPersonGet", request, redirectAttributes);
 			return redirect("/movie");
 		}
 		model.addAttribute("movie", movie);
@@ -275,7 +275,7 @@ public class MovieController extends ControllerBase {
 
 		PersonInMovie person = movie.findPerson(id);
 		if (person==null) {
-			notfound("editPersonGet", request, redirectAttributes);
+			flashNotfound("editPersonGet", request, redirectAttributes);
 			return redirect("/movie/" + movie.getUuid());			
 		}
 		model.addAttribute("person", person);
@@ -292,17 +292,17 @@ public class MovieController extends ControllerBase {
 		
 		Movie movie = manager.find(pid);
 		if (movie == null) {
-			notfound("editPersonPut", request, redirectAttributes);
+			flashNotfound("editPersonPut", request, redirectAttributes);
 			return redirect("/");
 		}
 		if (!isAllowedEdit(principal, movie)) {
-			forbidden("editPersonPut", request, redirectAttributes);
+			flashForbidden("editPersonPut", request, redirectAttributes);
 			return redirect("/movie");
 		}
 
 		PersonInMovie person0 = movie.findPerson(id_);
 		if (person0==null) {
-			notfound("editPersonPut", request, redirectAttributes);
+			flashNotfound("editPersonPut", request, redirectAttributes);
 			return redirect("/movie/" + movie.getUuid());			
 		}
 
@@ -313,7 +313,7 @@ public class MovieController extends ControllerBase {
 				logger.error("editPersonPut:  " + HttpStatus.BAD_REQUEST.getReasonPhrase());
 				return redirect("/movie/" + movie.getUuid());
 			}
-			info(Messages.KEY_UPDATE_SUCCESS, null, Messages.MSG_UPDATE_SUCCESS, request, redirectAttributes);
+			flashInfo(null, Messages.KEY_UPDATE_SUCCESS, (Object[])null, Messages.MSG_UPDATE_SUCCESS, request, redirectAttributes);
 			logger.info("editPersonPut: " + person2);
 			
 			return redirect("/movie/" + movie.getUuid());
@@ -329,17 +329,17 @@ public class MovieController extends ControllerBase {
 		
 		Movie movie = manager.findByUuid(pid);
 		if (movie == null) {
-			notfound("deletePerson", request, redirectAttributes);
+			flashNotfound("deletePerson", request, redirectAttributes);
 			return redirect("/");
 		}
 		if (!isAllowedEdit(principal, movie)) {
-			forbidden("deletePerson", request, redirectAttributes);
+			flashForbidden("deletePerson", request, redirectAttributes);
 			return redirect("/movie");
 		}
 
 		PersonInMovie person = movie.findPerson(id);
 		if (person==null) {
-			notfound("deletePerson", request, redirectAttributes);
+			flashNotfound("deletePerson", request, redirectAttributes);
 			return redirect("/movie/" + movie.getUuid());			
 		}
 
@@ -347,15 +347,15 @@ public class MovieController extends ControllerBase {
 			PersonInMovie person2 = manager.removePerson(movie, person, false);
 			if (person2 == null) {
 				logger.error("deletePerson:" + HttpStatus.BAD_REQUEST.getReasonPhrase() + " : " + id);
-				error(Messages.KEY_DELETE_FAILURE, null, Messages.MSG_DELETE_FAILURE, request, redirectAttributes);
+				error(Messages.KEY_DELETE_FAILURE, (Object[])null, Messages.MSG_DELETE_FAILURE, request, redirectAttributes);
 				return redirect("/movie/" + movie.getUuid());
 			}
 			logger.info("deletePerson: " + movie);
-			info(Messages.KEY_DELETE_SUCCESS, null, Messages.MSG_DELETE_SUCCESS, request, redirectAttributes);
+			flashInfo(null, Messages.KEY_DELETE_SUCCESS, (Object[])null, Messages.MSG_DELETE_SUCCESS, request, redirectAttributes);
 			return redirect("/movie/" + movie.getUuid());			
 		} catch (RuntimeException  e) {
 			logger.error("deletePerson:" + e + " " + HttpStatus.BAD_REQUEST.getReasonPhrase() + " : " + id);
-			error(Messages.KEY_DELETE_FAILURE, null, Messages.MSG_DELETE_FAILURE, request, redirectAttributes);
+			error(Messages.KEY_DELETE_FAILURE, (Object[])null, Messages.MSG_DELETE_FAILURE, request, redirectAttributes);
 			return redirect("/movie/" + movie.getUuid());			
 		}
 	}
