@@ -60,11 +60,11 @@ public class PersonController extends ControllerBase {
 		Person person = manager.find(id);
 
 		if (person == null) {
-			notfound("show", request, redirectAttributes);
+			flashNotfound("show", request, redirectAttributes);
 			return redirect("/person");
 		}
 		if (!isAllowedView(principal, person)) {
-			forbidden("show", request, redirectAttributes);
+			flashForbidden("show", request, redirectAttributes);
 			return redirect("/person");
 		}
 		model.addAttribute("person", person);
@@ -88,7 +88,7 @@ public class PersonController extends ControllerBase {
 			Model model, Principal principal, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
 		if (!isAllowedCreate(principal, person)) {
-			forbidden("createPOST", request, redirectAttributes);
+			flashForbidden("createPOST", request, redirectAttributes);
 			return redirect("/person");
 		}
 		if (errors.hasErrors()) {
@@ -99,7 +99,7 @@ public class PersonController extends ControllerBase {
 		Person person2 = manager.create(person, true);
 		if (person2 == null) {
 			logger.error("createPOST: " + person);
-			error(Messages.KEY_CREATE_FAILURE, null, Messages.MSG_CREATE_FAILURE, request, redirectAttributes);
+			error(Messages.KEY_CREATE_FAILURE, (Object[])null, Messages.MSG_CREATE_FAILURE, request, redirectAttributes);
 			return "";
 		}
 		logger.info("createPOST: " + person2);
@@ -113,11 +113,11 @@ public class PersonController extends ControllerBase {
 
 		Person person = manager.find(id);
 		if (person == null) {
-			notfound("editGet", request, redirectAttributes);
+			flashNotfound("editGet", request, redirectAttributes);
 			return redirect("/person");
 		}
 		if (!isAllowedEdit(principal, person)) {
-			forbidden("show", request, redirectAttributes);
+			flashForbidden("show", request, redirectAttributes);
 			return redirect("/person");
 		}
 		
@@ -132,11 +132,11 @@ public class PersonController extends ControllerBase {
 
 		Person person0 = manager.find(id_);
 		if (person0 == null) {
-			notfound("editPut", request, redirectAttributes);
+			flashNotfound("editPut", request, redirectAttributes);
 			return redirect("/person");
 		}
 		if (!isAllowedEdit(principal, person0)) {
-			forbidden("editPut", request, redirectAttributes);
+			flashForbidden("editPut", request, redirectAttributes);
 			return redirect("/person");
 		}
 		person.setId(person0.getId());
@@ -145,7 +145,7 @@ public class PersonController extends ControllerBase {
 			logger.error("editPut:  " + HttpStatus.BAD_REQUEST.getReasonPhrase());
 			return redirect("/person");
 		}
-		success(null, request, redirectAttributes, null);
+		flashSuccess(null, request, redirectAttributes, null);
 		logger.info("editPut: " + person2);
 		model.addAttribute("person", person2);
 		return redirect("/person/" + person.getUuid());
@@ -156,11 +156,11 @@ public class PersonController extends ControllerBase {
 			Model model, Principal principal, RedirectAttributes redirectAttributes, HttpServletRequest request) {
 		Person person = manager.findByUuid(id);
 		if (person == null) {
-			notfound("delete", request, redirectAttributes);
+			flashNotfound("delete", request, redirectAttributes);
 			return redirect("/");
 		}
 		if (!isAllowedDelete(principal, person)) {
-			forbidden("delete", request, redirectAttributes);
+			flashForbidden("delete", request, redirectAttributes);
 			return redirect("/");
 		}
 
