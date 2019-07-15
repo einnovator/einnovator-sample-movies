@@ -4,7 +4,7 @@
 		<label>Title <sup class="required">*</sup></label>
 		<div class="">
 			<input type="text" class="form-control focus" th:value="${movie.title}" placeholder="First Name" th:field="*{title}"  />
-			<i th:if="${#fields.hasErrors('title')}" class="glyphicon glyphicon-remove form-group-feedback"></i>
+			<i th:if="${#fields.hasErrors('title')}" class="form-group-feedback"></i>
 		</div>
 		<p th:if="${#fields.hasErrors('title')}" class="error">
 			<span th:each="err : ${#fields.errors('title')}" th:text="${err}" class="error"></span>
