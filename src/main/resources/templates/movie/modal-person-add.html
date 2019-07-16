@@ -9,7 +9,7 @@
 					<div class="modal-body">
 						<div class="form-group">
 								<label class="label">Select Movie Role <sup class="required">*</sup></label>
-								<select name="role" class="select" id="select-role">
+								<select name="role" class="select sleek" id="select-role">
 									<option></option>
 									<option th:each="role : ${T(org.einnovator.sample.movies.model.MovieRole).values()}"
 									 th:value="${role}" th:text="${role.displayValue}"

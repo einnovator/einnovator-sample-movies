@@ -3,7 +3,7 @@
 	<div th:class="${'form-group' + (#fields.hasErrors('title')  ? ' has-error has-feedback':'')}">
 		<label>Title <sup class="required">*</sup></label>
 		<div class="">
-			<input type="text" class="form-control focus" th:value="${movie.title}" placeholder="First Name" th:field="*{title}"  />
+			<input type="text" class="form-control sleek" th:value="${movie.title}" placeholder="First Name" th:field="*{title}"  />
 			<i th:if="${#fields.hasErrors('title')}" class="form-group-feedback"></i>
 		</div>
 		<p th:if="${#fields.hasErrors('title')}" class="error">
@@ -14,7 +14,7 @@
 	<div th:class="${'row form-group'}">
 		<div class="col-4">
 			<label for="genre">Genre</label>
-			<select id="genre" class="select" name="genre" th:value="${movie.genre}" >
+			<select id="genre" class="select sleek" name="genre" th:value="${movie.genre}" >
 				<option></option>
 				<option th:each="genre : ${T(org.einnovator.sample.movies.model.MovieGenre).values()}" th:value="${genre}" th:text="${genre.displayValue}" th:field="*{genre}"></option>
 			</select>
@@ -26,7 +26,7 @@
 	<div th:class="${'form-group' + (#fields.hasErrors('year')  ? ' has-error has-feedback':'')}">
 		<label>Year</label>
 		<div>
-			<input type="number" class="form-control focus" min="1900"  placeholder="Year" th:field="*{year}"  />
+			<input type="number" class="form-control sleek" min="1900"  placeholder="Year" th:field="*{year}"  />
 		</div>
 		<p th:if="${#fields.hasErrors('year')}" class="error">
 			<span th:each="err : ${#fields.errors('year')}" th:text="${err}" class="error"></span>
@@ -36,7 +36,7 @@
 	<div th:class="${'form-group' + (#fields.hasErrors('year')  ? ' has-error has-feedback':'')}">
 		<label>Gross Takings Amount ($)</label>
 		<div>
-			<input type="text" class="form-control focus spinner" placeholder="amount" th:field="*{amount}"  />
+			<input type="text" class="form-control sleek spinner" placeholder="amount" th:field="*{amount}"  />
 		</div>
 		<p th:if="${#fields.hasErrors('amount')}" class="error">
 			<span th:each="err : ${#fields.errors('amount')}" th:text="${err}" class="error"></span>

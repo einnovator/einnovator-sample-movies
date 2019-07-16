@@ -11,7 +11,7 @@
 			</div>
 			<div class="text-right flex-03 mr-3">
 					<span class="text-light d-block label">Genre</span>
-					<select name="genre" class="select" id="select-genre">
+					<select name="genre" class="select sleek" id="select-genre">
 						<option></option>
 						<option th:each="genre : ${T(org.einnovator.sample.movies.model.MovieGenre).values()}"
 						 th:value="${genre}" th:text="${genre.displayValue}"
