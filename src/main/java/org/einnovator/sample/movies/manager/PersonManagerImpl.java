@@ -82,7 +82,7 @@ public class PersonManagerImpl extends ManagerBaseImpl3<Person> implements Perso
 	public void processAfterPersistence(Person person) {
 		super.processAfterPersistence(person);
 		Channel channel = person.makeChannel(getBaseUri());
-		channel = channelManager.createOrUpdateChannel(channel);
+		channel = channelManager.createOrUpdateChannel(channel, null);
 		if (channel!=null && person.getChannelId()==null) {
 			person.setChannelId(channel.getUuid());
 			repository.save(person);			

@@ -6,7 +6,7 @@ package org.einnovator.sample.movies.model;
 /**
  * A {@code WorkerType}.
  *
- * @author Jorge Simao {@code {jorge.simao@einnovator.org}}
+ * @author support@einnovator.org
  */
 public enum MovieRole {
 	ACTOR("Actor"),

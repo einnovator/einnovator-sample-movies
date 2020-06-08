@@ -20,7 +20,6 @@ import javax.persistence.OrderBy;
 
 import org.einnovator.jpa.model.EntityBase2;
 import org.einnovator.social.client.model.Channel;
-import org.einnovator.social.client.model.ChannelBuilder;
 import org.einnovator.social.client.model.ChannelType;
 import org.einnovator.util.model.Ref;
 import org.einnovator.util.model.RefBuilder;
@@ -50,7 +49,7 @@ public class Movie extends EntityBase2<Long> {
 	@JsonProperty("PlotSummary")
 	protected String description;
 	
-	@Column(length=256)
+	@Column(length=255)
 	protected String img;
 
 	@Enumerated(EnumType.STRING)
@@ -406,19 +405,15 @@ public class Movie extends EntityBase2<Long> {
 
 
 
-	/**
-	 * @return
-	 */
 	public Channel makeChannel(String baseUri) {
-		return new ChannelBuilder()
-				.uuid(channelId)
-				.name(title)
-				.purpose(null)
-				.img(img)
-				.thumbnail(img)
-				.type(ChannelType.COMMENTS)
-				.ref(makeRef(baseUri))
-				.build();
+		return (Channel)new Channel()
+				.withName(title)
+				.withPurpose("Discussion about " + title)
+				.withImg(img)
+				.withThumbnail(img)
+				.withType(ChannelType.COMMENTS)
+				.withRef(makeRef(baseUri))
+				.withUuid(channelId);
 	}
 	
 	public Ref makeRef(String baseUri) {

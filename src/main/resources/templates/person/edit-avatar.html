@@ -6,7 +6,7 @@
 	</div>
 	
 	
-	<form id="upload-form" th:action="@{${'_upload'}}" method="post" enctype="multipart/form-data">
+	<form id="upload-form" class="d-none" th:action="@{${'_upload'}}" method="post" enctype="multipart/form-data">
 		<input id="file" type="file" name="file" style="display: none"></input>
 		<input type="hidden" name="key" value="avatar"></input>
 		<input type="hidden" name="id" th:value="${person.id}"></input>

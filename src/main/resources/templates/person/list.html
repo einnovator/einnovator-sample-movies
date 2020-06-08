@@ -3,12 +3,12 @@
 <body th:with="bcs=${ {'People'} }">
 	<div th:replace="layout/header"></div>
 	
-	<div class="container-fluid mt-3">
+	<div class="container-fluid">
 		<div class="layout2">
 			<div>
 				<div th:replace="layout/breadcrumbs"></div>
 	
-				<h1 class="h1 hx mt-n10"><i class="fas fa-film ico-lg"></i> <span th:text="${title}"></span>  <span class="hbar"></span></h1>
+				<h1 class="h1 hx mt-n20"><i class="fas fa-film ico-lg"></i> <span th:text="${title}"></span>  <span class="hbar"></span></h1>
 													
 	
 				<div th:replace="person/person-filter" ></div>

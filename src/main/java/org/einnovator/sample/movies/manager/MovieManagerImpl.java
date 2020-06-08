@@ -215,7 +215,7 @@ public class MovieManagerImpl extends ManagerBaseImpl3<Movie> implements MovieMa
 	public void processAfterPersistence(Movie movie) {
 		super.processAfterPersistence(movie);
 		Channel channel = movie.makeChannel(getBaseUri());
-		channel = channelManager.createOrUpdateChannel(channel);
+		channel = channelManager.createOrUpdateChannel(channel, null);
 		if (channel!=null && movie.getChannelId()==null) {
 			movie.setChannelId(channel.getUuid());
 			repository.save(movie);			

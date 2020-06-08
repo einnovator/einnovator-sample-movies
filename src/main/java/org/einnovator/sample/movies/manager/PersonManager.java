@@ -12,7 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 /**
- * @author jsima
+ * @author support@einnovator.org
  *
  */
 public interface PersonManager extends ManagerBase2<Person, Long> {
