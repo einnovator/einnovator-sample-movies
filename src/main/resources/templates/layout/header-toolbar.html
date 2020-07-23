@@ -2,7 +2,7 @@
 	<li>
 		<a th:href="${links.notifications}"  onclick="if (notifications) notifications(); return false" class="dropdown-a counter-wrapper" title="Notifications"> <i class="fas fa-bell"></i>
 		<span class="counter counter-top" th:style="${'display:' + (notificationCount!=null and notificationCount>0 ? 'inline' : 'none')}" th:text="${notificationCount!=null ? (notificationCount >= 100 ? '99+' : notificationCount) : ''}"></span></a>
-		<div class="dropdown" id="notifications-container">
+		<div class="hdropdown" id="notifications-container">
 			<span class="dropdown-title"><span class="count" th:text="${notificationCount!=null and notificationCount>0 ? (notificationCount >= 100 ? '99+' : notificationCount) : 'No New'}"></span> Notifications	</span>
 			 <div class="text-right"> 
 				<a class="dropdown-link" th:href="${links.notifications}">View All</a>

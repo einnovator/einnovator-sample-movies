@@ -6,6 +6,7 @@
 	height: 200px;
 }
 .header {
+	background-color: black;
 }
 
 .logo-box {
@@ -27,12 +28,11 @@
 
 .footer {
 	border-top: thin solid black;
-	padding: 10px 0px;
-	margin: 10px 50px;
+	padding: 10px 30px;
 	color: #888 !important;
 }
 .footer a, .footer a:hover, .footer a:visited, .footer a:active, .footer a:focus {
-	color: #888 !important;
+	color: #aaa !important;
 }
 
 .ribbon {
@@ -84,7 +84,6 @@
 .card p {
     margin-top: 0;
     margin-bottom: 10px;
-	font-size: medium;
 }
 
 .btn-upload {
