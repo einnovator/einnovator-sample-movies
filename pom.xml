@@ -92,7 +92,7 @@
 	<repositories>
 		<repository>
 			<id>einnovator</id>
-			<url>s3://einnovator-mvnrepo/release</url>
+			<url>https://einnovator-mvnrepo.s3.amazonaws.com/release</url>
 		</repository>
 	</repositories>
 </project>
