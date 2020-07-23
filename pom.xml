@@ -12,12 +12,13 @@
 	<artifactId>einnovator-sample-movies</artifactId>
 	<version>0.0.1</version>
 	<name>einnovator-sample-movies</name>
-	<packaging>war</packaging>
+	<!-- <packaging>${packaging}</packaging> -->
 	<description>EInnovator MicroService Suite Sample Application: Movie Database</description>
 
 	<properties>
 		<java.version>1.8</java.version>
 		<einnovator.version>0.1.RELEASE</einnovator.version>		
+		<packaging>war</packaging>	
 	</properties>
 
 	<dependencies>
