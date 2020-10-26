@@ -13,10 +13,10 @@ import org.einnovator.common.config.AppConfiguration;
 import org.einnovator.common.config.UIConfiguration;
 import org.einnovator.jpa.manager.ManagerBaseImpl3;
 import org.einnovator.jpa.repository.RepositoryBase2;
-import org.einnovator.sample.movies.model.Movie;
 import org.einnovator.sample.movies.model.Person;
 import org.einnovator.sample.movies.modelx.PersonFilter;
 import org.einnovator.sample.movies.repository.PersonRepository;
+import org.einnovator.social.client.config.SocialClientConfiguration;
 import org.einnovator.social.client.manager.ChannelManager;
 import org.einnovator.social.client.model.Channel;
 import org.einnovator.util.MappingUtils;
@@ -42,6 +42,9 @@ public class PersonManagerImpl extends ManagerBaseImpl3<Person> implements Perso
 
 	@Autowired
 	private ChannelManager channelManager;
+	
+	@Autowired
+	private SocialClientConfiguration socialConfig;
 
 	@Autowired
 	private UIConfiguration ui;
@@ -81,11 +84,13 @@ public class PersonManagerImpl extends ManagerBaseImpl3<Person> implements Perso
 	@Override
 	public void processAfterPersistence(Person person) {
 		super.processAfterPersistence(person);
-		Channel channel = person.makeChannel(getBaseUri());
-		channel = channelManager.createOrUpdateChannel(channel, null);
-		if (channel!=null && person.getChannelId()==null) {
-			person.setChannelId(channel.getUuid());
-			repository.save(person);			
+		if (socialConfig.getServer()!=null && socialConfig.getServer().indexOf("***")<0) {
+			Channel channel = person.makeChannel(getBaseUri());
+			channel = channelManager.createOrUpdateChannel(channel, null);
+			if (channel!=null && person.getChannelId()==null) {
+				person.setChannelId(channel.getUuid());
+				repository.save(person);			
+			}			
 		}
 	}
 	

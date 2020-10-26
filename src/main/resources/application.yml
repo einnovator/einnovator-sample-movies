@@ -48,7 +48,7 @@ banner: #boot1
     location : classpath:banner-movies.txt
 
 sso:
-  server : https://sso.sandbox.nativex.cloud
+  server : https://sso.einnovator.org
   client-id: application
   client-secret: application$123
   registration:
@@ -60,7 +60,7 @@ sso:
       type: global
 
 notifications:
-  server: https://notifications.sandbox.nativex.cloud
+  server: https://***
   amqp:
     notifications-queue: movies
   registration:
@@ -104,19 +104,41 @@ notifications:
         #resource: notifications/mail/person.html
 
 documents:
-  server: https://documents.sandbox.nativex.cloud
+  server: https://***
   files:
     root: /.movies/
   
 social:
-  server: https://social.sandbox.nativex.cloud
+  server: https://***
   
 ui:
   links:
-    cdn: http://cdn.einnovator.org
-    sso: http://sso.sandbox.nativex.cloud
-    notifications: http://notification.sandbox.nativex.cloud
+    cdn: https://cdn.einnovator.org
+    sso: https://sso.einnovator.org
+    notifications: https://notifications.einnovator.org
 
+---
+
+spring:
+  profiles: sandbox
+
+sso:
+  server : https://sso.samples.sandbox.nativex.cloud
+  client-id: application
+  client-secret: application$123
+    
+documents:
+  server: https://documents.samples.sandbox.nativex.cloud
+  
+social:
+  server: https://social.samples.sandbox.nativex.cloud
+  
+ui:
+  links:
+    cdn: http://cdn.samples.sandbox.nativex.cloud
+    sso: http://sso.samples.sandbox.nativex.cloud
+    notifications: http://notifications.samples.sandbox.nativex.cloud
+  
 ---
 
 spring:

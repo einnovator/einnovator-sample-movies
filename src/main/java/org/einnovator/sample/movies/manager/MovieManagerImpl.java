@@ -1,6 +1,5 @@
 package org.einnovator.sample.movies.manager;
 
-import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -20,11 +19,11 @@ import org.einnovator.sample.movies.modelx.MovieFilter;
 import org.einnovator.sample.movies.repository.MovieRepository;
 import org.einnovator.sample.movies.repository.PersonInMovieRepository;
 import org.einnovator.sample.movies.repository.PersonRepository;
+import org.einnovator.social.client.config.SocialClientConfiguration;
 import org.einnovator.social.client.manager.ChannelManager;
 import org.einnovator.social.client.model.Channel;
 import org.einnovator.sso.client.manager.UserManager;
 import org.einnovator.util.MappingUtils;
-import org.einnovator.util.UriUtils;
 import org.einnovator.util.model.Options;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -48,6 +47,9 @@ public class MovieManagerImpl extends ManagerBaseImpl3<Movie> implements MovieMa
 	@SuppressWarnings("unused")
 	@Autowired
 	private PersonManager personManager;
+	
+	@Autowired
+	private SocialClientConfiguration socialConfig;
 
 	@SuppressWarnings("unused")
 	@Autowired
@@ -214,11 +216,13 @@ public class MovieManagerImpl extends ManagerBaseImpl3<Movie> implements MovieMa
 	@Override
 	public void processAfterPersistence(Movie movie) {
 		super.processAfterPersistence(movie);
-		Channel channel = movie.makeChannel(getBaseUri());
-		channel = channelManager.createOrUpdateChannel(channel, null);
-		if (channel!=null && movie.getChannelId()==null) {
-			movie.setChannelId(channel.getUuid());
-			repository.save(movie);			
+		if (socialConfig.getServer()!=null && socialConfig.getServer().indexOf("***")<0) {
+			Channel channel = movie.makeChannel(getBaseUri());
+			channel = channelManager.createOrUpdateChannel(channel, null);
+			if (channel!=null && movie.getChannelId()==null) {
+				movie.setChannelId(channel.getUuid());
+				repository.save(movie);			
+			}	
 		}
 	}
 
