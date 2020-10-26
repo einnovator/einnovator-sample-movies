@@ -1,9 +1,2 @@
-  __  __            _           
- |  \/  |          (_)          
- | \  / | _____   ___  ___  ___ 
- | |\/| |/ _ \ \ / / |/ _ \/ __|
- | |  | | (_) \ V /| |  __/\__ \
- |_|  |_|\___/ \_/ |_|\___||___/
- c) Apache License - Sample App
- EInnovator Micro-Services Suite                               
+(c) Apache License - Sample App for EInnovator Micro-Services Suite                               
                                 

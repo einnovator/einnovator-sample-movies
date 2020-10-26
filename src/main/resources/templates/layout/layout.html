@@ -24,8 +24,6 @@
 	
 		<link rel="stylesheet" type="text/css" th:href="${links.cdn + '/theme/base/css/styles.css'}"></link>
 		<link rel="stylesheet" type="text/css" th:href="${links.cdn + '/theme/base/css/social.css'}"></link>
-
-		<link rel="stylesheet" type="text/css" href="http://localhost:1900/theme/base/css/styles.css"></link>
 		
  		<link rel="stylesheet" type="text/css" href="css/movies.css" />
 						
@@ -62,8 +60,6 @@
 		<script type="text/javascript" th:src="${links.cdn + '/js/select-state.js'}"></script>
 		<script type="text/javascript" th:src="${links.cdn + '/js/multi-selectx.js'}"></script>
 		<script type="text/javascript" th:src="${links.cdn + '/js/popoverx.js'}"></script>
-		<script type="text/javascript" th:src="${links.cdn + '/js/notifications.js'}"></script>
-		<script type="text/javascript" th:src="${links.cdn + '/js/notifications2.js'}"></script>
 		<script type="text/javascript" th:src="${links.cdn + '/js/pager.js'}"></script>
 		<script type="text/javascript" th:src="${links.cdn + '/js/upload.js'}"></script>
 		<script type="text/javascript" th:src="${links.cdn + '/js/password.js'}"></script>
@@ -80,7 +76,17 @@
 		<script type="text/javascript"  th:src="${links.cdn + '/js/bind.js'}"></script>
 		<script type="text/javascript" th:src="${links.cdn + '/js/html.js'}"></script>
 		<script type="text/javascript"  th:src="${links.cdn + '/js/crud.js'}"></script>
+		<script type="text/javascript" th:src="${links.cdn + '/js/editor.js'}"></script>
 
+
+		<th:block th:if="${principal!=null}">
+			<script type="text/javascript" th:src="${links.cdn + '/js/sockjs/sockjs-1.4.0/sockjs.min.js'}"></script>
+			<script type="text/javascript" th:src="${links.cdn + '/js/stomp/stomp-2.3.3.min.js'}"></script>
+			<script type="text/javascript" th:src="${links.cdn + '/js/ws.js'}"></script>
+			<script type="text/javascript" th:src="${links.cdn + '/js/notifications.js'}"></script>
+			<script type="text/javascript" th:src="${links.cdn + '/js/notifications2.js'}"></script>
+		</th:block>
+		
 <script>
 $(function() {
 	$('.select').selectricx({});
