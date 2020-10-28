@@ -12,6 +12,7 @@ import org.einnovator.sample.movies.modelx.PersonFilter;
 import org.einnovator.util.MappingUtils;
 import org.einnovator.util.PageOptions;
 import org.einnovator.util.PageUtil;
+import org.einnovator.util.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -48,7 +48,9 @@ public class PersonController extends ControllerBase {
 		model.addAttribute("page", page);
 		model.addAttribute("pageJson", PageUtil.toJson(page, false));
 
-		logger.info("list: " + PageUtil.toString(page) + " " + filter + " " + options);
+		if (logger.isDebugEnabled()) {
+			logger.debug(String.format("list: %s %s %s", PageUtil.toString(page), filter, options));			
+		}
 		return Boolean.TRUE.equals(async) ? "person/person-table" : "person/list";
 
 	}
@@ -70,8 +72,9 @@ public class PersonController extends ControllerBase {
 		model.addAttribute("person", person);
 		model.addAttribute("personJson", MappingUtils.toJson(person));
 
-
-		logger.info("show: " + person);
+		if (logger.isDebugEnabled()) {
+			logger.debug(String.format("show: %s", person));			
+		}
 		return "person/show";
 	}
 
@@ -95,14 +98,16 @@ public class PersonController extends ControllerBase {
 			logger.error("createPOST:  " + HttpStatus.BAD_REQUEST.getReasonPhrase() + ":" + errors);
 			return "";
 		}
-		person.setCreatedBy(principal.getName());
+		person.setCreatedBy(SecurityUtil.getPrincipalName());
 		Person person2 = manager.create(person, true);
 		if (person2 == null) {
 			logger.error("createPOST: " + person);
 			error(Messages.KEY_CREATE_FAILURE, (Object[])null, Messages.MSG_CREATE_FAILURE, request, redirectAttributes);
 			return "";
 		}
-		logger.info("createPOST: " + person2);
+		if (logger.isDebugEnabled()) {
+			logger.debug(String.format("createPOST: %s", person2));			
+		}
 		model.addAttribute("person", person2);
 		return redirect("/person/" + person2.getUuid());
 	}
@@ -120,8 +125,9 @@ public class PersonController extends ControllerBase {
 			flashForbidden("show", request, redirectAttributes);
 			return redirect("/person");
 		}
-		
-		logger.info("editGet: " + person);
+		if (logger.isDebugEnabled()) {
+			logger.debug(String.format("editGet: %s", person));			
+		}
 		model.addAttribute("person", person);
 		return "person/edit";
 	}
@@ -145,8 +151,7 @@ public class PersonController extends ControllerBase {
 			logger.error("editPut:  " + HttpStatus.BAD_REQUEST.getReasonPhrase());
 			return redirect("/person");
 		}
-		flashSuccess(null, request, redirectAttributes, null);
-		logger.info("editPut: " + person2);
+		flashSuccess("editPut", request, redirectAttributes);
 		model.addAttribute("person", person2);
 		return redirect("/person/" + person.getUuid());
 	}
@@ -169,7 +174,9 @@ public class PersonController extends ControllerBase {
 			logger.error("delete:" + HttpStatus.BAD_REQUEST.getReasonPhrase() + " : " + id);
 			return redirect("/person/" + person.getUuid());
 		}
-		logger.info("delete: " + person);
+		if (logger.isDebugEnabled()) {
+			logger.debug(String.format("delete: %s", person));			
+		}
 		redirectAttributes.addFlashAttribute(Messages.ATTRIBUTE_INFO, Messages.MSG_DELETE_SUCCESS);
 		return redirect("/person");
 	}

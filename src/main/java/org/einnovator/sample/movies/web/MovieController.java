@@ -16,6 +16,7 @@ import org.einnovator.sample.movies.modelx.PersonsForm;
 import org.einnovator.util.MappingUtils;
 import org.einnovator.util.PageOptions;
 import org.einnovator.util.PageUtil;
+import org.einnovator.util.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -46,15 +47,15 @@ public class MovieController extends ControllerBase {
 	@GetMapping
 	public String list(@ModelAttribute("filter") MovieFilter filter, PageOptions options, @RequestParam(required=false) Boolean async,
 			Model model, Principal principal, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-		
-		filter.setRunAs(principal.getName());
+		filter.setRunAs(SecurityUtil.getPrincipalName());
 		Page<Movie> page = manager.findAll(filter, options.toPageRequest());
 		model.addAttribute("movies", page);
 		model.addAttribute("page", page);
 		model.addAttribute("pageJson", PageUtil.toJson(page, false));
 
-
-		logger.info("list: " + PageUtil.toString(page) + " " + filter + " " + options);
+		if (logger.isDebugEnabled()) {
+			logger.debug(String.format("list: %s %s %s", PageUtil.toString(page), filter, options));			
+		}
 		return Boolean.TRUE.equals(async) ? "movie/movie-table" : "movie/list";
 	}
 
@@ -75,7 +76,9 @@ public class MovieController extends ControllerBase {
 		model.addAttribute("movie", movie);
 		model.addAttribute("movieJson", MappingUtils.toJson(movie));
 
-		logger.info("show: " + movie);
+		if (logger.isDebugEnabled()) {
+			logger.debug(String.format("show: %s", movie));			
+		}
 
 		model.addAttribute("_edit", isAllowedEdit(principal, movie));
 		model.addAttribute("_manage", isAllowedEdit(principal, movie));
@@ -109,15 +112,16 @@ public class MovieController extends ControllerBase {
 			logger.error("createPOST:  " + HttpStatus.BAD_REQUEST.getReasonPhrase() + ":" + errors);
 			return "movie/edit";
 		}
-		movie.setCreatedBy(principal.getName());
+		movie.setCreatedBy(SecurityUtil.getPrincipalName());
 		Movie movie2 = manager.create(movie, true);
 		if (movie2 == null) {
 			logger.error("createPOST: " + movie);
 			error(Messages.KEY_CREATE_FAILURE, (Object[])null, Messages.MSG_CREATE_FAILURE, request, redirectAttributes);
 			return redirect("/movie");
 		}
-		logger.info("createPOST: " + movie2);
-
+		if (logger.isDebugEnabled()) {
+			logger.debug(String.format("createPOST: %s", movie2));			
+		}
 		return redirect("/movie/" + movie2.getUuid());
 	}
 
@@ -139,8 +143,6 @@ public class MovieController extends ControllerBase {
 		
 		addCommonToModel(principal, model);
 
-		logger.info("editGet: " + movie);
-
 		return "movie/edit";
 	}
 
@@ -159,9 +161,9 @@ public class MovieController extends ControllerBase {
 		}
 
 		if (!StringUtils.hasText(movie0.getCreatedBy())) {
-			movie.setCreatedBy(principal.getName());
+			movie.setCreatedBy(SecurityUtil.getPrincipalName());
 		}
-		movie.setLastModifiedBy(principal.getName());
+		movie.setLastModifiedBy(SecurityUtil.getPrincipalName());
 		movie.setId(movie0.getId());
 		Movie movie2 = manager.update(movie, true, true);
 		if (movie2 == null) {
@@ -169,7 +171,9 @@ public class MovieController extends ControllerBase {
 			return redirect("movie");
 		}
 		flashInfo(null, Messages.KEY_UPDATE_SUCCESS, (Object[])null, Messages.MSG_UPDATE_SUCCESS, request, redirectAttributes);
-		logger.info("editPut: " + movie2);
+		if (logger.isDebugEnabled()) {
+			logger.debug(String.format("editPut: %s", movie2));			
+		}
 		return redirect("/movie/" + movie2.getUuid());
 	}
 
@@ -192,7 +196,9 @@ public class MovieController extends ControllerBase {
 			logger.error("delete:" + HttpStatus.BAD_REQUEST.getReasonPhrase() + " : " + movieId);
 			return redirect("/movie/" + movie.getUuid());
 		}
-		logger.info("delete: " + movie);
+		if (logger.isDebugEnabled()) {
+			logger.debug(String.format("delete: %s", movie));			
+		}
 		redirectAttributes.addFlashAttribute(Messages.ATTRIBUTE_INFO, Messages.MSG_DELETE_SUCCESS);
 		return redirect("/movie/");
 	}

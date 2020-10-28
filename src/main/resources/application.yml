@@ -51,6 +51,8 @@ sso:
   server : https://sso.einnovator.org
   client-id: application
   client-secret: application$123
+  ignoreInclude: >
+    /, /movie, /movie/**, /api/movie, /api/movie/**, /person, /person/**, /api/person, /api/person/**
   registration:
     auto: true
     roles:

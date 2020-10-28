@@ -7,8 +7,6 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.einnovator.sample.movies.manager.MovieManager;
 import org.einnovator.sample.movies.model.Movie;
 import org.einnovator.sample.movies.modelx.MovieFilter;

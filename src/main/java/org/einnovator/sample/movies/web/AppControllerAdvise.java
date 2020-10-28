@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @Component
 public class AppControllerAdvise extends CommonControllerAdvise {
 
-	private final Log logger = LogFactory.getLog(getClass());
+	protected final Log logger = LogFactory.getLog(getClass());
 
 
 	@Autowired

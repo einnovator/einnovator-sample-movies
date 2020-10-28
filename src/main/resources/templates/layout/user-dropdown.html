@@ -2,7 +2,7 @@
 	<a class="dropdown-a" th:href="${links.sso + '/user'}">
 		<span class="user-box-inner">
 			<span class="user-img">
-				<img th:src="@{${!#strings.isEmpty(principalInfo.avatar) ? principalInfo.avatar : links.cdn + '/img/avatar.png'}}" class="info-box-img"></img>
+				<img th:src="@{${!#strings.isEmpty(principalInfo.avatar) ? principalInfo.avatar : links.cdn + '/img/avatar-white100.png'}}" class="info-box-img"></img>
 			</span>
 			<span class="user-info d-xx" th:if="${principal!=null}">
 				<span  class="user-name" th:text="${principalInfo.displayName}"></span>
@@ -13,7 +13,7 @@
 	</a>
 	<div class="hdropdown dropdown-top">
 		<div class="text-center">
-			<a href="/user"><img th:src="@{${!#strings.isEmpty(principalInfo.avatar) ? principalInfo.avatar : links.cdn + '/img/avatar.png'}}" class="dropdown-avatar"></img></a>
+			<a href="/user"><img th:src="@{${!#strings.isEmpty(principalInfo.avatar) ? principalInfo.avatar : links.cdn + '/img/avatar-white100.png'}}" class="dropdown-avatar"></img></a>
 			<div class="dropdown-title">
 				<span th:text="${principalInfo.displayName}"></span>
 			</div>

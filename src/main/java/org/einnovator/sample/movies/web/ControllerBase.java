@@ -4,16 +4,12 @@ import java.security.Principal;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.einnovator.common.config.UIConfiguration;
 import org.einnovator.jpa.model.EntityBase2;
 import org.einnovator.sample.movies.config.MoviesConfiguration;
 import org.einnovator.sso.client.manager.GroupManager;
 import org.einnovator.sso.client.manager.RoleManager;
 import org.einnovator.sso.client.manager.UserManager;
-import org.einnovator.vsite.manager.SiteManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.web.servlet.LocaleResolver;
 
 public abstract class ControllerBase extends org.einnovator.common.web.ControllerBase {
 	
