@@ -137,9 +137,9 @@ social:
   
 ui:
   links:
-    cdn: http://cdn.samples.sandbox.nativex.cloud
-    sso: http://sso.samples.sandbox.nativex.cloud
-    notifications: http://notifications.samples.sandbox.nativex.cloud
+    cdn: https://cdn.samples.sandbox.nativex.cloud
+    sso: https://sso.samples.sandbox.nativex.cloud
+    notifications: https://notifications.samples.sandbox.nativex.cloud
   
 ---
 
@@ -218,9 +218,9 @@ social:
   
 ui:
   links:
-    cdn: http://cdn.einnovator.org
-    sso: http://sso.einnovator.org
-    notifications: http://notification.einnovator.org
+    cdn: https://cdn.einnovator.org
+    sso: https://sso.einnovator.org
+    notifications: https://notification.einnovator.org
 
 ---
 
@@ -247,9 +247,9 @@ social:
   
 ui:
   links:
-    cdn: http://cdn.mydomain.sandbox.nativex.cloud
-    sso: http://sso.mydomain.sandbox.nativex.cloud
-    notifications: http://notification.mydomain.sandbox.nativex.cloud
+    cdn: https://cdn.mydomain.sandbox.nativex.cloud
+    sso: https://sso.mydomain.sandbox.nativex.cloud
+    notifications: https://notification.mydomain.sandbox.nativex.cloud
 
 ---
 
